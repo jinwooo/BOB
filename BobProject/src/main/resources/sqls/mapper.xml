@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="customer">
+	
+	<resultMap type="com.hello.mvc03.model.dto.CustomerDto" id="dtoMap">
+		<result property="id" column="ID" />
+		<result property="password" column="PASSWORD"/>
+		<result property="name" column="NAME"/>		
+	</resultMap>
+
+	<select id="selectList" resultMap="dtoMap">
+		SELECT ID, PASSWORD, NAME
+		FROM TB_CUSTOMER	
+	</select>
+	
+	<select id="selectOne" resultMap="dtoMap" parameterType="String">
+		SELECT ID, PASSWORD, NAME
+		FROM TB_CUSTOMER
+		WHERE ID = #{id}	
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM TB_CUSTOMER
+		WHERE ID = #{id}
+	</delete>
+	
+	<update id="update" parameterType="CustomerDto">
+		UPDATE TB_CUSTOMER
+		SET PASSWORD = #{password}, NAME = #{name}
+		WHERE ID = #{id}
+	</update>
+	
+	<insert id="insert" parameterType="CustomerDto">
+		INSERT INTO TB_CUSTOMER
+		VALUES(#{id},#{password},#{name})
+	</insert>
+
+	<select id="login" parameterType="map" resultType="CustomerDto">
+		SELECT ID, PASSWORD, NAME
+		FROM TB_CUSTOMER
+		WHERE ID = #{id} AND PASSWORD = #{pw}
+	</select>
+
+</mapper>
