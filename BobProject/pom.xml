@@ -140,18 +140,18 @@
 			<version>3.17</version>
 		</dependency>
 
-<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
-<dependency>
-    <groupId>com.sun.mail</groupId>
-    <artifactId>javax.mail</artifactId>
-    <version>1.6.2</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-vision -->
-<dependency>
-    <groupId>com.google.cloud</groupId>
-    <artifactId>google-cloud-vision</artifactId>
-    <version>1.63.0</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-vision -->
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-vision</artifactId>
+			<version>1.63.0</version>
+		</dependency>
 
 
 
