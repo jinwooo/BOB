@@ -19,14 +19,14 @@ public class GoogleVisionApiTester {
 		
 		try {
 	
-			String imageFilePath = "";
+			String imageFilePath = "src/main/java/api/si.jpg";
 			
 			List<AnnotateImageRequest> requests = new ArrayList<>();
 		
 			ByteString imgBytes = ByteString.readFrom(new FileInputStream(imageFilePath));
 		
 			Image img = Image.newBuilder().setContent(imgBytes).build();
-			Feature feat = Feature.newBuilder().setType(Type.TEXT_DETECTION).build();
+			Feature feat = Feature.newBuilder().setType(Type.LOGO_DETECTION).build();
 			AnnotateImageRequest request = AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
 			requests.add(request);
 		
@@ -41,7 +41,7 @@ public class GoogleVisionApiTester {
 			    	}
 		
 			    	System.out.println("Text : ");
-			    	System.out.println(res.getTextAnnotationsList().get(0).getDescription());
+			    	System.out.println(res.getLogoAnnotationsList().get(0).getDescription());
 			      
 			    	// For full list of available annotations, see http://g.co/cloud/vision/docs
 			    	/*for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
