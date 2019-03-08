@@ -1,4 +1,4 @@
-package api;
+package com.bob.proj.api;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class Imgvision {
 	public static void main(String[] args) {
 		
 		try {
-			detectWebDetections("src/main/java/api/00502739_20180907.jpg");
+			detectWebDetections("src/main/java/com/bob/proj/api/75978670_1_1509707881_w640.jpg");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,7 +32,7 @@ public class Imgvision {
 	
 	
 	private static Image pathImage(String filePath) throws IOException {
-        Image image;
+       Image image;
 
         if (filePath.startsWith("gs://")) { // GCS에서 이미지를 가져올때 image 생성
             ImageSource imgSource = ImageSource.newBuilder().setGcsImageUri(filePath).build();
@@ -75,8 +75,10 @@ public class Imgvision {
 	            for (WebDetection.WebEntity entity : annotation.getWebEntitiesList()) {
 	                System.out.println(entity.getDescription());
 	            }
+	            System.out.println(annotation.getWebEntitiesList().get(0).getDescription());
+	            
 
-	           /* System.out.println("\nPages with matching images: Score\n==");
+	          /*  System.out.println("\nPages with matching images: Score\n==");
 	            for (WebDetection.WebPage page : annotation.getPagesWithMatchingImagesList()) {
 	                System.out.println(page.getUrl() + " : " + page.getScore());
 	            }
