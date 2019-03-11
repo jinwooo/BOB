@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class Ttest {
 
 	
-	 public String TranslateService(String text, String source, String target){
+	 public String TranslateService(String text){
 	        String key = "AIzaSyCAX74OsJ5YoSNsgV9s5KXV4bjMxP-p__U"; // API 키
 	        HttpClient client = new DefaultHttpClient();
 	        URI uri;
@@ -33,7 +33,7 @@ public class Ttest {
 	            .addParameter("key", key)
 	            .addParameter("q", text)
 	            .addParameter("source", "en")
-	            .addParameter("target", target)
+	            .addParameter("target", "ko")
 	            .build();
 	            HttpGet httpGet = new HttpGet(uri);
 	            HttpResponse resp = client.execute(httpGet);

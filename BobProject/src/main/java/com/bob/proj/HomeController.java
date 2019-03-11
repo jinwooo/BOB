@@ -18,6 +18,8 @@ public class HomeController {
 	@Autowired
 	private Ttest test;
 	
+
+	
 	@RequestMapping("/main.do")
 	public String home() {		
 		return "view";
@@ -25,13 +27,14 @@ public class HomeController {
 	
 	
 	 @RequestMapping("/trans.do")
-	    public ModelAndView trans(@RequestParam(required=false) String text, String source, String target){
+	    public ModelAndView trans(@RequestParam(required=false) String text){
 	        ModelAndView mav = new ModelAndView();
 	        
 	        if(text!= null){
-	            mav.addObject("result", test.TranslateService(text, source, target));
+	            mav.addObject("result", test.TranslateService(text));
+	            
 	        }
-	        mav.setViewName("view");
+	        mav.setViewName("view"); 
 	        return mav;
 	    }
 
