@@ -3,16 +3,16 @@
 <configuration>
 	
 	<typeAliases>
-		<typeAlias type="com.hello.mvc03.model.dto.BobDto" alias="BobDto"/>
-		<typeAlias type="com.hello.mvc03.model.dto.BobManagerDto" alias="BobManagerDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.ChatDto" alias="ChatDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.ChatRoomDto" alias="ChatRoomDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.CompanyDto" alias="CompanyDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.NoticeDto" alias="NoticeDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.ScommentDto" alias="ScommentDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.SuggestDto" alias="SuggestDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.UserBoardDto" alias="UserBoardDto" />
-		<typeAlias type="com.hello.mvc03.model.dto.VoteDto" alias="VoteDto" />
+		<typeAlias type="com.bob.proj.model.dto.BobDto" alias="BobDto"/>
+		<typeAlias type="com.bob.proj.model.dto.BobManagerDto" alias="BobManagerDto" />
+		<typeAlias type="com.bob.proj.model.dto.ChatDto" alias="ChatDto" />
+		<typeAlias type="com.bob.proj.model.dto.ChatRoomDto" alias="ChatRoomDto" />
+		<typeAlias type="com.bob.proj.model.dto.CompanyDto" alias="CompanyDto" />
+		<typeAlias type="com.bob.proj.model.dto.NoticeDto" alias="NoticeDto" />
+		<typeAlias type="com.bob.proj.model.dto.ScommentDto" alias="ScommentDto" />
+		<typeAlias type="com.bob.proj.model.dto.SuggestDto" alias="SuggestDto" />
+		<typeAlias type="com.bob.proj.model.dto.UserBoardDto" alias="UserBoardDto" />
+		<typeAlias type="com.bob.proj.model.dto.VoteDto" alias="VoteDto" />
 	</typeAliases>
 	
 	<mappers>

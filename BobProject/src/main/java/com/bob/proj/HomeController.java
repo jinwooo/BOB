@@ -22,7 +22,7 @@ public class HomeController {
 	
 	@RequestMapping("/main.do")
 	public String home() {		
-		return "view";
+		return "addr";
 	}
 	
 	
