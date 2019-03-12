@@ -46,11 +46,11 @@ public class Imgvision {
         return image;
     }
 	
-	public static void detectWebDetections(String filePath) throws Exception {
+	public static List<String> detectWebDetections(String filePath) throws Exception {
 	    List<AnnotateImageRequest> requests = new ArrayList<>();
 
 	    Image image = pathImage(filePath);
-
+	    List<String> list = new ArrayList<String>();
 	    Feature feat = Feature.newBuilder().setType(Feature.Type.WEB_DETECTION).build();
 	    AnnotateImageRequest request = AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(image).build();
 	    requests.add(request);
@@ -59,15 +59,9 @@ public class Imgvision {
 	        BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
 	        List<AnnotateImageResponse> responses = response.getResponsesList();
 
-	        for (AnnotateImageResponse res : responses) {
-	            if (res.hasError()) {
-	                System.out.println("Error: " + res.getError().getMessage());
-	                return;
-	            }
+	        for (AnnotateImageResponse res : responses) {            
 
-	            // Search the web for usages of the image. You could use these signals later
-	            // for user input moderation or linking external references.
-	            // For a full list of available annotations, see http://g.co/cloud/vision/docs
+	           
 	            WebDetection annotation = res.getWebDetection();
 	            System.out.println("Entity:Id:Score");
 	            System.out.println("===============");
@@ -75,24 +69,15 @@ public class Imgvision {
 	            for (WebDetection.WebEntity entity : annotation.getWebEntitiesList()) {
 	                System.out.println(entity.getDescription());
 	            }
-	            System.out.println(annotation.getWebEntitiesList().get(0).getDescription());
-	            
-
-	          /*  System.out.println("\nPages with matching images: Score\n==");
-	            for (WebDetection.WebPage page : annotation.getPagesWithMatchingImagesList()) {
-	                System.out.println(page.getUrl() + " : " + page.getScore());
+	            for( int i = 0 ; i < 5; i++) {
+	            	
+	            	list.add(annotation.getWebEntitiesList().get(i).getDescription());
 	            }
+	            System.out.println(annotation.getWebEntitiesList().get(0).getDescription());            
 
-	            System.out.println("\nPages with partially matching images: Score\n==");
-	            for (WebDetection.WebImage webImage : annotation.getPartialMatchingImagesList()) {
-	                System.out.println(webImage.getUrl() + " : " + webImage.getScore());
-	            }
-
-	            System.out.println("\nPages with fully matching images: Score\n==");
-	            for (WebDetection.WebImage webImage : annotation.getFullMatchingImagesList()) {
-	                System.out.println(webImage.getUrl() + " : " + webImage.getScore());
-	            }*/
+	       
 	        }
 	    }
+	    	return list;
 	}
 }
