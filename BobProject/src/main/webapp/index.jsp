@@ -10,7 +10,13 @@
 <body>
 
 
-	<c:redirect url="main.do" />	
+<%-- 	<c:redirect url="main.do" />	 --%>
+	
+	<a href="crawling.do">crawling</a>
+
+	<a href="pay.do">pay</a>
+
+	<a href="list.do">공지사항</a>
 
 
 </body>
