@@ -14,26 +14,26 @@
 	
 	<select id="selectList" resultMap="dtoMap">
 		SELECT  N_NO, USER_ID, N_TITLE, N_CONTENT, N_DATE, N_VIEW
-		FROM NOTICE
+		FROM NOTICE ORDER BY N_NO DESC
 	</select>
 	
 	<insert id="insert" parameterType="NoticeDto">		
 		INSERT INTO NOTICE
-		VALUES(#{user_id},#{n_title},#{n_content})
+		VALUES(NOTICE_SEQ.NEXTVAL,#{user_id},#{n_title},#{n_content},SYSDATE,1)
 	</insert>
 	
 	<update id="update" parameterType="NoticeDto">
 		UPDATE NOTICE
-		SET N_TITLE=#{n_title}, N_CONTENT=#{n_content} 
-	    WHERE USER_ID=#{user_id}
+		SET USER_ID=#{user_id}, N_TITLE=#{n_title}, N_CONTENT=#{n_content} , N_DATE=SYSDATE
+	    WHERE N_NO=#{n_no}
 	</update>
 	
-	<delete id="delete" parameterType="String">
-		DELETE FROM NOTICE WHERE USER_ID=#{user_id}
+	<delete id="delete" parameterType="NoticeDto">
+		DELETE FROM NOTICE WHERE N_NO=#{n_no}
 	</delete>
 	
 	<select id="selectone" parameterType="NoticeDto" resultMap="dtoMap">
-		SELECT * FROM NOTICE WHERE USER_ID=#{user_id}
+		SELECT * FROM NOTICE WHERE N_NO=#{n_no}
 	</select>
 	
 </mapper>

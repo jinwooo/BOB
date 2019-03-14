@@ -8,6 +8,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bob.proj.api.Ttest;
 import com.bob.proj.model.biz.NoticeBiz;
+import com.bob.proj.model.dto.NoticeDto;
 
 @Controller
 public class HomeController {
@@ -103,10 +105,85 @@ public class HomeController {
 			return "pay";
 		}
 		
-		@RequestMapping(value="/list.do",method= {RequestMethod.GET,RequestMethod.POST})
+		@RequestMapping(value="/notice_list.do",method= {RequestMethod.GET,RequestMethod.POST})
 		public String noticelist(Model model) {
 			model.addAttribute("noticelist",biz.selectList());
-			return "noticelist";
+			return "notice_list";
 		}
-	
+		
+		@RequestMapping("/notice_insertform.do")
+		public String notice_insertForm() {
+			return "notice_insert";
+		}
+		
+		@RequestMapping(value="/notice_insert.do", method=RequestMethod.POST)
+		public String notice_insert(@ModelAttribute NoticeDto dto) {
+			
+			int res = biz.insert(dto);
+			
+			if(res>0) {
+				return "redirect:notice_list.do";
+			}else {
+				return "redirect:notice_insertform.do";
+			}
+		}
+		
+		@RequestMapping(value="/notice_selectone.do")
+		public String notice_selectone(Model model, int n_no) {
+			
+			NoticeDto dto = biz.selectOne(n_no);
+			
+			model.addAttribute("dto",dto);
+			
+			return "notice_selectone";
+		}
+		
+		@RequestMapping(value="/notice_updateform.do")
+		public String notice_updateform(Model model, int n_no) {
+			
+			NoticeDto dto = biz.selectOne(n_no);
+			
+			model.addAttribute("dto",dto);
+			
+			return "notice_update";
+		}
+		
+		@RequestMapping(value="/notice_update.do")
+		public String notice_update(@ModelAttribute NoticeDto dto) {
+			
+			int res = biz.update(dto);
+			
+			if(res>0) {
+				return "redirect:notice_list.do";
+			}else {
+				return "redirect:notice_selectone.do";
+			}
+		}
+		
+		@RequestMapping(value="/notice_delete.do")
+		public String notice_delete(int n_no) {
+			
+			System.out.println(n_no);
+			
+			int res = biz.delete(n_no);
+			
+			if(res>0) {
+				return "redirect:notice_list.do";
+			}else {
+				return "redirect:notice_delete.do";
+			}
+		}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -18,35 +18,63 @@ public class NoticeDaoImpl implements NoticeDao {
 	@Override
 	public List<NoticeDto> selectList() {
 		
-		List<NoticeDto> list = new ArrayList<NoticeDto>();
+		List<NoticeDto> notice_list = new ArrayList<NoticeDto>();
 		
-		list = sqlSession.selectList(NAMESPACE+"selectList");
+		notice_list = sqlSession.selectList(NAMESPACE+"selectList");
 		
-		return list;
+		return notice_list;
 	}
 
 	@Override
-	public NoticeDto selectOne(String user_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public NoticeDto selectOne(int n_no) {
+		
+		NoticeDto dto = new NoticeDto();
+		
+		dto=sqlSession.selectOne(NAMESPACE+"selectone",n_no);
+		
+		return dto;
 	}
 
 	@Override
 	public int insert(NoticeDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res = 0 ;
+		
+		try {
+			res = sqlSession.insert(NAMESPACE+"insert",dto);
+		} catch (Exception e) {
+			System.out.println("insert error");
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	@Override
 	public int update(NoticeDto dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int res = 0;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"update",dto);
+		} catch (Exception e) {
+			System.out.println("update error");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 	@Override
-	public int delete(String user_id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(int n_no) {
+		int res = 0 ;
+		
+		try {
+			res = sqlSession.update(NAMESPACE+"delete",n_no);
+		} catch (Exception e) {
+			System.out.println("delete error");
+			e.printStackTrace();
+		}
+		
+		return res;
 	}
 
 }

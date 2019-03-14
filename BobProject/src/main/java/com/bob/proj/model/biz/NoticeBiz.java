@@ -8,8 +8,8 @@ public interface NoticeBiz {
 
 	
 	public List<NoticeDto> selectList();
-	public NoticeDto selectOne(String user_id);
+	public NoticeDto selectOne(int n_no);
 	public int insert(NoticeDto dto);
 	public int update(NoticeDto dto);
-	public int delete(String user_id);
+	public int delete(int n_no);
 }

@@ -21,9 +21,9 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public NoticeDto selectOne(String user_id) {
+	public NoticeDto selectOne(int n_no) {
 		// TODO Auto-generated method stub
-		return dao.selectOne(user_id);
+		return dao.selectOne(n_no);
 	}
 
 	@Override
@@ -39,9 +39,9 @@ public class NoticeBizImpl implements NoticeBiz {
 	}
 
 	@Override
-	public int delete(String user_id) {
+	public int delete(int n_no) {
 		// TODO Auto-generated method stub
-		return dao.delete(user_id);
+		return dao.delete(n_no);
 	}
 
 }

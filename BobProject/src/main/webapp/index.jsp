@@ -16,7 +16,7 @@
 
 	<a href="pay.do">pay</a>
 
-	<a href="list.do">공지사항</a>
+	<a href="notice_list.do">공지사항</a>
 
 
 </body>

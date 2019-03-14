@@ -22,7 +22,7 @@
 			<th>NOTICE_NUMBER</th>
 			<th>ID</th>
 			<th>TITLE</th>
-			<th>DATE</th>
+			<th>DATE(마지막수정)</th>
 			<th>VIEW</th>
 		</tr>
 		
@@ -38,9 +38,9 @@
 					<tr>
 						<td>${dto.n_no }</td>
 						<td>${dto.user_id }</td>
-						<td><a href="selectone.do?id=${dto.user_id }">${dto.n_title }</a></td>
+						<td><a href="notice_selectone.do?n_no=${dto.n_no }">${dto.n_title }</a></td>
 						<td>${dto.n_date }</td>
-						<td>조회수</td>
+						<td>${dto.n_view }</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
@@ -49,7 +49,7 @@
 		<tr>
 			<td colspan="4">
 				<input type="button" value="처음으로" onclick="location.href='index.jsp'">
-				<input type="button" value="글쓰기" onclick="location.href='insertform.do'">
+				<input type="button" value="글쓰기" onclick="location.href='notice_insertform.do'">
 			</td>
 		</tr>
 		
