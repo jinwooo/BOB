@@ -173,6 +173,47 @@ public class HomeController {
 				return "redirect:notice_delete.do";
 			}
 		}
+		
+		@RequestMapping("/main2.do")
+		public String main() {
+			return "main";
+		}
+		@RequestMapping(value="/map.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String map() {		
+			return "map";
+		}
+
+		@RequestMapping("/map_category.do")
+		public String map_category() {
+			return "map_category";
+		}
+		
+		@RequestMapping("/map_search.do")
+		public String map_search() {
+			return "map_search";
+		}
+		
+		@RequestMapping(value="/map_search.do", method=RequestMethod.GET)
+		public String map_search(Model model, String foodselect) {
+			System.out.println(foodselect);
+			model.addAttribute("foodselect", foodselect);
+			return "map_search";
+		}	
+		
+		@RequestMapping("/chart01.do")
+		public String chart01() {
+			return "chart01";
+		}
+		
+		@RequestMapping("/chart02.do")
+		public String chart02() {
+			return "chart02";
+		}
+		
+		@RequestMapping("/chart03.do")
+		public String chart03() {
+			return "chart03";
+		}
 }
 
 
