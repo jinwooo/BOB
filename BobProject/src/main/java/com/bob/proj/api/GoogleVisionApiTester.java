@@ -1,6 +1,8 @@
 package com.bob.proj.api;
 
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
+import com.google.cloud.vision.v1.WebDetection;
+import com.bob.proj.model.dto.ImgVisionDto;
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
@@ -19,14 +21,14 @@ public class GoogleVisionApiTester {
 		
 		try {
 	
-			String imageFilePath = "src/main/java/api/si.jpg";
+			String imageFilePath = "src/main/java/com/bob/proj/api/si.jpg";
 			
 			List<AnnotateImageRequest> requests = new ArrayList<>();
 		
 			ByteString imgBytes = ByteString.readFrom(new FileInputStream(imageFilePath));
 		
 			Image img = Image.newBuilder().setContent(imgBytes).build();
-			Feature feat = Feature.newBuilder().setType(Type.LOGO_DETECTION).build();
+			Feature feat = Feature.newBuilder().setType(Type.WEB_DETECTION).build();
 			AnnotateImageRequest request = AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
 			requests.add(request);
 		
@@ -35,13 +37,17 @@ public class GoogleVisionApiTester {
 			    List<AnnotateImageResponse> responses = response.getResponsesList();
 		
 			    for (AnnotateImageResponse res : responses) {
-			    	if (res.hasError()) {
-			    		System.out.printf("Error: %s\n", res.getError().getMessage());
-			    		return;
-			    	}
+			    	
+			    	 WebDetection annotation = res.getWebDetection();
+			        for (WebDetection.WebEntity entity : annotation.getWebEntitiesList()) {
+		                System.out.println(entity.getDescription());
+		            }
+		            for( int i = 0 ; i < 5; i++) {
+		            		System.out.println(annotation.getWebEntitiesList().get(i).getDescription());
+		            }
+		            System.out.println(annotation.getWebEntitiesList().get(0).getDescription());            
+
 		
-			    	System.out.println("Text : ");
-			    	System.out.println(res.getLogoAnnotationsList().get(0).getDescription());
 			      
 			    	// For full list of available annotations, see http://g.co/cloud/vision/docs
 			    	/*for (EntityAnnotation annotation : res.getTextAnnotationsList()) {

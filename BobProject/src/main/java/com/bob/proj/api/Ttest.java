@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class Ttest {
 
 	
-	 public String TranslateService(String text){
+	 public static String TranslateService(String text){
 	        String key = "AIzaSyCAX74OsJ5YoSNsgV9s5KXV4bjMxP-p__U"; // API 키
 	        HttpClient client = new DefaultHttpClient();
 	        URI uri;
@@ -47,17 +47,14 @@ public class Ttest {
 	            
 	            
 	        } catch (URISyntaxException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } catch (ParseException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }
-	        
 	        String r = (String) jsonObject3.get("translatedText");
+	        
 	        return r;
 	    }
 
