@@ -258,7 +258,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
-			<scope>test</scope>
 		</dependency>
 		
 		<!-- jsoup(크롤링) -->

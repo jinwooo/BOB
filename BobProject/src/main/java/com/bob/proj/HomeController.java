@@ -51,6 +51,8 @@ public class HomeController {
 	
 	@Autowired
 	private Imgvision vision;
+	
+	@Autowired
 	private NoticeBiz biz;
 	
 	private String res = "";
@@ -60,37 +62,6 @@ public class HomeController {
 	public String home() {		
 		return "addr";
 	}
-	
-	@RequestMapping("/food.do")
-	public String food(Model model, String food) {
-		
-		
-		List<FoodApiDto> list;
-		try {
-			list = foodApi.FoodSearch(food);
-			model.addAttribute("list", list);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		return "foodsearch";
-	}
-	
-	
-	 @RequestMapping("/trans.do")
-	    public ModelAndView trans(@RequestParam(required=false) String text){
-	        ModelAndView mav = new ModelAndView();
-	        
-	        if(text!= null){
-	            mav.addObject("result", test.TranslateService(text));
-	            
-	        }
-	        mav.setViewName("view"); 
-	        return mav;
-	    }
-
 	 @RequestMapping("/imgvision.do")
 	 	public String imgVS(HttpServletRequest request,MultipartFile filevi ,Model model,String imgname) {
 	 		
