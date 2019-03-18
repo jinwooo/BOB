@@ -16,7 +16,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 @Service
-public class Ttest {
+public class TransApi {
 
 	
 	 public static String TranslateService(String text){

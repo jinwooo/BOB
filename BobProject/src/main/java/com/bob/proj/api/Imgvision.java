@@ -21,7 +21,7 @@ import com.google.protobuf.ByteString;
 @Service
 public class Imgvision {
 	
-	private Ttest test;
+	private TransApi test;
 	
 	private static Image pathImage(String filePath) throws IOException {
        Image image;

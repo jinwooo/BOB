@@ -7,7 +7,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   <short-name>gel</short-name>
   <function>
 	<name>ts</name>
-	<function-class>com.bob.proj.api.Ttest</function-class>
+	<function-class>com.bob.proj.api.TransApi</function-class>
 	<function-signature>java.lang.String TranslateService(java.lang.String)</function-signature>
 </function>
 

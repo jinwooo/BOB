@@ -25,7 +25,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.bob.proj.api.FileValidator;
 import com.bob.proj.api.Imgvision;
-import com.bob.proj.api.Ttest;
+import com.bob.proj.api.TransApi;
 import com.bob.proj.api.foodApi;
 import com.bob.proj.model.dto.FoodApiDto;
 import com.bob.proj.model.dto.ImgVisionDto;
@@ -34,7 +34,7 @@ import com.bob.proj.model.dto.ImgVisionDto;
 public class HomeController {
 	
 	@Autowired
-	private Ttest test;
+	private TransApi test;
 	
 	@Autowired
 	private FileValidator FileValidator;
@@ -132,11 +132,7 @@ public class HomeController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-			
-			
-			
-			
+			}			
 	 		
 	 		return "addr_res";
 	 	}

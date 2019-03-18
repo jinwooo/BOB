@@ -1,4 +1,4 @@
-<%@page import="com.bob.proj.api.Ttest"%>
+<%@page import="com.bob.proj.api.TransApi"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@
 </body>
 </head>
 <%
-	Ttest tans = new Ttest();
+	TransApi tans = new TransApi();
 	String test = "test";
 %>
 <body> 
