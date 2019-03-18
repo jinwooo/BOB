@@ -10,8 +10,19 @@
 <body>
 
 
+<<<<<<< HEAD
 	<c:redirect url="main.do" />
+=======
+<%-- 	<c:redirect url="main.do" />	 --%>
+	
+	<a href="crawling.do">crawling</a>
+>>>>>>> refs/remotes/origin/master
 
+	<a href="pay.do">pay</a>
+
+	<a href="notice_list.do">공지사항</a>
+	
+	<a href="main2.do">해수(메인)</a>
 
 </body>
 </html>
