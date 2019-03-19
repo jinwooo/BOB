@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans|Ubuntu:400,500" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-		<meta charset="utf-8">
+		<meta charset="UTF-8">
 		<title>Login to Celyes</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script type="text/javascript">
-	// Çì´õ ºÎºĞ ¸Ş´º ¹Ù²î´Â °Í ½ÃÀÛ
+	// í—¤ë” ë¶€ë¶„ ë©”ë‰´ ë°”ë€ŒëŠ” ê²ƒ ì‹œì‘
 		$( () => {
 			
 			//On Scroll Functionality
@@ -47,9 +47,9 @@
 			});
 			
 		});
-		// Çì´õ ºÎºĞ ¸Ş´º ¹Ù²î´Â °Í ³¡
+		// í—¤ë” ë¶€ë¶„ ë©”ë‰´ ë°”ë€ŒëŠ” ê²ƒ ë
 		
-		// top ¹öÆ° ½ÃÀÛ
+		// top ë²„íŠ¼ ì‹œì‘
 		$(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 100) {
@@ -66,9 +66,9 @@
         return false;
     });
 });
-		// top ¹öÆ° ³¡
+		// top ë²„íŠ¼ ë
 
-		// ·Î±×ÀÎ ½ÃÀÛ
+		// ë¡œê·¸ì¸ ì‹œì‘
 		$(document).ready(function(){
 	  var signUp = $('.signup-but');
 	  var logIn = $('.login-but');
@@ -87,7 +87,7 @@
 	    $('.form-container').animate({left: '400px'}, 'slow');
 	  });
 	});
-		// ·Î±×ÀÎ ³¡
+		// ë¡œê·¸ì¸ ë
 		
 		</script>
 		<style type="text/css">
@@ -294,7 +294,7 @@ section:nth-child(even) {
 }
 
 
-/*** top ¹öÆ° ***/
+/*** top ë²„íŠ¼ ***/
 
   a#MoveTop {
     position: fixed;
@@ -568,7 +568,7 @@ input[type="email"]{
   <nav>
     <div id="brand" style="background-color: rgb(220,200,200); 	z-index: 10;">
       <div id="logo">
-      	<img id="logo-img" alt="·Î°í" src="resources/image/·Î°í.png">
+      	<img id="logo-img" alt="ë¡œê³ " src="resources/image/ë¡œê³ .png">
       </div>
       <div id="word-mark" >
        	<h2 class="back-header" style="margin: 0; z-index: 999;">BOBTONG</h2>
@@ -595,7 +595,7 @@ input[type="email"]{
   <div id="hero-section">
    <!--  <div id="head-line"></div> -->
      <!-- <div id="heading"></div> -->
-   <video id="video-background" src="resources/video/ÀâÃ¤.mp4" autoplay="autoplay" muted="muted" loop="loop" > ´ç½ÅÀÇ ºê¶ó¿ìÀú¿¡¼­´Â ½ÇÇàµÇÁö ¾Ê½À´Ï´Ù.</video>
+   <video id="video-background" src="resources/video/ì¡ì±„.mp4" autoplay="autoplay" muted="muted" loop="loop" > ë‹¹ì‹ ì˜ ë¸Œë¼ìš°ì €ì—ì„œëŠ” ì‹¤í–‰ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</video>
 			<div id="onvideo">
 				 
 				 	 <div class="wrapper">
@@ -638,25 +638,25 @@ input[type="email"]{
 </header>
 <section id="section00">
 <div id="sec-back1">
-				<h1  style="padding-left:180px; padding-top:300px;  color: white; font-size: 52px;">¸Ô°í ½ÍÀº À½½Ä</h1>
-				<h1  style="padding-left:180px; padding-top:0px;  color: white; font-size: 52px;">¸¶À½´ë·Î ¸ÔÀÚ!</h1>
+				<h1  style="padding-left:180px; padding-top:300px;  color: white; font-size: 52px;">ë¨¹ê³  ì‹¶ì€ ìŒì‹</h1>
+				<h1  style="padding-left:180px; padding-top:0px;  color: white; font-size: 52px;">ë§ˆìŒëŒ€ë¡œ ë¨¹ì!</h1>
 			</div> 
 
 			
 </section>
 <section >
-  <!-- <img id="sect" alt="Ã¤ÆÃ" src="" style="width: 30%; height: 70%; margin-top: 7%; margin-right: 40%;"> -->
+  <!-- <img id="sect" alt="ì±„íŒ…" src="" style="width: 30%; height: 70%; margin-top: 7%; margin-right: 40%;"> -->
 </section>
 <section id="section02">
-	<!-- <img alt="¿îµ¿" src="resources/image/¿îµ¿.jpg" style="width: 100%; height: 100%; "> -->
+	<!-- <img alt="ìš´ë™" src="resources/image/ìš´ë™.jpg" style="width: 100%; height: 100%; "> -->
 </section>
 <section id="section03">
   			<div id="th-back">
-				<h1  style="padding-left:180px; padding-top:300px;  color: black; font-size: 52px;">¿À´ÃÀÇ ½Ä´ÜÀº?</h1>
+				<h1  style="padding-left:180px; padding-top:300px;  color: black; font-size: 52px;">ì˜¤ëŠ˜ì˜ ì‹ë‹¨ì€?</h1>
 			</div>
 </section>
 <section id="section04">
-  			<!-- <img alt="Áöµµ" src="resources/image/Áöµµ(re).jpg" style="width: 100%; height: 100%; "> -->
+  			<!-- <img alt="ì§€ë„" src="resources/image/ì§€ë„(re).jpg" style="width: 100%; height: 100%; "> -->
 </section>
 <section id="section05">
   			
@@ -664,6 +664,6 @@ input[type="email"]{
 
 	<a id="MoveTop" href="#"><img id="topButton" alt="top" src="resources/image/top.png"></a>
 	
-<div class="footer">¹äÀ¸·Î ¼ÒÅëÇÏ´Â °ø°£ <strong>BOBTONG</strong></div>
+<div class="footer">ë°¥ìœ¼ë¡œ ì†Œí†µí•˜ëŠ” ê³µê°„ <strong>BOBTONG</strong></div>
 </body>
 </html>

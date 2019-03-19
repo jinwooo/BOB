@@ -11,8 +11,8 @@
 <body>
 
 
-	<%-- <c:redirect url="main.do" /> --%>
-	
+ <c:redirect url="prac.do" /> 
+<!-- 	
 	<a href="crawling.do">crawling</a>
 
 	<a href="pay.do">pay</a>
@@ -23,7 +23,7 @@
 	
 	<a href="main.do">비전</a>
  	
- 	<a href="prac.do">prac</a>
+ 	<a href="prac.do">prac</a> -->
 	
 </body>
 </html>
