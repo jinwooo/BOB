@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="bob">
 	
-<<<<<<< HEAD
 	<resultMap type="com.bob.proj.model.dto.BobDto" id="dtoMap">
 		<result property="id" column="USER_ID"/>
 		<result property="password" column="USER_PW"/>
@@ -66,7 +65,6 @@
 	<update id="manageUser" parameterType="hashmap">
 		UPDATE BOBBOARD SET GRADE=#{user_grade} WHERE USER_ID=#{user_id}
 	</update>
-=======
 	<!-- 공지사황 -->
 	<resultMap type="com.bob.proj.model.dto.NoticeDto" id="dtoMap">
 		<result property="n_no" column="N_NO"/>
@@ -100,6 +98,5 @@
 	<select id="selectone" parameterType="NoticeDto" resultMap="dtoMap">
 		SELECT * FROM NOTICE WHERE N_NO=#{n_no}
 	</select>
->>>>>>> refs/remotes/origin/master
 	
 </mapper>

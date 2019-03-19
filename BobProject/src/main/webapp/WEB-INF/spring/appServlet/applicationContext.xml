@@ -6,14 +6,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-<<<<<<< HEAD
 		   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
       <property name="maxUploadSize" value="1000000000" />
       <property name="defaultEncoding" value="UTF-8" />   
    </bean>
    
    
-=======
 	<context:component-scan	base-package="com.bob.proj.api"></context:component-scan>
 	<context:component-scan	base-package="com.bob.proj.model.dto"></context:component-scan>
 	
@@ -46,5 +44,4 @@
 		<constructor-arg ref="sqlSession"></constructor-arg>
 	</bean>
 
->>>>>>> refs/remotes/origin/master
 </beans>

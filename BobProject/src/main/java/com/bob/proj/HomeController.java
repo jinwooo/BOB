@@ -1,7 +1,6 @@
 package com.bob.proj;
 
 import java.io.File;
-<<<<<<< HEAD
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -9,62 +8,46 @@ import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
-=======
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
->>>>>>> refs/remotes/origin/master
 import java.util.Locale;
-<<<<<<< HEAD
 import java.util.Map;
 
 import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-=======
 import java.io.IOException;
->>>>>>> refs/remotes/origin/master
 
-<<<<<<< HEAD
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-=======
 import javax.servlet.http.HttpServletRequest;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
->>>>>>> refs/remotes/origin/master
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestBody;
-=======
->>>>>>> refs/remotes/origin/master
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-=======
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
->>>>>>> refs/remotes/origin/master
 import org.springframework.web.util.WebUtils;
 
-<<<<<<< HEAD
 import com.bob.biz.BobBiz;
 import com.bob.proj.dto.BobDto;
 
-=======
 import com.bob.proj.api.FileValidator;
 import com.bob.proj.api.Imgvision;
 import com.bob.proj.api.TransApi;
@@ -73,7 +56,6 @@ import com.bob.proj.model.dto.FoodApiDto;
 import com.bob.proj.model.dto.ImgVisionDto;
 import com.bob.proj.model.biz.NoticeBiz;
 import com.bob.proj.model.dto.NoticeDto;
->>>>>>> refs/remotes/origin/master
 
 @Controller
 public class HomeController {
@@ -100,11 +82,7 @@ public class HomeController {
 	public String home() {		
 		return "addr";
 	}
-<<<<<<< HEAD
-=======
-	
-<<<<<<< HEAD
-	
+
 	@RequestMapping("/join.do")
 	public String joinForm() {
 		return "join";
@@ -124,7 +102,7 @@ public class HomeController {
 		try {
 			
 			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
-			System.out.println("╬В╥н╣Е ╣и ╫га╕ ╟Ф╥н :" +path);
+			System.out.println("О©╫О©╫О©╫н╣О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫ :" +path);
 		
 			File storage = new File(path);
 			if(!storage.exists()) {
@@ -164,7 +142,6 @@ public class HomeController {
 	public String findInfoForm() {
 		return "findInfo";
 	}
-=======
 	@RequestMapping("/food.do")
 	public String food(Model model, String food) {
 		
@@ -195,7 +172,6 @@ public class HomeController {
 	        return mav;
 	    }
 
->>>>>>> refs/remotes/origin/master
 	 @RequestMapping("/imgvision.do")
 	 	public String imgVS(HttpServletRequest request,MultipartFile filevi ,Model model,String imgname) {
 	 		
@@ -436,9 +412,7 @@ public class HomeController {
 		public String chart03() {
 			return "chart03";
 		}
->>>>>>> refs/remotes/origin/master
 }
-
 
 
 
