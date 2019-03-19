@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bobmanager">
+
+	<resultMap type="com.bob.proj.model.dto.BobManagerDto" id="BobDtoMap">
+		<result property="bm_id" column="BM_ID"/>
+		<result property="user_id" column="USER_ID"/>
+		<result property="bm_date" column="BM_DATE"/>
+		<result property="bm_type" column="BM_TYPE"/>
+		<result property="bm_menu" column="BM_MENU"/>
+		<result property="bm_kal" column="BM_KAL"/>
+		<result property="bm_img" column="BM_IMG"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="BobDtoMap">
+		SELECT * FROM BOBMANAGER WHERE USER_ID = #{user_id}
+	</select>
+	
+</mapper>

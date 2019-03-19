@@ -22,6 +22,8 @@
 	<a href="main2.do">해수(메인)</a>
 	
 	<a href="main.do">비전</a>
- 
+ 	
+ 	<a href="prac.do">prac</a>
+	
 </body>
 </html>

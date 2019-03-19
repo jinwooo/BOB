@@ -1,0 +1,19 @@
+#bobmanager_button {
+  display: block;
+  height: 50px;
+  width: 160px;
+  background-color: #40B4DE;
+  color: #fff;
+  font-size: 0.75em;
+  border-radius: 50px;
+  margin: 100px auto;
+  border: none;
+}
+
+#bobmanager_button:hover {
+  background-color: #82D2F0;
+}
+
+#bobmanager_button:focus {
+  outline: 0;
+}

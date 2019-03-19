@@ -19,6 +19,7 @@
 	
 	<mappers>
 		<mapper resource="/sqls/mapper.xml"/>
+		<mapper resource="/sqls/bobmanager.xml"/>
 	</mappers>
 
 </configuration>

@@ -50,8 +50,10 @@ import com.bob.proj.api.Imgvision;
 import com.bob.proj.api.TransApi;
 import com.bob.proj.api.foodApi;
 import com.bob.proj.model.dto.BobDto;
+import com.bob.proj.model.dto.BobManagerDto;
 import com.bob.proj.model.dto.FoodApiDto;
 import com.bob.proj.model.dto.ImgVisionDto;
+import com.bob.proj.model.biz.BobManagerBiz;
 import com.bob.proj.model.biz.NoticeBiz;
 import com.bob.proj.model.dto.NoticeDto;
 
@@ -72,6 +74,10 @@ public class HomeController {
 	
 	@Autowired
 	private NoticeBiz biz;
+	
+	@Autowired
+	private BobManagerBiz bobbiz;
+	
 	
 	private String res = "";
 
@@ -406,9 +412,80 @@ public class HomeController {
 			return "chart02";
 		}
 		
-		@RequestMapping("/chart03.do")
-		public String chart03() {
+		@RequestMapping("/chart_main.do")
+		public String chart_main(Model model, String user_id) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			String[] menuType = new String[dto.size()];
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+				menuType[i] = dto.get(i).getBm_type();
+				System.out.println("menutype : "+menuType[i]);
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+			model.addAttribute("menuType", menuType);
+			
+			return "chart_main";
+		}
+		
+		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String chart03(Model model, String user_id, String date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			System.out.println(date);
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+
 			return "chart03";
+		}
+		
+		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String chart04(Model model, String user_id) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+
+			return "chart04";
+		}
+		
+		@RequestMapping("/prac.do")
+		public String prac() {
+			return "prac";
+		}
+		
+		@RequestMapping("/main3.do")
+		public String main3() {
+			return "main3";
 		}
 }
 
