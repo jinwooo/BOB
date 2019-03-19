@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransApi {
 
-	
+	 
 	 public static String TranslateService(String text){
 	        String key = "AIzaSyCAX74OsJ5YoSNsgV9s5KXV4bjMxP-p__U"; // API 키
 	        HttpClient client = new DefaultHttpClient();

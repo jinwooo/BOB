@@ -20,7 +20,7 @@ public class GoogleVisionApiTester {
 	public static void main(String[] args) {
 		
 		try {
-	
+	 
 			String imageFilePath = "src/main/java/com/bob/proj/api/si.jpg";
 			
 			List<AnnotateImageRequest> requests = new ArrayList<>();

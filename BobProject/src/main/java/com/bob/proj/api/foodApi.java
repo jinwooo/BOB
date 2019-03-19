@@ -62,7 +62,7 @@ public class foodApi {
 					Node nNode = nList.item(temp);
 
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
+ 
 						Element eElement = (Element) nNode;
 						String foodname = getTagValue("DESC_KOR", eElement);
 						System.out.println(foodname);

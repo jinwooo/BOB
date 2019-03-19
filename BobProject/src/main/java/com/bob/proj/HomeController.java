@@ -45,13 +45,11 @@ import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.WebUtils;
 
-import com.bob.biz.BobBiz;
-import com.bob.proj.dto.BobDto;
-
 import com.bob.proj.api.FileValidator;
 import com.bob.proj.api.Imgvision;
 import com.bob.proj.api.TransApi;
 import com.bob.proj.api.foodApi;
+import com.bob.proj.model.dto.BobDto;
 import com.bob.proj.model.dto.FoodApiDto;
 import com.bob.proj.model.dto.ImgVisionDto;
 import com.bob.proj.model.biz.NoticeBiz;

@@ -17,7 +17,7 @@ import com.bob.proj.model.dto.NoticeDto;
 @Controller
 @RequestMapping("/board/*")
 public class BoardController {
-    
+      
 	@Autowired
 	NoticeBiz service;
    

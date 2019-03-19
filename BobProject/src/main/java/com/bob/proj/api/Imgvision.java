@@ -39,7 +39,7 @@ public class Imgvision {
 
         return image;
     }
-	
+	 
 	public List<ImgVisionDto> detectWebDetections(String filePath) throws Exception {
 	    List<AnnotateImageRequest> requests = new ArrayList<>();
 
