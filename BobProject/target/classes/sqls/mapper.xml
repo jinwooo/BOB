@@ -2,6 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="bob">
 	
+<<<<<<< HEAD
+	<resultMap type="com.bob.proj.model.dto.BobDto" id="dtoMap">
+		<result property="id" column="USER_ID"/>
+		<result property="password" column="USER_PW"/>
+		<result property="name" column="USER_NAME"/>
+		<result property="email" column="USER_EMAIL"/>
+		<result property="addr" column="USER_ADDR"/>
+		<result property="phone" column="USER_PHONE"/>
+		<result property="gender" column="USER_GENDER"/>
+		<result property="birth" column="USER_BIRTH"/>
+		<result property="grade" column="USER_GRADE"/>
+		<result property="sns" column="USER_SNS"/>
+		<result property="confirm" column="USER_CONFIRM"/>
+		<result property="img" column="USER_IMG"/>
+		<result property="cno" column="CNO"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="String" resultMap="bobMap">
+		SELECT USER_ID, USER_PW, USER_NAME, USER_ADDR, USER_EMAIL, USER_PHONE
+		FORM BOBBOARD;
+	</select>
+	
+	<select id="login" parameterType="String" resultMap="bobMap">
+		SELECT USER_ID, USER_PW, USER_NAME, USER_ADDR, USER_EMAIL, USER_GENDER, USER_PHONE, USER_BIRTH, USER_GRADE
+		FROM BOBBOARD
+		WHERE ID=#{user_id}
+	</select>
+	
+	<insert id="join" parameterType="BobDto">
+		INSERT INTO BOBBOARD VALUES(#{user_id},#{user_pw},#{user_name},#{user_addr},#{user_email},,#{user_phone},'general','Y',0,'N','origin','')
+	</insert>
+	
+	<insert id="snsJoin" parameterType="BobDto">
+		INSERT INTO BOBBOARD VALUES(#{user_id},#{user_name},#{user_pw),#{user_phone},#{user_email},'general','Y',0,'N','sns','')
+	</insert>
+	
+	<update id="confirm" parameterType="String">
+		UPDATE BOBBOARD SET CONFIRM='Y' WHERE ID=#{user_id}
+	</update>
+	
+	<select id="findInfo" parameterType="BobDto" resultMap="bobMap">
+		SELECT USER_ID,USER_NAME,USER_ADDR,USER_PHONE,USER_EMAIL,USER_GRADE,USER_PW,USER_CONFIRM,USER_SNS,USER_IMG FROM BOBBOARD WHERE USER_EMAIL=#{user_email}
+	</select>	
+	
+	<update id="updatePw" parameterType="hashmap">
+		UPDATE BOBBOARD SET USER_PW=#{user_pw} WHERE ID=#{id}
+	</update>
+	
+	<select id="idCheck" parameterType="String" resultMap="bobMap">
+		SELECT USER_ID FROM BOBBOARD WHERE ID=#{user_id}
+	</select>
+	
+	<update id="changeInfo" parameterType="hashmap">
+		UPDATE BOBBOARD SET USER_NAME=#{user_name},USER_ADDR=#{user_addr},USER_PHONE=#{user_phone},USER_EMAIL=#{user_email},USER_PW=#{user_pw},USER_ID=#{user_id}	
+	</update>
+	
+	<select id="bobMain" resultType="BobDto">
+		SELECT USER_ID,USER_PW,USER_ADDR,USER_PHONE,USER_EMAIL,USER_GRADE,USER_GENDER,USER_BIRTH,USER_SNS,USER_CONFIRM,USER_IMG
+		FROM BOBBOARD
+	</select>
+	
+	<update id="manageUser" parameterType="hashmap">
+		UPDATE BOBBOARD SET GRADE=#{user_grade} WHERE USER_ID=#{user_id}
+	</update>
+=======
 	<!-- 공지사황 -->
 	<resultMap type="com.bob.proj.model.dto.NoticeDto" id="dtoMap">
 		<result property="n_no" column="N_NO"/>
@@ -35,5 +100,6 @@
 	<select id="selectone" parameterType="NoticeDto" resultMap="dtoMap">
 		SELECT * FROM NOTICE WHERE N_NO=#{n_no}
 	</select>
+>>>>>>> refs/remotes/origin/master
 	
 </mapper>
