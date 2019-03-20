@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,7 @@
 <script type="text/javascript">
 	
 	
-	$(function() {
+	 $(function() {
     $("#imgInp").on('change', function(){
         readURL(this);
   			  });
@@ -19,20 +21,32 @@
             var reader = new FileReader();
             reader.onload = function(e) {
                 $('#foo').attr('src', e.target.result);
+             
+                $('#imgname').attr('value',$('#foo').attr('src'));
             }
             reader.readAsDataURL(input.files[0]);
         }
-    }
+    } 
 
+    
  
 </script>
 </head>
 <body>
-    <form action="" method="">
-        <input type="file" id="imgInp" />
+	
+ 
+    <form:form action="imgvision.do" method="post" enctype="multipart/form-data">
+        <input type="file" id="imgInp" name="filevi" />
+        <p style="color:red;font-weight: bold;">
+			<form:errors path="file" />		
+		</p>
         <img id="foo"src="#" />
-    </form>
-</body>
+        <input type="hidden" id="imgname" name="imgname" value="">
+        <input type="submit" value="전송">
+    </form:form>
 
+
+
+</body>
 
 </html>

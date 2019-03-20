@@ -6,11 +6,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<context:component-scan	base-package="com.bob.proj.api"></context:component-scan>
-	
-	
-	
-	
+
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
@@ -29,18 +25,26 @@
 		<property name="configLocation"	value="WEB-INF/spring/sqls/config.xml" />
 
 	</bean>
-
+	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession"></constructor-arg>
 	</bean>
+
 	
 	 	<!-- 마이바티스 스프링 --> 
 <!-- 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache"> -->
 <!-- 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>	 -->
 <!-- 	</bean> -->
 	
-	<context:component-scan base-package="com.bob.proj.model.dto"></context:component-scan>
-	<context:component-scan base-package="com.bob.proj.model.dao"></context:component-scan>
-	<context:component-scan base-package="com.bob.proj.model.biz"></context:component-scan>
 
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <property name="maxUploadSize" value="1000000000" />
+      <property name="defaultEncoding" value="UTF-8" />   
+   </bean>
+   
+   
+	<context:component-scan	base-package="com.bob.proj.api"></context:component-scan>
+	<context:component-scan	base-package="com.bob.proj.model.dto"></context:component-scan>
+	<context:component-scan	base-package="com.bob.proj.model.dao"></context:component-scan>
+	<context:component-scan	base-package="com.bob.proj.model.biz"></context:component-scan>
 </beans>

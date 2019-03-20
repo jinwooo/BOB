@@ -14,6 +14,8 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	
+	
 
 	<repositories>
 		<repository>
@@ -23,7 +25,9 @@
 	</repositories>
 
 	<dependencies>
+	
 		<!-- Spring -->
+	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -94,6 +98,25 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- 이미지 업로드 -->
+	<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib-->		
+	<dependency>
+		<groupId>org.imgscalr</groupId>
+		<artifactId>imgscalr-lib</artifactId>
+		<version>4.2</version>
+	</dependency>
+
+
+	 <dependency>
+         <groupId>commons-io</groupId>
+         <artifactId>commons-io</artifactId>
+         <version>2.6</version>
+      </dependency>
+      <dependency>
+         <groupId>commons-fileupload</groupId>
+         <artifactId>commons-fileupload</artifactId>
+         <version>1.4</version>
+      </dependency>
 
 		<!-- @Inject -->
 		<dependency>
@@ -258,7 +281,13 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.7</version>
-			<scope>test</scope>
+		</dependency>
+	
+	
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
 		</dependency>
 		
 		<!-- jsoup(크롤링) -->
@@ -306,6 +335,8 @@
 				<configuration>
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
+
+
 			</plugin>
 		</plugins>
 	</build>

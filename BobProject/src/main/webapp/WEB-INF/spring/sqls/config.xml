@@ -13,12 +13,15 @@
 		<typeAlias type="com.bob.proj.model.dto.SuggestDto" alias="SuggestDto" />
 		<typeAlias type="com.bob.proj.model.dto.UserBoardDto" alias="UserBoardDto" />
 		<typeAlias type="com.bob.proj.model.dto.VoteDto" alias="VoteDto" />
+		<typeAlias type="com.bob.proj.model.dto.FoodApiDto" alias="FoodApiDto" />
+		<typeAlias type="com.bob.proj.model.dto.ChatUserDto" alias="ChatUserDto" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/sqls/mapper.xml"/>
 		<mapper resource="/sqls/boardMapper.xml"/>
 		<mapper resource="/sqls/replyMapper.xml"/>
+		<mapper resource="/sqls/bobmanager.xml"/>
 	</mappers>
 	
 <!-- 	<mappers> -->

@@ -1,6 +1,5 @@
 package com.bob.proj;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -252,12 +251,5 @@ public class BoardController {
 	 model.addAttribute("scri", scri);
 	}
 }
-
-
-
-
-
-
-
 
 

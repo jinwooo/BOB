@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -10,12 +11,13 @@
 <body>
 
 
-<%-- 	<c:redirect url="main.do" />	 --%>
-	
+ <c:redirect url="prac.do" /> 
+<!-- 	
 	<a href="crawling.do">crawling</a>
 
 	<a href="pay.do">pay</a>
 
+<<<<<<< HEAD
 	<a href="notice_list.do">공지사항</a> <br>
 	
 	
@@ -26,5 +28,15 @@
 	<a href="board/listSearch">글목록 + 페이지 + 목록 게시판</a>
 
 
+=======
+	<a href="notice_list.do">공지사항</a>
+	
+	<a href="main2.do">해수(메인)</a>
+	
+	<a href="main.do">비전</a>
+ 	
+ 	<a href="prac.do">prac</a> -->
+	
+>>>>>>> refs/remotes/origin/master
 </body>
 </html>

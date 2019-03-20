@@ -1,6 +1,30 @@
 package com.bob.proj;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.mail.Multipart;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpServletRequest;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,13 +32,28 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
-import com.bob.proj.api.Ttest;
+import com.bob.proj.api.FileValidator;
+import com.bob.proj.api.Imgvision;
+import com.bob.proj.api.TransApi;
+import com.bob.proj.api.foodApi;
+import com.bob.proj.model.dto.BobDto;
+import com.bob.proj.model.dto.BobManagerDto;
+import com.bob.proj.model.dto.FoodApiDto;
+import com.bob.proj.model.dto.ImgVisionDto;
+import com.bob.proj.model.biz.BobManagerBiz;
 import com.bob.proj.model.biz.NoticeBiz;
 import com.bob.proj.model.dto.NoticeDto;
 
@@ -22,10 +61,23 @@ import com.bob.proj.model.dto.NoticeDto;
 public class HomeController {
 	
 	@Autowired
-	private Ttest test;
+	private TransApi test;
+	
+	@Autowired
+	private FileValidator FileValidator;
+	
+	@Autowired
+	private foodApi foodApi;
+	
+	@Autowired
+	private Imgvision vision;
 	
 	@Autowired
 	private NoticeBiz biz;
+	
+	@Autowired
+	private BobManagerBiz bobbiz;
+	
 	
 	private String res = "";
 
@@ -33,6 +85,82 @@ public class HomeController {
 	@RequestMapping("/main.do")
 	public String home() {		
 		return "addr";
+	}
+
+	@RequestMapping("/join.do")
+	public String joinForm() {
+		return "join";
+	}
+	
+	
+/*	@RequestMapping("/join.do")
+	public String Bob(HttpServletRequest request, Model model, BobDto bobdto) {
+		
+		
+		BobDto fileobj = new BobDto();
+		
+		
+		InputStream inputStream = null;
+		OutputStream outputStream = null;
+		
+		try {
+			
+			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+			System.out.println("���ε� �� ���� ��� :" +path);
+		
+			File storage = new File(path);
+			if(!storage.exists()) {
+				storage.mkdirs();
+			}
+			File newfile = new File(path+"/"+);
+		} catch (FileNotFoundException e) {
+			
+		}
+		
+		
+		return "join";
+	}
+	*/
+	
+	@RequestMapping("/login.do")
+	public String loginForm() {
+		return "login";
+	}
+	
+	/*@RequestMapping("/loginajax.do")
+	@ResponseBody
+	public Map<String, Boolean> login(String id,@RequestParam("pw") String password, HttpSession session){
+		
+		BobDto dto = biz.login(id,password);
+		boolean loginchk = false;
+		if(dto != null) {
+			session.setAttribute("dto", dto);
+			loginchk = true;
+		}
+		Map<String,Boolean> res = new HashMap<String, Boolean>();
+		res.put("loginchk", loginchk);
+		return res;
+		
+	}*/
+	@RequestMapping("findInfo.do")
+	public String findInfoForm() {
+		return "findInfo";
+	}
+	@RequestMapping("/food.do")
+	public String food(Model model, String food) {
+		
+		
+		List<FoodApiDto> list;
+		try {
+			list = foodApi.FoodSearch(food);
+			model.addAttribute("list", list);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return "foodsearch";
 	}
 	
 	
@@ -48,6 +176,80 @@ public class HomeController {
 	        return mav;
 	    }
 
+	 @RequestMapping("/imgvision.do")
+	 	public String imgVS(HttpServletRequest request,MultipartFile filevi ,Model model,String imgname) {
+	 		
+			String filename = filevi.getOriginalFilename();
+			
+			InputStream inputStream = null;
+			OutputStream outputStream = null;
+			
+			try {
+				inputStream = filevi.getInputStream();
+				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
+				System.out.println("���ε� �� ���� ��� : " + path);
+							
+				File storage = new File(path);
+				
+				if(!storage.exists()) {
+					storage.mkdirs();
+				}
+				
+				File newfile = new File(path+"/"+filename);
+				if(!newfile.exists()) {
+					newfile.createNewFile();
+				}
+				
+				outputStream = new FileOutputStream(newfile);
+				
+				int read= 0;
+				byte[] b = new byte[(int)filevi.getSize()];
+				
+				while((read=inputStream.read(b)) != -1) {
+					outputStream.write(b, 0, read);
+				}
+				
+				String root = path+"/"+filename;
+				System.out.println(root);
+			
+				List<ImgVisionDto> list = vision.detectWebDetections(root);
+				
+				model.addAttribute("vision", list);
+				
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					inputStream.close();
+					outputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}			
+	 		
+	 		return "addr_res";
+	 	}
+	 
+	 @RequestMapping("/tandanji.do")
+	 public String tandanji(Model model,String foodname){
+		 
+		 try {
+			String foodname2 =  foodname.replace(" ", "");
+			System.out.println(foodname2);
+			List<FoodApiDto> list = foodApi.FoodSearch(foodname2);
+			
+			
+			model.addAttribute("list",list);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		 
+		 
+		 return "addr_res2";
+	 }
 	 
 
 	 @RequestMapping(value = "crawling.do")
@@ -173,8 +375,119 @@ public class HomeController {
 				return "redirect:notice_delete.do";
 			}
 		}
-}
+		
+		@RequestMapping("/main2.do")
+		public String main() {
+			return "main";
+		}
+		@RequestMapping(value="/map.do", method={RequestMethod.GET, RequestMethod.POST})
+		public String map() {		
+			return "map";
+		}
 
+		@RequestMapping("/map_category.do")
+		public String map_category() {
+			return "map_category";
+		}
+		
+		@RequestMapping("/map_search.do")
+		public String map_search() {
+			return "map_search";
+		}
+		
+		@RequestMapping(value="/map_search.do", method=RequestMethod.GET)
+		public String map_search(Model model, String foodselect) {
+			System.out.println(foodselect);
+			model.addAttribute("foodselect", foodselect);
+			return "map_search";
+		}	
+		
+		@RequestMapping("/chart01.do")
+		public String chart01() {
+			return "chart01";
+		}
+		
+		@RequestMapping("/chart02.do")
+		public String chart02() {
+			return "chart02";
+		}
+		
+		@RequestMapping("/chart_main.do")
+		public String chart_main(Model model, String user_id) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			String[] menuType = new String[dto.size()];
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+				menuType[i] = dto.get(i).getBm_type();
+				System.out.println("menutype : "+menuType[i]);
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+			model.addAttribute("menuType", menuType);
+			
+			return "chart_main";
+		}
+		
+		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String chart03(Model model, String user_id, String date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			System.out.println(date);
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+
+			return "chart03";
+		}
+		
+		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String chart04(Model model, String user_id) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+
+			return "chart04";
+		}
+		
+		@RequestMapping("/prac.do")
+		public String prac() {
+			return "prac";
+		}
+		
+		@RequestMapping("/main3.do")
+		public String main3() {
+			return "main3";
+		}
+}
 
 
 
