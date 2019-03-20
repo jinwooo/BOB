@@ -17,6 +17,12 @@
 	
 	<mappers>
 		<mapper resource="/sqls/mapper.xml"/>
+		<mapper resource="/sqls/boardMapper.xml"/>
+		<mapper resource="/sqls/replyMapper.xml"/>
 	</mappers>
+	
+<!-- 	<mappers> -->
+<!-- 		<mapper resource="/sqls/boardMapper.xml"/> -->
+<!-- 	</mappers> -->
 
 </configuration>

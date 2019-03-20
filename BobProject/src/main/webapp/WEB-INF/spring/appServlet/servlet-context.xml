@@ -20,6 +20,6 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.bob.proj" />
-	
+		
 	
 </beans:beans>
