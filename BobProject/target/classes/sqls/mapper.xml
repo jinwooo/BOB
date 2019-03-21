@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="bob">
+<mapper namespace="user">
+	
+	<insert id="join" parameterType="UserBoardDto">
+		INSERT INTO USERBOARD
+		VALUES(#{user_id},#{user_pw},#{user_name},#{user_email},#{user_birth},#{user_grade},#{user_sns},
+		#{user_confirm},#{user_img},#{cno})
+	</insert>
 	
 	
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM USERBOARD
+    	WHERE USER_ID = #{user_id}
+	</select>
+	
+	<select id="login" resultType="UserBoardDto" parameterType="map">
+		SELECT USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_BIRTH, USER_GRADE,USER_SNS,
+		USER_CONFIRM, USER_IMG, CNO
+		FROM USERBOARD
+		WHERE USER_ID = #{user_id} AND USER_PW = #{user_pw}
+	</select>
+	
+	<select id="selectOne" resultType="UserBoardDto" parameterType="String">
+		SELECT USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_BIRTH, USER_GRADE,USER_SNS,
+		USER_CONFIRM, USER_IMG, CNO
+		FROM USERBOARD
+		WHERE USER_ID = #{user_id}	
+	</select>
 </mapper>

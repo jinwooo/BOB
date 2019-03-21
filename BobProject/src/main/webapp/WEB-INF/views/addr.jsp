@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,15 +34,14 @@
 <body>
 	
  
-    <form:form action="imgvision.do" method="post" enctype="multipart/form-data">
+    <form action="imgvision.do" method="post" enctype="multipart/form-data">
         <input type="file" id="imgInp" name="filevi" />
         <p style="color:red;font-weight: bold;">
-			<form:errors path="file" />		
 		</p>
         <img id="foo"src="#" />
         <input type="hidden" id="imgname" name="imgname" value="">
         <input type="submit" value="전송">
-    </form:form>
+    </form>
 
 
 

@@ -392,7 +392,8 @@ button:hover{
 .form-container{
   position: absolute;
   width: 375px;
-  height: 460px;
+  height: 430px;
+
   background-color: white;
   top: -25px;
   left: 10px;
@@ -400,7 +401,7 @@ button:hover{
 }
 .sign-up,
 .login{
-  margin: 40px;
+  margin: 20px;
 }
 .back-btn{
   width: 100px;
@@ -555,11 +556,73 @@ input[type="email"]{
   font-size: 30px;
   color: #fff;
 } */
+</style>
+	<script type="text/javascript">
+ 	$(function(){
+		$("#alert-success").hide();
+ 		$("#alert-dangr").hide();
 
+	//이메일 인증 팝업
+	$(document).on('focus','#sendMessageButton',function(){		
+		setTimeout(function(){
+			$("#user_birth").focus();
+		},0);
+		window.open('mailform.do','test','width=400,height=400');
+		
+	});
+	// 아이디 인증 팝업
+	$(document).on('focus','#idChk',function(){
+		setTimeout(function(){
+			$("#pass").focus();
+		},0);
+		window.open('idChk.do','test','width=400,height=400');
+	});
+ 	
+	
+  	// 비밀번호 확인
+	 $("#passchk").keyup(function(){
+	 		var pw1 = $("#pass").val();
+	 	 	var pw2 = $("#passchk").val();
+	 if (pw1 == pw2) {
+ 	 		$("#alert-success").show();
+            $("#alert-danger").hide();
+ 	       }else{
+ 	       	$("#alert-success").hide();
+            $("#alert-danger").show();
+ 	       }	
+		});  
+  	// Login
+	 $("#login_bu").click(function(){
+			var user_idVal = $("#user_id_login").val();
+			var user_pwVal = $("#user_pw_login").val();
+			
+			if(user_idVal == null || user_idVal == ""){
+				alert("id를 확인해주세요");
+			} else if(user_pwVal == null || user_pwVal == ""){
+				alert("pw를 확인해주세요");
+			} else {
+				
+				$.ajax({
+					type:"post",
+					url:"loginajax.do",
+					data:"user_id="+user_idVal+"&user_pw="+user_pwVal,
+					success:function(msg){
+						if(msg.sendMessageButton==true){
+							location.href="login.do"
+						} else {
+							alert("아이디와 비밀번호를 확인하여주세요");
+						}
+					},
+					error:function(){
+						alert("로그인 실패");
+					}
+				});
+			}
+	 });
+ 	
+ 	});
 
-
-
-		</style>
+</script>
 	</head>
 
 	<body>
@@ -583,12 +646,12 @@ input[type="email"]{
         </div>
       </div>
       <ul>
-        <li><a  href="#section00"><span style="margin: 0; font-size: 20px;" class="back-header" >Vote Menu</span></a></li>
-        <li><a  href="#section01"><span style="margin: 0; font-size: 20px" class="back-header" >BOB Talk</span></a></li>
-        <li><a  href="#section02"><span style="margin: 0; font-size: 20px" class="back-header" >Diet</span> </a></li>
-        <li><a  href="#section03"><span style="margin: 0; font-size: 20px" class="back-header">Menu Table</span></a></li>
-        <li><a  href="#section04"><span style="margin: 0; font-size: 20px" class="back-header">Find Bistro</span></a></li>
-        <li><a  href="#section05"><span style="margin: 0; font-size: 20px" class="back-header">Notice Board</span></a></li>
+        <li><a  href="#section00"><span style="margin: 0; font-size: 20px;" class="back-header" >추천 메뉴</span></a></li>
+        <li><a  href="#section01"><span style="margin: 0; font-size: 20px" class="back-header" >밥 톡</span></a></li>
+        <li><a  href="#section02"><span style="margin: 0; font-size: 20px" class="back-header" >식단관리</span> </a></li>
+        <li><a  href="#section03"><span style="margin: 0; font-size: 20px" class="back-header">식단표</span></a></li>
+        <li><a  href="#section04"><span style="margin: 0; font-size: 20px" class="back-header">식당찾기</span></a></li>
+        <li><a  href="#section05"><span style="margin: 0; font-size: 20px" class="back-header">공지사항</span></a></li>
       </ul>
     </div>
   </nav>
@@ -612,21 +675,27 @@ input[type="email"]{
       </div>
     </div>
     <div class="form-container">
+    <form method="post" action="joinuser.do" >
       <div class="sign-up">
         <h2 class="form-header">SIGN UP</h2>
-        <input type="text" id="user" placeholder="ID"><i class="fa fa-user"></i></input>
-        <input type="password" id="pass" placeholder="Password"><i class="fa fa-lock"></i></input>
-        <input type="password" id="passchk" placeholder="Password Check"><i class="fa fa-lock"></i></input>
-        <input type="text" id="email" placeholder="Email"><i class="fa fa-envelope-o"></i></input>
-        <input type="text" id="adress" placeholder="Adress"><i class="fa fa-home"></i></input>
+        <input type="text" id="idChk" name="user_id"  placeholder="ID" readonly="readonly" />       
+        <input type="password" id="pass" name="user_pw" placeholder="Password" />
+        <input type="password" id="passchk" placeholder="Password Check" />
+        <div class="alert alert-success" id="alert-success" style="color:blue">비밀번호가 일치합니다</div>
+		<div class="alert alert-danger" id="alert-danger" style="color:red">비밀번호가 일치하지 않습니다.</div>
+        <input type="text" id="name" name="user_name" placeholder="Name" />
+        <input type="text" id="sendMessageButton" name="user_email" placeholder="Email" readonly="readonly" />
+        <input type="hidden" id="user_confirm" name="user_confirm" value="">
+        <input type="date" id="user_birth" name="user_birth" placeholder="Birth" />
         
-        <button class="form-btn">SIGN UP</button>
+        <button type="submit" class="form-btn">SIGN UP</button>
       </div>
+      </form>
       <div class="login hide">
         <h2 class="form-header">LOGIN</h2>
-        <input type="text" id="email" placeholder="Email"><i class="fa fa-envelope-o"></i></input>
-        <input type="password" id="pass" placeholder="Password"><i class="fa fa-lock"></i></input>
-        <button class="form-btn">LOGIN</button>
+        <input type="text" id="user_id_login" name="user_id" placeholder="Id"><i class="fa fa-envelope-o"></i></input>
+        <input type="password" id="user_pw_login" name="user_pw" placeholder="Password"><i class="fa fa-lock"></i></input>
+        <button class="form-btn" id="login_bu"  >LOGIN</button>
         <a class="forgot" href="#">Forgot password</a>
         
       </div>
@@ -644,7 +713,7 @@ input[type="email"]{
 
 			
 </section>
-<section >
+<section id="section01">
   <!-- <img id="sect" alt="채팅" src="" style="width: 30%; height: 70%; margin-top: 7%; margin-right: 40%;"> -->
 </section>
 <section id="section02">
