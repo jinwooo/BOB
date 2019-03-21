@@ -60,12 +60,12 @@
 
 	</bean>
 
-	<context:component-scan
-		base-package="com.bob.proj.api"></context:component-scan>
-	<context:component-scan
-		base-package="com.bob.proj.model.dto"></context:component-scan>
-	<context:component-scan
-		base-package="com.bob.proj.model.dao"></context:component-scan>
-	<context:component-scan
-		base-package="com.bob.proj.model.biz"></context:component-scan>
+	
+
+   
+   
+	<context:component-scan	base-package="com.bob.proj.api"></context:component-scan>
+	<context:component-scan	base-package="com.bob.proj.model.dto"></context:component-scan>
+	<context:component-scan	base-package="com.bob.proj.model.dao"></context:component-scan>
+	<context:component-scan	base-package="com.bob.proj.model.biz"></context:component-scan>
 </beans>

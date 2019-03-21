@@ -17,6 +17,18 @@
 
 	<a href="pay.do">pay</a>
 
+<<<<<<< HEAD
+	<a href="notice_list.do">공지사항</a> <br>
+	
+	
+	<h1>이광석Board</h1>
+<!-- 	<a href="board/write">게시판 작성</a> -->
+<!-- 	<a href="board/list">게시판 목록보기</a> -->
+<!-- 	<a href="board/listPage">글목록 + 페이지</a> -->
+	<a href="board/listSearch">글목록 + 페이지 + 목록 게시판</a>
+
+
+=======
 	<a href="notice_list.do">공지사항</a>
 	
 	<a href="main2.do">해수(메인)</a>
@@ -25,5 +37,6 @@
  	
  	<a href="prac.do">prac</a> -->
 	
+>>>>>>> refs/remotes/origin/master
 </body>
 </html>
