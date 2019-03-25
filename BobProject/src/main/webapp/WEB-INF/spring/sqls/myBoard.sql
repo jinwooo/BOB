@@ -36,7 +36,7 @@ alter table myReply
 CREATE SEQUENCE myReply_seq; 
 
 ------------------------------------------------
---게시글
+--게시글 ex
 insert into myBoard(bno,title,content,writer)
 	select myBoard_seq.nextval, title, content, writer from myBoard; 
 
