@@ -12,6 +12,8 @@
 <script type="text/javascript">
 
 $(function(){
+	$(".find").hide();
+	
 	$("#btn01").click(function(){
 		var emailval = $("#usermail").val();
 		var contentval = $("#content").val();
@@ -19,22 +21,26 @@ $(function(){
 		
 		$.ajax({
 			type:"POST",
-			url:"mailformajax.do",
+			url:"findformajax.do",
 			data :{"emailval" : emailval,"contentval":contentval,"emailauth" : emailauth},
 			dataType : "json",
 			success:function(data){
-				if(data < 1){
+				if(data.res < 1){
 					alert("인증되었습니다");
-					window.opener.document.getElementById("sendMessageButton").value = document.getElementById("usermail").value;
-					window.opener.document.getElementById("user_confirm").value = "Y";
-					self.close();
+					document.getElementById("id").innerHTML = data.id;
+					$(".find").show();
+					
 				}else{
 					alert("인증번호를 다시 확인해주세요.");
 				}
 			}
 		});
-	})
+	});
 	
+	$(document).on('click','#tanspw',function(){
+		
+		window.open('findpwform.do','test','width=400,height=400');
+	});
 });
 
 	</script>
@@ -46,7 +52,7 @@ $(function(){
 		
 			<table class="table">
 				<tr>
-					<th colspan="2">이메일로 본인 인증하기</th>
+					<th colspan="2">이메일로 아이디/비밀번호 찾기</th>
 				</tr>
 				<tr>
 					<td>이메일을 입력하세요</td>
@@ -66,8 +72,16 @@ $(function(){
 	<div class="container">
 		<input type="text" id="content" name="authnum1"/> 
 		<input type="hidden" id="emailauth" value="${emailauth }" />
-		<input type="button" onclick="/mailformajax.do" id="btn01" name="authnum2" value="인증하기"/>
+		<input type="button" onclick="/findformajax.do" id="btn01" name="authnum2" value="인증하기"/>
 	</div>
+
+	<div class="find">
+		아이디 :<span id="id"></span><br/>
+	
+	</div>
+	<hr/>
+	<input type="button" id="tanspw" value="비밀번호 변경하기" />
+
 
 </body>
 </html>

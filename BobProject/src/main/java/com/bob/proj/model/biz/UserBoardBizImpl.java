@@ -46,37 +46,30 @@ public class UserBoardBizImpl implements UserBoardBiz {
 	}
 
 
-	@Override
-	public int confirm(String user_id) {
-		return UserBoardDao.confirm(user_id);
-	}
 
 	@Override
 	public UserBoardDto findInfo(String email) {
-		return UserBoardDao.findInfo(email);
+		UserBoardDto dto = UserBoardDao.findInfo(email);
+		
+		if(dto != null) {		
+			System.out.println("성공");
+			return dto;			
+		}else {
+			System.out.println("실패");
+			return null;
+		}
+		
+		
 	}
 
-	@Override
-	public int updatePw(String user_id, String user_pw) {
-		return UserBoardDao.updatePw(user_id, user_pw);
-	}
+
 
 	@Override
 	public int idCheck(String user_id) {
 		return UserBoardDao.idCheck(user_id);
 	}
 
-	@Override
-	public int changeInfo(UserBoardDto dto) {
-		return UserBoardDao.changeInfo(dto);
-	}
-
 	
-	@Override
-	public int manageUser(String user_id, String user_grade) {
-
-		return UserBoardDao.manageUser(user_id, user_grade);
-	}
 
 	@Override
 	public UserBoardDto login(String user_id, String user_pw) {
@@ -95,7 +88,19 @@ public class UserBoardBizImpl implements UserBoardBiz {
 		
 	}
 
+	@Override
+	public int userUpdate(UserBoardDto dto) {
+		return 0;
+	}
 
-
+	@Override
+	public int transpw(UserBoardDto dto) {
+		
+		UserBoardDto user = UserBoardDao.selectOne(dto.getUser_id());
+		String encPassword = passwordEncoder.encode(dto.getUser_pw());
+		user.setUser_pw(encPassword);	
+		
+		return UserBoardDao.transpw(user);
+	}
 
 }

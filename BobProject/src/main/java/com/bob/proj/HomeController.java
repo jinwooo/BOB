@@ -568,12 +568,7 @@ public class HomeController {
 		System.out.println("진입");
 		return "login";
 	}
-	
-	/* 
-	 * @Param :  id : 사용자 ID
-	 * 			 pw : 사용자 PWD
-	 * 
-	 * */
+
 	
 	
 	@RequestMapping("/loginajax.do")
@@ -608,7 +603,147 @@ public class HomeController {
 		
 		return "login";
 	}
+	
+
+	@RequestMapping("/findform.do" )
+	public String findidpw(HttpServletRequest request, Model model, String email, String randomcode) {
+		String authNum = RandomNum();
 		
+		String setform = "ghdwns9a3@gmail.com";
+		String tomail = email; // �޴� ��� �̸���
+		String title = "BOBTONG ACCOUNT MAIL"; //����
+		String content = authNum;	
+		
+		
+		
+		System.out.println(setform);
+		System.out.println(email);
+		System.out.println(tomail);
+		System.out.println(content);
+		
+		try {
+			Authenticator auth = new SMTPAuthenticator();
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+			
+			messageHelper.setFrom(setform);
+			messageHelper.setTo(tomail); 
+			messageHelper.setSubject(title); 
+			messageHelper.setText(content);			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("emailauth", content);
+		model.addAttribute("email", tomail);
+		return "findform";
+}
+
+	@RequestMapping("/findformajax.do")
+	@ResponseBody
+	public HashMap<Object, Object> findajax( HttpServletRequest request, Model model,@RequestParam(required=false)String emailval,
+		@RequestParam(required=false)String contentval, @RequestParam(required=false)String emailauth) {
+
+	System.out.println("emailval:"+emailval);
+	
+	System.out.println("contentval:"+contentval);
+	System.out.println("emailauth : " + emailauth);
+	System.out.println(emailauth+ ":"+ contentval);
+	
+
+	if(contentval.equals(emailauth)) {
+		int res = 0;
+		System.out.println("일치");	
+		UserBoardDto dto = UserBiz.findInfo(emailval);
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		map.put("id", dto.getUser_id());
+		map.put("pw",dto.getUser_pw());
+		map.put("res",res);
+		
+		return map;
+	}else {
+		int res = 1;
+		System.out.println("불일치");
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		map.put("res",res);
+		return map;
+	}
+}
+	@RequestMapping("/findpwform.do")
+	public String findpwform(HttpServletRequest request, Model model, String email, String randomcode) {
+	String authNum = RandomNum();
+		
+		String setform = "ghdwns9a3@gmail.com";
+		String tomail = email; // �޴� ��� �̸���
+		String title = "BOBTONG ACCOUNT MAIL"; //����
+		String content = authNum;	
+		
+		
+		
+		System.out.println(setform);
+		System.out.println(email);
+		System.out.println(tomail);
+		System.out.println(content);
+		
+		try {
+			Authenticator auth = new SMTPAuthenticator();
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+			
+			messageHelper.setFrom(setform);
+			messageHelper.setTo(tomail); 
+			messageHelper.setSubject(title); 
+			messageHelper.setText(content);			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("emailauth", content);
+		model.addAttribute("email", tomail);
+		return "transpw";
+		
+	}
+
+	@RequestMapping(value = "transjax.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int transjax( HttpServletRequest request, Model model,@RequestParam(required=false)String emailval,
+			@RequestParam(required=false)String contentval, @RequestParam(required=false)String emailauth) {
+		if(contentval.equals(emailauth)) {
+			int res = 0;
+			System.out.println("일치");		
+			return res;
+		}else {
+			int res = 1;
+			System.out.println("불일치");
+			return res;
+		}
+	}
+	
+	@RequestMapping(value="/transrespw.do", method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<Object, Object> transrespw(HttpServletRequest request, String user_id, String user_pw) {
+		HashMap<Object, Object> map = new HashMap<>();
+		UserBoardDto dto = new UserBoardDto();
+		dto.setUser_id(user_id);
+		dto.setUser_pw(user_pw);
+		
+		int res = UserBiz.transpw(dto);
+		
+		
+		if(res > 0) {
+			int num = 0;
+			map.put("num", num);
+			return map;
+		}else {
+			int num = 1;
+			map.put("num", num);
+			return map;
+		}
+		
+		
+	
+	}
+	
 }
 
 

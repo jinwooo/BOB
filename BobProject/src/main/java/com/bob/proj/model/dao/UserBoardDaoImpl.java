@@ -74,26 +74,13 @@ public class UserBoardDaoImpl implements UserBoardDao {
 	}
 
 
-	@Override
-	public int confirm(String user_id) {
-		int res = 0;
-		
-		try {
-//			res = sqlSession.insert(NAMESPACE+"confirm",user_id);
-		}catch(Exception e) {
-			System.out.println("confirm error");
-			e.printStackTrace();
-		}
-		
-		return res;
-	}
 
 	@Override
 	public UserBoardDto findInfo(String user_email) {
 		UserBoardDto dto = new UserBoardDto();
 		
 		try {
-//			dto = sqlSession.selectOne(NAMESPACE+"findInfo",user_email);			
+		dto = sqlSession.selectOne(NAMESPACE+"findinfo",user_email);			
 		}catch(Exception e) {
 			System.out.println("findInfo error");
 			e.printStackTrace();
@@ -102,24 +89,7 @@ public class UserBoardDaoImpl implements UserBoardDao {
 		return dto;
 	}
 
-	@Override
-	public int updatePw(String user_id, String user_pw) {
-		int res = 0;
-		
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("user_id", user_id);
-		map.put("user_pw", user_pw);
-		
-		try {
-//			res = sqlSession.update(NAMESPACE+"updatePw",map);
-		}catch(Exception e) {
-			System.out.println("update error");
-			e.printStackTrace();
-		}
-	
-		
-		return res;
-	}
+
 
 	@Override
 	public int idCheck(String user_id) {
@@ -136,43 +106,11 @@ public class UserBoardDaoImpl implements UserBoardDao {
 	}
 
 	@Override
-	public int changeInfo(UserBoardDto dto) {
-		int res= 0;
-		
-		/*Map<String, String> map = new HashMap<String,String>();
-		map.put("user_id", user_id);
-		map.put("user_pw", user_pw);
-		map.put("user_name", user_name);
-		map.put("user_email", user_email);
-		map.put("user_phone", user_phone);
-		map.put("user_addr", user_addr);
-		*/
-		try {
-//			res = sqlSession.update(NAMESPACE+"login",map);
-		}catch(Exception e){
-			System.out.println("login error");
-			e.printStackTrace();
-		}
-		return res;
+	public int userUpdade(UserBoardDto dto) {
+
+		return 0;
 	}
 
-	@Override
-	public int manageUser(String user_id, String user_grade) {
-		int res = 0;
-		
-		Map<String, String> map = new HashMap<String,String>();
-		map.put("user_id", user_id);
-		map.put("user_grade", user_grade);
-		
-		try {
-//			res = sqlSession.selectOne(NAMESPACE+"login",map);
-		}catch(Exception e) {
-			System.out.println("login error");
-			e.printStackTrace();
-		}
-	
-		return res;
-	}
 
 	@Override
 	public UserBoardDto login(String user_id, String user_pw) {
@@ -189,6 +127,20 @@ public class UserBoardDaoImpl implements UserBoardDao {
 		}
 		
 		return user;
+	}
+
+	@Override
+	public int transpw(UserBoardDto dto) {
+
+		int res = 0;
+		try {
+		res = sqlSession.update(NAMESPACE + "transpw", dto);
+	} catch (Exception e) {
+		System.out.println("login error");
+		e.printStackTrace();
+	}
+		
+		return res;
 	}
 
 	

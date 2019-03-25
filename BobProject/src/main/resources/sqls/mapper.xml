@@ -27,4 +27,18 @@
 		FROM USERBOARD
 		WHERE USER_ID = #{user_id}	
 	</select>
+	
+	<select id="findinfo" resultType="UserBoardDto" parameterType="String">
+		SELECT USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_BIRTH, USER_GRADE,USER_SNS,
+		USER_CONFIRM, USER_IMG, CNO
+		FROM USERBOARD
+		WHERE USER_EMAIL = #{user_email}
+	</select>
+	
+	<update id="transpw" parameterType="UserBoardDto" >
+		UPDATE USERBOARD
+		SET USER_PW = #{user_pw}
+		WHERE USER_ID = #{user_id}
+	</update>
+	
 </mapper>

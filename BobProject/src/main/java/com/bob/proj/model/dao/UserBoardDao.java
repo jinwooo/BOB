@@ -12,13 +12,11 @@ public interface UserBoardDao {
 	public UserBoardDto selectOne(String user_id);
 	public int join(UserBoardDto dto);
 	public int snsJoin(UserBoardDto dto);
-	public int confirm(String user_id);
 	public UserBoardDto findInfo(String email);
-	public int updatePw(String user_id, String user_pw);
 	public int idCheck(String user_id);
-	public int changeInfo(UserBoardDto dto);
-	public int manageUser(String user_id, String user_grade);
+	public int userUpdade(UserBoardDto dto);
 	public UserBoardDto login(String user_id, String user_pw);
+	public int transpw(UserBoardDto dto);
 	
 
 }

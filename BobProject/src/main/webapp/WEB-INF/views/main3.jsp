@@ -561,7 +561,7 @@ input[type="email"]{
  	$(function(){
 		$("#alert-success").hide();
  		$("#alert-dangr").hide();
-
+		$("#pwch").hide();
 	//이메일 인증 팝업
 	$(document).on('focus','#sendMessageButton',function(){		
 		setTimeout(function(){
@@ -577,10 +577,14 @@ input[type="email"]{
 		},0);
 		window.open('idChk.do','test','width=400,height=400');
 	});
- 	
+	$(document).on('click','#findinfo',function(){
+		
+		window.open('findform.do','test','width=400,height=400');
+	});
 	
   	// 비밀번호 확인
-	 $("#passchk").keyup(function(){
+	 $(document).on('keyup','#passchk',function(){
+		 	$("#pwch").show()
 	 		var pw1 = $("#pass").val();
 	 	 	var pw2 = $("#passchk").val();
 	 if (pw1 == pw2) {
@@ -619,6 +623,8 @@ input[type="email"]{
 				});
 			}
 	 });
+  	
+  	
  	
  	});
 
@@ -681,8 +687,10 @@ input[type="email"]{
         <input type="text" id="idChk" name="user_id"  placeholder="ID" readonly="readonly" />       
         <input type="password" id="pass" name="user_pw" placeholder="Password" />
         <input type="password" id="passchk" placeholder="Password Check" />
+    	<div id="pwch">
         <div class="alert alert-success" id="alert-success" style="color:blue">비밀번호가 일치합니다</div>
 		<div class="alert alert-danger" id="alert-danger" style="color:red">비밀번호가 일치하지 않습니다.</div>
+    	</div>
         <input type="text" id="name" name="user_name" placeholder="Name" />
         <input type="text" id="sendMessageButton" name="user_email" placeholder="Email" readonly="readonly" />
         <input type="hidden" id="user_confirm" name="user_confirm" value="">
@@ -696,7 +704,7 @@ input[type="email"]{
         <input type="text" id="user_id_login" name="user_id" placeholder="Id"><i class="fa fa-envelope-o"></i></input>
         <input type="password" id="user_pw_login" name="user_pw" placeholder="Password"><i class="fa fa-lock"></i></input>
         <button class="form-btn" id="login_bu"  >LOGIN</button>
-        <a class="forgot" href="#">Forgot password</a>
+        <a class="forgot" id="findinfo">Forgot password</a>
         
       </div>
     </div>
