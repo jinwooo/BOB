@@ -29,7 +29,10 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public BoardDto read(int bno) throws Exception {
-		return sql.selectOne(namespace + ".read", bno);
+		
+		BoardDto res = sql.selectOne(namespace + ".read", bno);
+		
+		return res;
 	}
 
 	@Override
@@ -46,11 +49,16 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<BoardDto> list() throws Exception {
+	
+		
 		return sql.selectList(namespace+".list");
 	}
 
 	@Override
 	public List<BoardDto> listPage(Criteria cri) throws Exception {
+		
+		
+		
 		return sql.selectList(namespace+".listPage",cri);
 	}
 
@@ -62,7 +70,10 @@ public class BoardDaoImpl implements BoardDao {
 	//목록 페이징 검색
 	@Override
 	public List<BoardDto> listSearch(SearchCriteria scri) throws Exception {
-		return sql.selectList(namespace+".listSearch",scri);
+		
+		List<BoardDto> res = sql.selectList(namespace+".listSearch",scri);
+	
+		return res;
 	}
 
 	//검색 결과 갯수
