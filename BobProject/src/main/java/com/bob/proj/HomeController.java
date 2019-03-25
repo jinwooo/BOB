@@ -364,7 +364,7 @@ public class HomeController {
 		public String chart02() {
 			return "chart02";
 		}
-		
+	/*	
 		@RequestMapping("/chart_main.do")
 		public String chart_main(Model model, String user_id) {
 			List<BobManagerDto> dto = bobbiz.selectList(user_id);
@@ -429,7 +429,7 @@ public class HomeController {
 			model.addAttribute("kal",kal);
 
 			return "chart04";
-		}
+		}*/
 		
 		@RequestMapping("/prac.do")
 		public String prac() {
@@ -759,7 +759,7 @@ public class HomeController {
 		}		
 
 }
-}
+
 
 
 
