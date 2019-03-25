@@ -15,8 +15,8 @@ public class BobManagerBizImpl implements BobManagerBiz {
 	private BobManagerDao dao;
 
 	@Override
-	public List<BobManagerDto> selectList(String user_id) {
-		return dao.selectList(user_id);
+	public List<BobManagerDto> selectList(String user_id, String bm_date) {
+		return dao.selectList(user_id, bm_date);
 	}
 	
 

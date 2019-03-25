@@ -7,71 +7,72 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/date.css">
-<link rel="stylesheet" href="resources/css/chart_choice.css">
 <link rel="stylesheet" href="resources/css/button.css">
+<link rel="stylesheet" href="resources/css/date.css">
+<link rel="stylesheet" href="resources/css/menutype.css">
 </head>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-<script src="resources/js/date.js"></script>
-<script src="resources/js/chart_choice.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 <script src="resources/js/button.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#bobmanager_main").hide();
+		$(".main_wrap").hide();
+    	
+	    $("#bobmanager_button").click(function(){
+	    	$(".main_wrap").fadeIn("slow");
+	    });
 	})
 	
 	
 </script>
 <body>
 	<div>
-		<h1>HEADER</h1>
+		<%@ include file="form/header.jsp" %>		
 	</div>
-
-	<div class="body" style="width: 100%; height: 180px; position: relative;">
-		<div id="datetime">
-			<span id="year" class="active field">YYYY</span>
-			<span id="month" class="field">MMM</span>
-			<span id="day" class="field">DD</span>
-		</div>	
-		<div id="virtual_knob">
-			<div id="knob"></div>
-			<div id="dial"></div>
+	<div id="calendar_wrap" style="margin-top: 100px;">
+		<div class='formInput dateSelector'>
+			<i class='fa fa-calendar-o'></i>
+			<input type='text' name='birthday' id='hbdsdf' placeholder='날짜를 선택해주세요' />
 		</div>
+		<script src="resources/js/date.js"></script>
+		<div style="position: relative;">
+			<button id="bobmanager_button">선 택</button>
+		</div>			
 	</div>
-	
-	<div style="position: relative;">
-		<button id="bobmanager_button">선 택</button>		
-	</div>
-	
-	<div id="bobmanager_main">	
-		<div>
-			<c:forEach items="${kal }" var="kal" begin="0" end="2">
-				<div style="margin-left: 72px; margin-right: 75px; z-index: 4; width:25%; height: 300px; margin-top: 30px; float: left; border-radius: 100px; border: 3px solid rgba(0,0,0,0.5);">
-					<h1 style="font-size: 30pt;  text-align: center; padding-top: 35px;">${kal } kal</h1>
+	<!-- 
+		iframe 을 세개를 주고 각각 아침, 점심, 저녁으로 사용
+		controller 에서는 하나로 사용하여 아침, 점심, 저녁일 때에 맞춰 다른 값을 보내어주 하나의 컨트롤러에서 관리할 수 있게 만들기
+	 -->
+	<div class="main_wrap">
+		<div id="bobmanager_main">
+			<div style="width: 100%; display: table;">
+				<div class="menutype_wrap" style="width: 33%; text-align: center; display: table-cell; vertical-align: middle;">
+					<iframe id="menutype_result_morning" 
+					style="width: 100%; height:500px; border: none;" scrolling="no" src=""></iframe>
 				</div>
-			</c:forEach>
-				
-		</div>
-		<script type="text/javascript">
+				<div class="menutype_wrap" style="width: 33%; text-align: center; display: table-cell; vertical-align: middle;">
+					<iframe id="menutype_result_lunch" 
+					style="width: 100%; height:500px; border: none;" scrolling="no" src=""></iframe>
+				</div>
+				<div class="menutype_wrap" style="width: 33%; text-align: center; display: table-cell; vertical-align: middle;">
+					<iframe id="menutype_result_dinner" 
+					style="width: 100%; height:500px; border: none;" scrolling="no" src=""></iframe>
+				</div>						
+			</div>
 			
-		</script>
-		<div style="width:100%; text-align: center;">
-			<div id="chart_wrap" style="width:50%; margin: auto;">
-				<iframe id="chart_result" style="border:none; min-width: 500px; width: auto; height: 400px;" scrolling="no" src="chart03.do?user_id=test&"></iframe>
-				<input id="choice_date" type="hidden" value="">
+			<!-- iframe src 에 공백을 넣어놓고, 날짜 선택했을 때 src 를 수정해주는 방법을 사용 -->
+			<div style="width:100%; display: table;">
+				<div id="chart_wrap" style="width:50%; text-align: center; display: table-cell; vertical-align: middle;">
+					<iframe id="chart_donut" src=""></iframe>
+				</div>
+				<div id="chart_wrap" style="width:50%; text-align: center; display: table-cell; vertical-align: middle;">
+					<iframe id="chart_bar" src=""></iframe>
+				</div>			
 			</div>
 		</div>
-		
-		<div id="app_body">
-			<div id="app">
-				<div id="btn01" class="button active"></div>
-				<div id="btn02" class="button"></div>
-			</div>	
-		</div>
 	</div>
-	
-	<div>
+	<input id="choice_date" type="hidden" value="">
+	<div style="margin-top: 40px;">
 		<h1>FOOTER</h1>
 	</div>
 </body>

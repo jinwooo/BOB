@@ -47,7 +47,7 @@ var outerRadius = 150;
 var innerRadius = 100;
 
 var color = d3.scale.category10()
-  .range(['#828282', '#969696', '#CCaaaaff']);
+  .range(['#F28169', '#8AC4E3', '#DEDF04','rgba(75, 192, 192, 0.2)','rgba(153, 102, 255, 0.2)','#CDD0D7']);
 
 var pie = d3.layout.pie()
   .value(function(d) { return d.value; })

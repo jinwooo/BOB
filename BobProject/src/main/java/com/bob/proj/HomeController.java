@@ -743,7 +743,22 @@ public class HomeController {
 		
 	
 	}
-	
+		@RequestMapping("/header.do")
+		public String header() {
+			return "header";
+		}
+		
+		@RequestMapping("/footer.do")
+		public String footer() {
+			return "footer";
+		}
+		
+		@RequestMapping("/main_menu.do")
+		public String main_menu() {
+			return "main_page";
+		}		
+
+}
 }
 
 

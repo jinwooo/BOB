@@ -6,7 +6,7 @@ public class BobManagerDto {
 
 	private int bm_id;
 	private String user_id;
-	private Date bm_date;
+	private String bm_date;
 	private String bm_type;
 	private String bm_menu;
 	private String bm_kal;
@@ -15,7 +15,7 @@ public class BobManagerDto {
 	public BobManagerDto() {
 	}
 
-	public BobManagerDto(int bm_id, String user_id, Date bm_date, String bm_type, String bm_menu, String bm_kal,
+	public BobManagerDto(int bm_id, String user_id, String bm_date, String bm_type, String bm_menu, String bm_kal,
 			String bm_img) {
 		super();
 		this.bm_id = bm_id;
@@ -43,11 +43,11 @@ public class BobManagerDto {
 		this.user_id = user_id;
 	}
 
-	public Date getBm_date() {
+	public String getBm_date() {
 		return bm_date;
 	}
 
-	public void setBm_date(Date bm_date) {
+	public void setBm_date(String bm_date) {
 		this.bm_date = bm_date;
 	}
 
