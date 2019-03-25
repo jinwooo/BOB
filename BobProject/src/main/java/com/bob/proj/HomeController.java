@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.io.FileOutputStream;
@@ -412,54 +414,99 @@ public class HomeController {
 			return "chart02";
 		}
 		
-		@RequestMapping("/chart_main.do")
-		public String chart_main(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			
-			String[] menu = new String[dto.size()];
+		@RequestMapping("/menutype.do")
+		public String menutype(Model model, String user_id, String bm_date, String type) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
+			System.out.println("type : "+type);
+			// 총 칼로리를 담을 객체
 			int[] kal = new int[dto.size()];
-			int size = dto.size();
-			String[] menuType = new String[dto.size()];
+			// 모든 메뉴를 담을 객체
+			String[] menu = new String[dto.size()];
 			
+			int size = dto.size();
+			
+			// 아침,점심, 저녁 칼로리를 담을 객체
+			int kal_res = 0;
+			
+			String menu_res = "";
+			
+			String menu_type = "";
+			
+			String img = "";
+			
+			// 메뉴 타입이 아침, 점심, 저녁일 때, 각각 칼로리를 담아줌
 			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
 				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-				menuType[i] = dto.get(i).getBm_type();
-				System.out.println("menutype : "+menuType[i]);
+				
+				if(type.equals("morning") && dto.get(i).getBm_type().equals("아침")) {
+					kal_res += kal[i];
+					menu_res += dto.get(i).getBm_menu();
+					menu_type = dto.get(i).getBm_type();
+					int cnt = 0;
+					if(cnt == 0) {
+						
+					}
+				} else if(type.equals("lunch") && dto.get(i).getBm_type().equals("점심")){
+					kal_res += kal[i];
+					menu_res += dto.get(i).getBm_menu();
+					menu_type = dto.get(i).getBm_type();
+				} else if(type.equals("dinner") && dto.get(i).getBm_type().equals("저녁")){
+					kal_res += kal[i];
+					menu_res += dto.get(i).getBm_menu();
+					menu_type = dto.get(i).getBm_type();
+				}
 			}
 			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
-			model.addAttribute("menuType", menuType);
+			model.addAttribute("kal_res", kal_res);
+			model.addAttribute("menu_res", menu_res);
+			model.addAttribute("menu_type",menu_type);
+			
+			return "menutype";
+		}
+		
+		@RequestMapping("/chart_main.do")
+		public String chart_main(Model model, String user_id, String bm_date) {
 			
 			return "chart_main";
 		}
 		
 		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String chart03(Model model, String user_id, String date) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			System.out.println(date);
+		public String chart03(Model model, String user_id, String bm_date) throws ParseException {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
 			int size = dto.size();
+				
+			int morning =0, lunch = 0, dinner = 0;
 			
-			
+			System.out.println(dto.get(0).getBm_type());
 			for(int i=0; i<dto.size(); i++) {
 				menu[i] = dto.get(i).getBm_menu();
 				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+/*				if(dto.get(i).getBm_type().equals("아침")) {
+					morning += kal[i];
+				} else if(dto.get(i).getBm_type().equals("점심")){
+					lunch += kal[i];
+				} else {
+					dinner += kal[i];
+				}*/
 			}
 			
 			model.addAttribute("size",size);
 			model.addAttribute("menu",menu);
 			model.addAttribute("kal",kal);
-
+/*			
+			model.addAttribute("morning",morning);
+			model.addAttribute("lunch",lunch);
+			model.addAttribute("dinner",dinner);*/
+			
 			return "chart03";
 		}
 		
 		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String chart04(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+		public String chart04(Model model, String user_id, String bm_date) throws ParseException {
+
+			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
 			
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
@@ -487,6 +534,27 @@ public class HomeController {
 		public String main3() {
 			return "main3";
 		}
+		
+		@RequestMapping("/test.do")
+		public String test() {
+			return "test";
+		}
+		
+		@RequestMapping("/header.do")
+		public String header() {
+			return "header";
+		}
+		
+		@RequestMapping("/footer.do")
+		public String footer() {
+			return "footer";
+		}
+		
+		@RequestMapping("/main_menu.do")
+		public String main_menu() {
+			return "main_page";
+		}		
+
 }
 
 
