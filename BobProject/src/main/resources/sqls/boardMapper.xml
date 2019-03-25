@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="boardMapper">
+	
+	<!-- 작성 -->
+	<insert id="write">
+		insert into myBoard(bno, title, content, writer)
+     	values (myBoard_seq.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<!-- 조회 -->
+	 <select id="read" resultType="com.bob.proj.model.dto.BoardDto">
+	  select bno, title, content, writer, regDate, viewCnt
+	   from myBoard
+	    where bno = #{bno}
+	 </select>
+	
+	 <!-- 수정 --> 
+	 <update id="update">
+	  update myBoard
+	   set
+	    title = #{title},
+	    content = #{content}
+	   where bno = #{bno}  
+	 </update>
+	 
+	 <!-- 삭제 -->
+	 <delete id="delete">
+	  delete from myBoard where bno = #{bno}
+	 </delete>
+	 
+	 <!-- 목록 -->
+	 <select id="list" resultType="com.bob.proj.model.dto.BoardDto">
+	 	select bno, title, writer, regDate
+	 	from myBoard
+	 	order by bno desc
+	 </select>
+	 
+	 <!-- 페이징 -->
+	<select id="listPage" resultType="com.bob.proj.model.dto.BoardDto" parameterType="com.bob.proj.model.dto.Criteria">
+		select bno, title, content, writer, regDate, viewCnt
+       	from (
+           select bno, title, content, writer, regDate, viewCnt,
+               row_number() over(order by bno desc) as rNum
+           from myBoard
+    	) mb
+  	 	where rNum between #{rowStart} and #{rowEnd}
+        order by bno desc
+	</select>	
+	
+	<!-- 게시물의 총 갯수를 구하는 쿼리 -->
+	<select id="listCount" resultType="int">
+		<![CDATA[
+			select count(bno)
+				from myBoard
+					where bno > 0
+		]]>
+	</select> 
+	
+	<!-- 검색 -->
+	<select id="listSearch" resultType="com.bob.proj.model.dto.BoardDto"
+	parameterType="com.bob.proj.model.dto.SearchCriteria">
+		select bno, title, content, writer, regDate, viewCnt
+        from (
+           select bno, title, content, writer, regDate, viewCnt,
+               row_number() over(order by bno desc) as rNum
+           from myBoard
+      	   <include refid="search"></include>
+    	 ) mb
+   		 where rNum between #{rowStart} and #{rowEnd}
+     	 order by bno desc
+	</select>
+	
+	<sql id="search">
+	 <if test="searchType != null">
+	  <if test="searchType == 't'.toString()">where title like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'c'.toString()">where content like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'w'.toString()">where writer like '%' || #{keyword} || '%'</if>
+	  <if test="searchType == 'tc'.toString()">where (title like '%' || #{keyword} || '%') or (content like '%' || #{keyword} || '%')</if>
+	 </if>
+	</sql>
+	
+	<!-- 검색어에 맞는 게시물 갯수 -->
+	<select id="countSearch" resultType="int">
+		 select count(bno)
+		  from myBoard
+		   <include refid="search"></include>
+		<![CDATA[
+		   and bno > 0
+		]]>
+	</select>
+	
+</mapper>

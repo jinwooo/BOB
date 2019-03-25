@@ -1,55 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<link href="https://fonts.googleapis.com/css?family=PT+Sans|Ubuntu:400,500" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
-		<meta charset="utf-8">
+		<meta charset="UTF-8">
 		<title>Login to Celyes</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script type="text/javascript">
-	// Çì´õ ºÎºĞ ¸Ş´º ¹Ù²î´Â °Í ½ÃÀÛ
-		$( () => {
-			
-			//On Scroll Functionality
-			$(window).scroll( () => {
-				var windowTop = $(window).scrollTop();
-				windowTop > 100 ? $('nav').addClass('navShadow') : $('nav').removeClass('navShadow');
-				windowTop > 100 ? $('ul').css('top','100px') : $('ul').css('top','160px');
-			});
-			
-			//Click Logo To Scroll To Top
-			$('#logo').on('click', () => {
-				$('html,body').animate({
-					scrollTop: 0
-				},500);
-			});
-			
-			//Smooth Scrolling Using Navigation Menu
-			$('a[href*="#"]').on('click', function(e){
-				$('html,body').animate({
-					scrollTop: $($(this).attr('href')).offset().top - 100
-				},500);
-				e.preventDefault();
-			});
-			
-			//Toggle Menu
-			$('#menu-toggle').on('click', () => {
-				$('#menu-toggle').toggleClass('closeMenu');
-				$('ul').toggleClass('showMenu');
-				
-				$('li').on('click', () => {
-					$('ul').removeClass('showMenu');
-					$('#menu-toggle').removeClass('closeMenu');
-				});
-			});
-			
-		});
-		// Çì´õ ºÎºĞ ¸Ş´º ¹Ù²î´Â °Í ³¡
-		
-		// top ¹öÆ° ½ÃÀÛ
+
+		// top ë²„íŠ¼ ì‹œì‘
 		$(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 100) {
@@ -66,9 +28,9 @@
         return false;
     });
 });
-		// top ¹öÆ° ³¡
+		// top ë²„íŠ¼ ë
 
-		// ·Î±×ÀÎ ½ÃÀÛ
+		// ë¡œê·¸ì¸ ì‹œì‘
 		$(document).ready(function(){
 	  var signUp = $('.signup-but');
 	  var logIn = $('.login-but');
@@ -87,7 +49,7 @@
 	    $('.form-container').animate({left: '400px'}, 'slow');
 	  });
 	});
-		// ·Î±×ÀÎ ³¡
+		// ë¡œê·¸ì¸ ë
 		
 		</script>
 		<style type="text/css">
@@ -107,136 +69,15 @@ body {
 /*** Color Variables ***/
 /*** Centering Hack ***/
 /*** Header Styles ***/
-header {
-  width: 100vw;
-  height: 100vh;
-  background: #5661f2;
-  display: flex;
-}
-
 /*** Navigation Styles ***/
-nav {
-  width: 100vw;
-  height: 160px;
-  background: #46b2f0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: fixed;
-  z-index: 10;
-  transition: all 0.3s;
-}
-nav.navShadow {
-  box-shadow: 0 4px 30px -5px rgba(0, 0, 0, 0.2);
-  height: 100px;
-}
-nav.navShadow #word-mark {
-  opacity: 0;
-}
-
-#brand,
-#menu,
-ul {
-  display: flex;
-  align-items: center;
-    list-style:none;
-}
-
-#brand {
-  padding-left: 40px;
-}
-
-#logo {
-  width: 55px;
-  height: 55px;
-/*   border-radius: 50%; */
-  cursor: pointer;
-}
-
-#logo-img{
-	  width: 70px;
-  height: 70px;
-}
-
-
-#word-mark {
-  width: 120px;
-  height: 20px;
-/*   background: #fff; */
-  border-radius: 90px;
-  margin-left: 20px;
-/*   opacity: 1; */
-  transition: all 0.3s;
-}
-
 /*** Menu Styles ***/
-#menu {
-  justify-content: flex-end;
-  padding-right: 40px;
-}
-
-li {
-  margin-left: 20px;
-}
-nav li a {
-  width: 80px;
-  height: 20px;
-/*   background: #fff; */
-  text-decoration:none;
-  display: block;
-}
-
-#menu-toggle {
-  width: 55px;
-  height: 55px;
-  background: #2ea8ee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  cursor: pointer;
-  display: none;
-}
-#menu-toggle:hover .bar {
-  width: 25px;
-}
-#menu-toggle.closeMenu .bar {
-  width: 25px;
-}
-#menu-toggle.closeMenu .bar:first-child {
-  -webkit-transform: translateY(7px) rotate(45deg);
-          transform: translateY(7px) rotate(45deg);
-}
-#menu-toggle.closeMenu .bar:nth-child(2) {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-}
-#menu-toggle.closeMenu .bar:last-child {
-  -webkit-transform: translateY(-7px) rotate(-45deg);
-          transform: translateY(-7px) rotate(-45deg);
-}
-
-.bar {
-  width: 25px;
-  height: 2px;
-  background: #fff;
-  transition: 0.3s ease-in-out;
-}
-.bar:nth-child(2) {
-  width: 20px;
-  margin: 5px 0;
-}
-.bar:last-child {
-  width: 15px;
-}
 
 /*** Hero Section Styles ***/
 #hero-section {
-  width: 100vw;
-  height: calc(100vh - 160px);
+  width: 100%;
+  padding-left: 1px;   
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top: 160px;
   background-color: white;
 }
 
@@ -247,54 +88,10 @@ nav li a {
   border-radius: 90px;
   position: relative;
 }
-#head-line:before, #head-line:after {
-  content: "";
-  height: 30px;
-  border-radius: 90px;
-}
-#head-line:before {
-  width: 360px;
-  background: #fff;
-  position: absolute;
-  top: -60px;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-}
-#head-line:after {
-  width: 200px;
-  background: #fff;
-  position: absolute;
-  left: 50%;
-  bottom: -60px;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-}
-
-/*** Section Styles ***/
-section {
-  width: 100vw;
-  height: calc(100vh - 100px);
-  display: flex;
-  justify-content: center;
-}
-section:nth-child(odd) {
-  background: white;
-}
-section:nth-child(even) {
-  background: white;
-}
-
-#heading {
-  width: 120px;
-  height: 20px;
-  background: #fff;
-  border-radius: 90px;
-  margin-top: 40px;
-}
 
 
-/*** top ¹öÆ° ***/
+
+/*** top ë²„íŠ¼ ***/
 
   a#MoveTop {
     position: fixed;
@@ -316,6 +113,7 @@ section:nth-child(even) {
   bottom: 0;
   width: 100%;
   max-width:100%;
+  height: 80%;
   
 /* min-height: 100%; */
 /*    height: 100%;  */
@@ -392,7 +190,8 @@ button:hover{
 .form-container{
   position: absolute;
   width: 375px;
-  height: 460px;
+  height: 430px;
+
   background-color: white;
   top: -25px;
   left: 10px;
@@ -400,7 +199,7 @@ button:hover{
 }
 .sign-up,
 .login{
-  margin: 40px;
+  margin: 20px;
 }
 .back-btn{
   width: 100px;
@@ -486,17 +285,7 @@ input[type="email"]{
 	z-index: 2;
 }
 
-/*** footer ***/
 
-.footer {
-  position: relative;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
-}
 
 /*** Responsive Menu For Smaller Device ***/
 @media screen and (max-width: 767px) {
@@ -504,43 +293,6 @@ input[type="email"]{
     display: flex;
   }
 
-  nav ul {
-    display: inline-block;
-    width: 100vw;
-    height: 0;
-    background: #79edfc;
-    position: absolute;
-    top: 160px;
-    -webkit-transform: translate(, );
-            transform: translate(, );
-    box-shadow: 0 5px 30px -4px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s;
-  }
-  ul.showMenu {
-    height: 250px;
-  }
-  ul.showMenu li {
-    height: 80px;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  nav li {
-    width: 50%;
-    height: 80px;
-    float: left;
-    padding-left: 40px;
-    opacity: 0;
-    visibility: hidden;
-    margin-left: 0;
-    transition: all 0.3s 0.1s;
-  }
-  nav li:hover > ul{
-  	display:block
-  }
-  li:first-child, li:nth-child(2) {
-    margin-top: 80px;
-  }
 
   #head-line {
     -webkit-transform: scale(0.8);
@@ -548,54 +300,92 @@ input[type="email"]{
   }
 
 }
-/* #youtube {
-  position: fixed;
-  right: 2vw;
-  bottom: 2vh;
-  font-size: 30px;
-  color: #fff;
-} */
 
+</style>
+	<script type="text/javascript">
+ 	$(function(){
+		$("#alert-success").hide();
+ 		$("#alert-dangr").hide();
+		$("#pwch").hide();
+	//ì´ë©”ì¼ ì¸ì¦ íŒì—…
+	$(document).on('focus','#sendMessageButton',function(){		
+		setTimeout(function(){
+			$("#user_birth").focus();
+		},0);
+		window.open('mailform.do','test','width=400,height=400');
+		
+	});
+	// ì•„ì´ë”” ì¸ì¦ íŒì—…
+	$(document).on('focus','#idChk',function(){
+		setTimeout(function(){
+			$("#pass").focus();
+		},0);
+		window.open('idChk.do','test','width=400,height=400');
+	});
+	$(document).on('click','#findinfo',function(){
+		
+		window.open('findform.do','test','width=400,height=400');
+	});
+	
+  	// ë¹„ë°€ë²ˆí˜¸ í™•ì¸
+	 $(document).on('keyup','#passchk',function(){
+		 	$("#pwch").show()
+	 		var pw1 = $("#pass").val();
+	 	 	var pw2 = $("#passchk").val();
+	 if (pw1 == pw2) {
+ 	 		$("#alert-success").show();
+            $("#alert-danger").hide();
+ 	       }else{
+ 	       	$("#alert-success").hide();
+            $("#alert-danger").show();
+ 	       }	
+		});  
+  	// Login
+	 $("#login_bu").click(function(){
+			var user_idVal = $("#user_id_login").val();
+			var user_pwVal = $("#user_pw_login").val();
+			
+			if(user_idVal == null || user_idVal == ""){
+				alert("idë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”");
+			} else if(user_pwVal == null || user_pwVal == ""){
+				alert("pwë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”");
+			} else {
+				
+				$.ajax({
+					type:"post",
+					url:"loginajax.do",
+					data:"user_id="+user_idVal+"&user_pw="+user_pwVal,
+					success:function(msg){
+						if(msg.sendMessageButton==true){
+							location.href="login.do"
+						} else {
+							alert("ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•˜ì—¬ì£¼ì„¸ìš”");
+						}
+					},
+					error:function(){
+						alert("ë¡œê·¸ì¸ ì‹¤íŒ¨");
+					}
+				});
+			}
+	 });
+  	
+  	
+ 	
+ 	});
 
-
-
-		</style>
+</script>
 	</head>
 
 	<body>
 
 <header>
-  <nav>
-    <div id="brand" style="background-color: rgb(220,200,200); 	z-index: 10;">
-      <div id="logo">
-      	<img id="logo-img" alt="·Î°í" src="resources/image/·Î°í.png">
-      </div>
-      <div id="word-mark" >
-       	<h2 class="back-header" style="margin: 0; z-index: 999;">BOBTONG</h2>
-      </div>
-    </div>
-    <div id="menu" style="background-color: rgb(220,200,200); z-index: 10;">
-      <div id="menu-toggle">
-        <div id="menu-icon">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </div>
-      <ul>
-        <li><a  href="#section00"><span style="margin: 0; font-size: 20px;" class="back-header" >Vote Menu</span></a></li>
-        <li><a  href="#section01"><span style="margin: 0; font-size: 20px" class="back-header" >BOB Talk</span></a></li>
-        <li><a  href="#section02"><span style="margin: 0; font-size: 20px" class="back-header" >Diet</span> </a></li>
-        <li><a  href="#section03"><span style="margin: 0; font-size: 20px" class="back-header">Menu Table</span></a></li>
-        <li><a  href="#section04"><span style="margin: 0; font-size: 20px" class="back-header">Find Bistro</span></a></li>
-        <li><a  href="#section05"><span style="margin: 0; font-size: 20px" class="back-header">Notice Board</span></a></li>
-      </ul>
-    </div>
-  </nav>
+
+
+
   <div id="hero-section">
    <!--  <div id="head-line"></div> -->
      <!-- <div id="heading"></div> -->
-   <video id="video-background" src="resources/video/ÀâÃ¤.mp4" autoplay="autoplay" muted="muted" loop="loop" > ´ç½ÅÀÇ ºê¶ó¿ìÀú¿¡¼­´Â ½ÇÇàµÇÁö ¾Ê½À´Ï´Ù.</video>
+   <video id="video-background" src="resources/video/ì¡ì±„.mp4" autoplay="autoplay" muted="muted" loop="loop" > ë‹¹ì‹ ì˜ ë¸Œë¼ìš°ì €ì—ì„œëŠ” ì‹¤í–‰ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</video>
 			<div id="onvideo">
 				 
 				 	 <div class="wrapper">
@@ -612,22 +402,30 @@ input[type="email"]{
       </div>
     </div>
     <div class="form-container">
+    <form method="post" action="joinuser.do" >
       <div class="sign-up">
         <h2 class="form-header">SIGN UP</h2>
-        <input type="text" id="user" placeholder="ID"><i class="fa fa-user"></i></input>
-        <input type="password" id="pass" placeholder="Password"><i class="fa fa-lock"></i></input>
-        <input type="password" id="passchk" placeholder="Password Check"><i class="fa fa-lock"></i></input>
-        <input type="text" id="email" placeholder="Email"><i class="fa fa-envelope-o"></i></input>
-        <input type="text" id="adress" placeholder="Adress"><i class="fa fa-home"></i></input>
+        <input type="text" id="idChk" name="user_id"  placeholder="ID" readonly="readonly" />       
+        <input type="password" id="pass" name="user_pw" placeholder="Password" />
+        <input type="password" id="passchk" placeholder="Password Check" />
+    	<div id="pwch">
+        <div class="alert alert-success" id="alert-success" style="color:blue">ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•©ë‹ˆë‹¤</div>
+		<div class="alert alert-danger" id="alert-danger" style="color:red">ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.</div>
+    	</div>
+        <input type="text" id="name" name="user_name" placeholder="Name" />
+        <input type="text" id="sendMessageButton" name="user_email" placeholder="Email" readonly="readonly" />
+        <input type="hidden" id="user_confirm" name="user_confirm" value="">
+        <input type="date" id="user_birth" name="user_birth" placeholder="Birth" />
         
-        <button class="form-btn">SIGN UP</button>
+        <button type="submit" class="form-btn">SIGN UP</button>
       </div>
+      </form>
       <div class="login hide">
         <h2 class="form-header">LOGIN</h2>
-        <input type="text" id="email" placeholder="Email"><i class="fa fa-envelope-o"></i></input>
-        <input type="password" id="pass" placeholder="Password"><i class="fa fa-lock"></i></input>
-        <button class="form-btn">LOGIN</button>
-        <a class="forgot" href="#">Forgot password</a>
+        <input type="text" id="user_id_login" name="user_id" placeholder="Id"><i class="fa fa-envelope-o"></i></input>
+        <input type="password" id="user_pw_login" name="user_pw" placeholder="Password"><i class="fa fa-lock"></i></input>
+        <button class="form-btn" id="login_bu"  >LOGIN</button>
+        <a class="forgot" id="findinfo">Forgot password</a>
         
       </div>
     </div>
@@ -636,34 +434,5 @@ input[type="email"]{
 			</div>	<!-- onvideo -->
   </div>
 </header>
-<section id="section00">
-<div id="sec-back1">
-				<h1  style="padding-left:180px; padding-top:300px;  color: white; font-size: 52px;">¸Ô°í ½ÍÀº À½½Ä</h1>
-				<h1  style="padding-left:180px; padding-top:0px;  color: white; font-size: 52px;">¸¶À½´ë·Î ¸ÔÀÚ!</h1>
-			</div> 
-
-			
-</section>
-<section >
-  <!-- <img id="sect" alt="Ã¤ÆÃ" src="" style="width: 30%; height: 70%; margin-top: 7%; margin-right: 40%;"> -->
-</section>
-<section id="section02">
-	<!-- <img alt="¿îµ¿" src="resources/image/¿îµ¿.jpg" style="width: 100%; height: 100%; "> -->
-</section>
-<section id="section03">
-  			<div id="th-back">
-				<h1  style="padding-left:180px; padding-top:300px;  color: black; font-size: 52px;">¿À´ÃÀÇ ½Ä´ÜÀº?</h1>
-			</div>
-</section>
-<section id="section04">
-  			<!-- <img alt="Áöµµ" src="resources/image/Áöµµ(re).jpg" style="width: 100%; height: 100%; "> -->
-</section>
-<section id="section05">
-  			
-</section>
-
-	<a id="MoveTop" href="#"><img id="topButton" alt="top" src="resources/image/top.png"></a>
-	
-<div class="footer">¹äÀ¸·Î ¼ÒÅëÇÏ´Â °ø°£ <strong>BOBTONG</strong></div>
 </body>
 </html>

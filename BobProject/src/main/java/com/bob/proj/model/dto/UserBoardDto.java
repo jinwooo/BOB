@@ -2,15 +2,15 @@ package com.bob.proj.model.dto;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class UserBoardDto {
 
 	private String user_id;
 	private String user_pw;
 	private String user_name;
 	private String user_email;
-	private String user_addr;
-	private String user_phone;
-	private String user_gender;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date user_birth;
 	private String user_grade;
 	private String user_sns;
@@ -21,17 +21,13 @@ public class UserBoardDto {
 	public UserBoardDto() {
 	}
 
-	public UserBoardDto(String user_id, String user_pw, String user_name, String user_email, String user_addr,
-			String user_phone, String user_gender, Date user_birth, String user_grade, String user_sns,
-			String user_confirm, String user_img, int cno) {
+	public UserBoardDto(String user_id, String user_pw, String user_name, String user_email,Date user_birth,
+			String user_grade, String user_sns,	String user_confirm, String user_img, int cno) {
 		super();
 		this.user_id = user_id;
 		this.user_pw = user_pw;
 		this.user_name = user_name;
 		this.user_email = user_email;
-		this.user_addr = user_addr;
-		this.user_phone = user_phone;
-		this.user_gender = user_gender;
 		this.user_birth = user_birth;
 		this.user_grade = user_grade;
 		this.user_sns = user_sns;
@@ -72,29 +68,6 @@ public class UserBoardDto {
 		this.user_email = user_email;
 	}
 
-	public String getUser_addr() {
-		return user_addr;
-	}
-
-	public void setUser_addr(String user_addr) {
-		this.user_addr = user_addr;
-	}
-
-	public String getUser_phone() {
-		return user_phone;
-	}
-
-	public void setUser_phone(String user_phone) {
-		this.user_phone = user_phone;
-	}
-
-	public String getUser_gender() {
-		return user_gender;
-	}
-
-	public void setUser_gender(String user_gender) {
-		this.user_gender = user_gender;
-	}
 
 	public Date getUser_birth() {
 		return user_birth;

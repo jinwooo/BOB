@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style type="text/css">
@@ -54,7 +54,7 @@ html {
 }
 
 body.secure {
-  background-image: url(resources/image/�Ľ�Ÿ.jpg);
+  background-image: url(resources/image/파스타.jpg);
   background-position: center center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;

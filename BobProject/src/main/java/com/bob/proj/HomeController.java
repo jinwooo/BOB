@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.io.FileOutputStream;
@@ -19,8 +17,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.mail.Authenticator;
 import javax.mail.Multipart;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -32,6 +33,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +52,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.bob.proj.api.FileValidator;
 import com.bob.proj.api.Imgvision;
+import com.bob.proj.api.SMTPAuthenticator;
 import com.bob.proj.api.TransApi;
 import com.bob.proj.api.foodApi;
 import com.bob.proj.model.dto.BobDto;
@@ -57,93 +61,43 @@ import com.bob.proj.model.dto.FoodApiDto;
 import com.bob.proj.model.dto.ImgVisionDto;
 import com.bob.proj.model.biz.BobManagerBiz;
 import com.bob.proj.model.biz.NoticeBiz;
+import com.bob.proj.model.biz.UserBoardBiz;
 import com.bob.proj.model.dto.NoticeDto;
+import com.bob.proj.model.dto.UserBoardDto;
 
 @Controller
 public class HomeController {
 	
 	@Autowired
-	private TransApi test;
-	
+	private TransApi test;	
 	@Autowired
-	private FileValidator FileValidator;
-	
+	private FileValidator FileValidator;	
 	@Autowired
-	private foodApi foodApi;
-	
+	private foodApi foodApi;	
 	@Autowired
 	private Imgvision vision;
 	
 	@Autowired
-	private NoticeBiz biz;
-	
+	private NoticeBiz NoticeBiz;	
+	@Autowired
+	private UserBoardBiz UserBiz;
 	@Autowired
 	private BobManagerBiz bobbiz;
+	
+	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	
 	private String res = "";
 
 	
-	@RequestMapping("/main.do")
+	@RequestMapping("/main3.do")
 	public String home() {		
-		return "addr";
+		return "main3";
 	}
+	
 
-	@RequestMapping("/join.do")
-	public String joinForm() {
-		return "join";
-	}
-	
-	
-/*	@RequestMapping("/join.do")
-	public String Bob(HttpServletRequest request, Model model, BobDto bobdto) {
-		
-		
-		BobDto fileobj = new BobDto();
-		
-		
-		InputStream inputStream = null;
-		OutputStream outputStream = null;
-		
-		try {
-			
-			String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
-			System.out.println("���ε� �� ���� ��� :" +path);
-		
-			File storage = new File(path);
-			if(!storage.exists()) {
-				storage.mkdirs();
-			}
-			File newfile = new File(path+"/"+);
-		} catch (FileNotFoundException e) {
-			
-		}
-		
-		
-		return "join";
-	}
-	*/
-	
-	@RequestMapping("/login.do")
-	public String loginForm() {
-		return "login";
-	}
-	
-	/*@RequestMapping("/loginajax.do")
-	@ResponseBody
-	public Map<String, Boolean> login(String id,@RequestParam("pw") String password, HttpSession session){
-		
-		BobDto dto = biz.login(id,password);
-		boolean loginchk = false;
-		if(dto != null) {
-			session.setAttribute("dto", dto);
-			loginchk = true;
-		}
-		Map<String,Boolean> res = new HashMap<String, Boolean>();
-		res.put("loginchk", loginchk);
-		return res;
-		
-	}*/
 	@RequestMapping("findInfo.do")
 	public String findInfoForm() {
 		return "findInfo";
@@ -189,7 +143,7 @@ public class HomeController {
 			try {
 				inputStream = filevi.getInputStream();
 				String path = WebUtils.getRealPath(request.getSession().getServletContext(), "/storage");
-				System.out.println("���ε� �� ���� ��� : " + path);
+				System.out.println("path : " + path);
 							
 				File storage = new File(path);
 				
@@ -311,7 +265,7 @@ public class HomeController {
 		
 		@RequestMapping(value="/notice_list.do",method= {RequestMethod.GET,RequestMethod.POST})
 		public String noticelist(Model model) {
-			model.addAttribute("noticelist",biz.selectList());
+			model.addAttribute("noticelist",NoticeBiz.selectList());
 			return "notice_list";
 		}
 		
@@ -323,7 +277,7 @@ public class HomeController {
 		@RequestMapping(value="/notice_insert.do", method=RequestMethod.POST)
 		public String notice_insert(@ModelAttribute NoticeDto dto) {
 			
-			int res = biz.insert(dto);
+			int res = NoticeBiz.insert(dto);
 			
 			if(res>0) {
 				return "redirect:notice_list.do";
@@ -335,7 +289,7 @@ public class HomeController {
 		@RequestMapping(value="/notice_selectone.do")
 		public String notice_selectone(Model model, int n_no) {
 			
-			NoticeDto dto = biz.selectOne(n_no);
+			NoticeDto dto = NoticeBiz.selectOne(n_no);
 			
 			model.addAttribute("dto",dto);
 			
@@ -345,7 +299,7 @@ public class HomeController {
 		@RequestMapping(value="/notice_updateform.do")
 		public String notice_updateform(Model model, int n_no) {
 			
-			NoticeDto dto = biz.selectOne(n_no);
+			NoticeDto dto = NoticeBiz.selectOne(n_no);
 			
 			model.addAttribute("dto",dto);
 			
@@ -355,7 +309,7 @@ public class HomeController {
 		@RequestMapping(value="/notice_update.do")
 		public String notice_update(@ModelAttribute NoticeDto dto) {
 			
-			int res = biz.update(dto);
+			int res = NoticeBiz.update(dto);
 			
 			if(res>0) {
 				return "redirect:notice_list.do";
@@ -369,7 +323,7 @@ public class HomeController {
 			
 			System.out.println(n_no);
 			
-			int res = biz.delete(n_no);
+			int res = NoticeBiz.delete(n_no);
 			
 			if(res>0) {
 				return "redirect:notice_list.do";
@@ -378,10 +332,7 @@ public class HomeController {
 			}
 		}
 		
-		@RequestMapping("/main2.do")
-		public String main() {
-			return "main";
-		}
+	
 		@RequestMapping(value="/map.do", method={RequestMethod.GET, RequestMethod.POST})
 		public String map() {		
 			return "map";
@@ -414,99 +365,54 @@ public class HomeController {
 			return "chart02";
 		}
 		
-		@RequestMapping("/menutype.do")
-		public String menutype(Model model, String user_id, String bm_date, String type) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
-			System.out.println("type : "+type);
-			// 총 칼로리를 담을 객체
-			int[] kal = new int[dto.size()];
-			// 모든 메뉴를 담을 객체
-			String[] menu = new String[dto.size()];
-			
-			int size = dto.size();
-			
-			// 아침,점심, 저녁 칼로리를 담을 객체
-			int kal_res = 0;
-			
-			String menu_res = "";
-			
-			String menu_type = "";
-			
-			String img = "";
-			
-			// 메뉴 타입이 아침, 점심, 저녁일 때, 각각 칼로리를 담아줌
-			for(int i=0; i<dto.size(); i++) {
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-				
-				if(type.equals("morning") && dto.get(i).getBm_type().equals("아침")) {
-					kal_res += kal[i];
-					menu_res += dto.get(i).getBm_menu();
-					menu_type = dto.get(i).getBm_type();
-					int cnt = 0;
-					if(cnt == 0) {
-						
-					}
-				} else if(type.equals("lunch") && dto.get(i).getBm_type().equals("점심")){
-					kal_res += kal[i];
-					menu_res += dto.get(i).getBm_menu();
-					menu_type = dto.get(i).getBm_type();
-				} else if(type.equals("dinner") && dto.get(i).getBm_type().equals("저녁")){
-					kal_res += kal[i];
-					menu_res += dto.get(i).getBm_menu();
-					menu_type = dto.get(i).getBm_type();
-				}
-			}
-			
-			model.addAttribute("kal_res", kal_res);
-			model.addAttribute("menu_res", menu_res);
-			model.addAttribute("menu_type",menu_type);
-			
-			return "menutype";
-		}
-		
 		@RequestMapping("/chart_main.do")
-		public String chart_main(Model model, String user_id, String bm_date) {
+		public String chart_main(Model model, String user_id) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
 			
-			return "chart_main";
-		}
-		
-		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String chart03(Model model, String user_id, String bm_date) throws ParseException {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
 			int size = dto.size();
-				
-			int morning =0, lunch = 0, dinner = 0;
+			String[] menuType = new String[dto.size()];
 			
-			System.out.println(dto.get(0).getBm_type());
 			for(int i=0; i<dto.size(); i++) {
 				menu[i] = dto.get(i).getBm_menu();
 				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-/*				if(dto.get(i).getBm_type().equals("아침")) {
-					morning += kal[i];
-				} else if(dto.get(i).getBm_type().equals("점심")){
-					lunch += kal[i];
-				} else {
-					dinner += kal[i];
-				}*/
+				menuType[i] = dto.get(i).getBm_type();
+				System.out.println("menutype : "+menuType[i]);
 			}
 			
 			model.addAttribute("size",size);
 			model.addAttribute("menu",menu);
 			model.addAttribute("kal",kal);
-/*			
-			model.addAttribute("morning",morning);
-			model.addAttribute("lunch",lunch);
-			model.addAttribute("dinner",dinner);*/
+			model.addAttribute("menuType", menuType);
 			
+			return "chart_main";
+		}
+		
+		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
+		public String chart03(Model model, String user_id, String date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+			System.out.println(date);
+			String[] menu = new String[dto.size()];
+			int[] kal = new int[dto.size()];
+			int size = dto.size();
+			
+			
+			for(int i=0; i<dto.size(); i++) {
+				menu[i] = dto.get(i).getBm_menu();
+				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			}
+			
+			model.addAttribute("size",size);
+			model.addAttribute("menu",menu);
+			model.addAttribute("kal",kal);
+
 			return "chart03";
 		}
 		
 		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String chart04(Model model, String user_id, String bm_date) throws ParseException {
-
-			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
+		public String chart04(Model model, String user_id) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id);
 			
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
@@ -530,16 +436,313 @@ public class HomeController {
 			return "prac";
 		}
 		
-		@RequestMapping("/main3.do")
-		public String main3() {
-			return "main3";
+		
+		@RequestMapping(value= "/join.do" , method = RequestMethod.GET )
+		public String joinForm() {
+			return "join";
 		}
 		
-		@RequestMapping("/test.do")
-		public String test() {
-			return "test";
+		@RequestMapping(value="/joinajax")
+		public String joinajax() {
+			System.out.println("join");
+			return "join";
+
 		}
 		
+		
+		public String RandomNum() {
+			StringBuffer buffer = new StringBuffer();
+			for (int i=0; i<=6; i++) {
+				int n = (int)(Math.random()*10);
+				buffer.append(n);
+			}
+			return buffer.toString();
+			
+		}
+		
+
+		
+		
+		@RequestMapping("/mailform.do" )
+		public String mailgo(HttpServletRequest request, Model model, String email, String randomcode) {
+			String authNum = RandomNum();
+			
+			String setform = "ghdwns9a3@gmail.com";
+			String tomail = email; // �޴� ��� �̸���
+			String title = "BOBTONG ACCOUNT MAIL"; //����
+			String content = authNum;	
+			
+			
+			
+			System.out.println(setform);
+			System.out.println(email);
+			System.out.println(tomail);
+			System.out.println(content);
+			
+			try {
+				Authenticator auth = new SMTPAuthenticator();
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+				
+				messageHelper.setFrom(setform);
+				messageHelper.setTo(tomail); 
+				messageHelper.setSubject(title); 
+				messageHelper.setText(content);
+				
+				
+				mailSender.send(message);
+				
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			model.addAttribute("emailauth", content);
+			model.addAttribute("email", tomail);
+			return "mailform";
+	}
+
+	@RequestMapping("/mailformajax.do")
+	@ResponseBody
+	public int ajax( HttpServletRequest request, Model model,@RequestParam(required=false)String emailval,
+			@RequestParam(required=false)String contentval, @RequestParam(required=false)String emailauth) {
+
+		System.out.println("emailval:"+emailval);
+		
+		System.out.println("contentval:"+contentval);
+		System.out.println("emailauth : " + emailauth);
+		System.out.println(emailauth+ ":"+ contentval);
+
+	
+		if(contentval.equals(emailauth)) {
+			int res = 0;
+			System.out.println("일치");		
+			return res;
+		}else {
+			int res = 1;
+			System.out.println("불일치");
+			return res;
+		}
+	}
+		
+	@RequestMapping(value = "/joinuser.do", method = RequestMethod.POST )	
+	public String joinuser(@ModelAttribute UserBoardDto dto) {
+		dto.setUser_grade("user");
+		dto.setUser_sns("N");
+		dto.setUser_img("resources/image.로고.png");
+		dto.setCno(1);
+		
+		int res = UserBiz.join(dto);
+		
+		if(res>0) {
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}		
+	}
+	
+	@RequestMapping("/idChk.do")
+	public String idcheck() {
+		return "idchk";
+	}
+	
+	@RequestMapping(value="/idChkres.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int idcheck_res(HttpServletRequest request, Model model,@RequestParam(required=false)String user_id) {
+		
+		int res = UserBiz.idCheck(user_id);
+		System.out.println(res);
+	
+		if(res > 0) {
+			
+			System.out.println("중복");			
+			return res;
+		}else {
+			model.addAttribute("user_id", user_id);
+			System.out.println("사용하실수있음");
+			return res;
+		}
+	}
+
+	@RequestMapping( value="/login.do", method=RequestMethod.GET )
+	public String loginForm() {
+		System.out.println("진입");
+		return "login";
+	}
+
+	
+	
+	@RequestMapping("/loginajax.do")
+	@ResponseBody
+	public Map<String, Boolean> login(String user_id, String user_pw, HttpSession session){
+		
+		UserBoardDto dto = UserBiz.login(user_id,user_pw);
+		boolean sendMessageButton = false;
+		System.out.println("로그인 인증처리..");
+		System.out.println(user_id);
+		System.out.println(user_pw);
+		if(dto != null) {
+			session.setAttribute("dto", dto);
+			sendMessageButton = true;
+		}
+		
+		Map<String, Boolean> res = new HashMap<String, Boolean>();
+		res.put("sendMessageButton", sendMessageButton);
+		System.out.println("login");
+		return res;
+	}
+
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session, HttpServletRequest requset, HttpServletResponse response) {
+		Object obj = session.getAttribute("req");
+		
+		if(obj != null) {
+			session.removeAttribute("login");
+			session.invalidate();
+		}
+		
+		return "login";
+	}
+	
+
+	@RequestMapping("/findform.do" )
+	public String findidpw(HttpServletRequest request, Model model, String email, String randomcode) {
+		String authNum = RandomNum();
+		
+		String setform = "ghdwns9a3@gmail.com";
+		String tomail = email; // �޴� ��� �̸���
+		String title = "BOBTONG ACCOUNT MAIL"; //����
+		String content = authNum;	
+		
+		
+		
+		System.out.println(setform);
+		System.out.println(email);
+		System.out.println(tomail);
+		System.out.println(content);
+		
+		try {
+			Authenticator auth = new SMTPAuthenticator();
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+			
+			messageHelper.setFrom(setform);
+			messageHelper.setTo(tomail); 
+			messageHelper.setSubject(title); 
+			messageHelper.setText(content);			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("emailauth", content);
+		model.addAttribute("email", tomail);
+		return "findform";
+}
+
+	@RequestMapping("/findformajax.do")
+	@ResponseBody
+	public HashMap<Object, Object> findajax( HttpServletRequest request, Model model,@RequestParam(required=false)String emailval,
+		@RequestParam(required=false)String contentval, @RequestParam(required=false)String emailauth) {
+
+	System.out.println("emailval:"+emailval);
+	
+	System.out.println("contentval:"+contentval);
+	System.out.println("emailauth : " + emailauth);
+	System.out.println(emailauth+ ":"+ contentval);
+	
+
+	if(contentval.equals(emailauth)) {
+		int res = 0;
+		System.out.println("일치");	
+		UserBoardDto dto = UserBiz.findInfo(emailval);
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		map.put("id", dto.getUser_id());
+		map.put("pw",dto.getUser_pw());
+		map.put("res",res);
+		
+		return map;
+	}else {
+		int res = 1;
+		System.out.println("불일치");
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		map.put("res",res);
+		return map;
+	}
+}
+	@RequestMapping("/findpwform.do")
+	public String findpwform(HttpServletRequest request, Model model, String email, String randomcode) {
+	String authNum = RandomNum();
+		
+		String setform = "ghdwns9a3@gmail.com";
+		String tomail = email; // �޴� ��� �̸���
+		String title = "BOBTONG ACCOUNT MAIL"; //����
+		String content = authNum;	
+		
+		
+		
+		System.out.println(setform);
+		System.out.println(email);
+		System.out.println(tomail);
+		System.out.println(content);
+		
+		try {
+			Authenticator auth = new SMTPAuthenticator();
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,true,"UTF-8");
+			
+			messageHelper.setFrom(setform);
+			messageHelper.setTo(tomail); 
+			messageHelper.setSubject(title); 
+			messageHelper.setText(content);			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("emailauth", content);
+		model.addAttribute("email", tomail);
+		return "transpw";
+		
+	}
+
+	@RequestMapping(value = "transjax.do", method = RequestMethod.POST)
+	@ResponseBody
+	public int transjax( HttpServletRequest request, Model model,@RequestParam(required=false)String emailval,
+			@RequestParam(required=false)String contentval, @RequestParam(required=false)String emailauth) {
+		if(contentval.equals(emailauth)) {
+			int res = 0;
+			System.out.println("일치");		
+			return res;
+		}else {
+			int res = 1;
+			System.out.println("불일치");
+			return res;
+		}
+	}
+	
+	@RequestMapping(value="/transrespw.do", method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<Object, Object> transrespw(HttpServletRequest request, String user_id, String user_pw) {
+		HashMap<Object, Object> map = new HashMap<>();
+		UserBoardDto dto = new UserBoardDto();
+		dto.setUser_id(user_id);
+		dto.setUser_pw(user_pw);
+		
+		int res = UserBiz.transpw(dto);
+		
+		
+		if(res > 0) {
+			int num = 0;
+			map.put("num", num);
+			return map;
+		}else {
+			int num = 1;
+			map.put("num", num);
+			return map;
+		}
+		
+		
+	
+	}
 		@RequestMapping("/header.do")
 		public String header() {
 			return "header";
@@ -555,6 +758,7 @@ public class HomeController {
 			return "main_page";
 		}		
 
+}
 }
 
 
