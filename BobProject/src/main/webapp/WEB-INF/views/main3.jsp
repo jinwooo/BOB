@@ -352,7 +352,7 @@ input[type="email"]{
 			} else {
 				
 				$.ajax({
-					type:"post",
+					type:"POST",
 					url:"loginajax.do",
 					data:"user_id="+user_idVal+"&user_pw="+user_pwVal,
 					success:function(msg){
@@ -387,7 +387,6 @@ input[type="email"]{
      <!-- <div id="heading"></div> -->
    <video id="video-background" src="resources/video/잡채.mp4" autoplay="autoplay" muted="muted" loop="loop" > 당신의 브라우저에서는 실행되지 않습니다.</video>
 			<div id="onvideo">
-				 
 				 	 <div class="wrapper">
     <div class="background" style="height: 80%;">
       <div class="left">

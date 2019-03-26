@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,13 +195,19 @@ html.active menu .container {
 <body>
 <header>
   <div class="container">
-    <span id="home"><span class="ion-camera"></span></span>
+    <span id="home" onclick="location.href='/proj/tomain.do'" ><!-- <span class="ion-camera"></span> -->
+    	<img src="resources/image/로고.png" style="width: 50px; height: 50px;">
+    
+    </span>
     <div class="box">
       <ul>
-        <li><a class="header_menu" href="#">portfolio</a></li>
-        <li><a class="header_menu" href="#">Blog</a></li>
-        <li><a class="header_menu" href="#">Services</a></li>
-        <li><a class="header_menu" href="#">Contact</a></li>
+        <li><a class="header_menu" href="/proj/board/listSearch">Notice</a></li>
+        <li><a class="header_menu" href="#">Food Manager</a></li>
+        <li><a class="header_menu" href="#">Today Food</a></li>
+        <li><a class="header_menu" href="#">Suggest</a></li>
+        <li><a class="header_menu" href="#">Bob Talk</a></li>
+        <li><a class="header_menu" href="#">Map</a></li>
+        <li style="float: right;"><a class="header_menu" href="/proj/logout.do">Logout</a></li>
       </ul>
     </div>
   </div>

@@ -21,7 +21,9 @@ section {
 
 #intro {
   background-image: url('resources/image/음식사진1.jpg');
+  
 }
+
 
 #portfolio {
   background-image: url('resources/image/채소.jpg');
@@ -106,7 +108,8 @@ $(function() {
 <body>
 <%@ include file="form/header.jsp" %>
 <section id="intro">
-  <h1>La comunicacion es algo natural <span>Y te puedo ayudar.</span></h1>
+  <h1>
+  <br/>La comunicacion es algo natural <span>Y te puedo ayudar.</span></h1>
 </section>
 <section id="portfolio">
   <h1>Para mirar el futuro, echa un vistazo tu pasado <span>Solo asi conoceras tu futuro.</span></h1>
