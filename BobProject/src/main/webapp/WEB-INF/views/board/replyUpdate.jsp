@@ -38,6 +38,13 @@
    
    
    <div class="form-group has-warning">
+		<label for="writer" class="col-sm-2 control-label">작성자</label>
+		<div class="col-sm-10">
+			<input type="text" id="writer" name=writer class="form-control" value="${readReply.writer}" readonly="readonly"/>
+		</div>
+   </div>
+   
+   <div class="form-group has-warning">
 	   	<label for="content" class="col-sm-2 control-label">댓글 내용 수정</label>
 		<div class="col-sm-10">
 				<textarea id="content" name=content class="form-control" style="height: 350px; resize: none;">${readReply.content}</textarea>
