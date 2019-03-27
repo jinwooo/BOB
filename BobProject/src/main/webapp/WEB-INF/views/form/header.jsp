@@ -205,7 +205,7 @@ html.active menu .container {
         <li><a class="header_menu" href="/proj/manager.do">Food Manager</a></li>
         <li><a class="header_menu" href="#">Today Food</a></li>
         <li><a class="header_menu" href="#">Suggest</a></li>
-        <li><a class="header_menu" href="/proj/chat.do?user_id=${user.user_id }">Bob Talk</a></li>
+        <li><a class="header_menu" href="/proj/chat.do">Bob Talk</a></li>
         <li><a class="header_menu" href="#">Map</a></li>
         <li style="float: right;"><a class="header_menu" href="/proj/logout.do">Logout</a></li>
       </ul>

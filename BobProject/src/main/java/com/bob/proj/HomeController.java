@@ -861,9 +861,10 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/chat.do")
-	public String chatroom(Model model, String user_id, HttpSession session) {
+	public String chatroom(Model model, HttpSession session) {
 
-		model.addAttribute("chatuser", UserBiz.chatuser(user_id));
+		UserBoardDto userdto = (UserBoardDto)session.getAttribute("user");
+		model.addAttribute("chatuser", UserBiz.chatuser(userdto.getUser_id()));
 
 		return "chat";
 	}
