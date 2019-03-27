@@ -7,9 +7,8 @@
           perspective-origin: 50% 50px;
   width: 494px;
   margin: 0 auto;
-  font-family: 'Roboto', sans-serif;
   font-weight: 100;
-  color: #fff;
+  color: rgba(0,0,0,0.7);
   text-align: center;
 }
 
@@ -28,15 +27,15 @@ input {
 }
 .tab:nth-child(1) {
   top: -5px;
-  background: #06D6A0;
+  background: #DEDF04;
 }
 .tab:nth-child(2) {
   top: 69px;
-  background: #1B9AAA;
+  background: #8AC4E3;
 }
 .tab:nth-child(3) {
   top: 143px;
-  background: #EF476F;
+  background: #CDD0D7;
 }
 
 .cube {
@@ -69,21 +68,21 @@ input {
 .tab-content:nth-child(2) {
   -webkit-transform: translateZ(100px);
           transform: translateZ(100px);
-  background: #1B9AAA;
+  background: #8AC4E3;
 }
 .tab-content:nth-child(1) {
   -webkit-transform: rotateX(-270deg) translateY(-100px);
           transform: rotateX(-270deg) translateY(-100px);
   -webkit-transform-origin: top left;
           transform-origin: top left;
-  background: #06D6A0;
+  background: #DEDF04;
 }
 .tab-content:nth-child(3) {
   -webkit-transform: rotateX(-90deg) translateY(100px);
           transform: rotateX(-90deg) translateY(100px);
   -webkit-transform-origin: bottom center;
           transform-origin: bottom center;
-  background: #EF476F;
+  background: #CDD0D7;
 }
 
 #tab-top:checked ~ .cube {
