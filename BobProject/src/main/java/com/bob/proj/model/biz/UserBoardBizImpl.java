@@ -103,4 +103,10 @@ public class UserBoardBizImpl implements UserBoardBiz {
 		return UserBoardDao.transpw(user);
 	}
 
+	@Override
+	public List<UserBoardDto> chatuser(String user_id) {
+		// TODO Auto-generated method stub
+		return UserBoardDao.chatuser(user_id);
+	}
+
 }

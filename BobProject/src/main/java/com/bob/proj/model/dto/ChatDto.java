@@ -2,6 +2,8 @@ package com.bob.proj.model.dto;
 
 import java.util.Date;
 
+import com.google.gson.Gson;
+
 public class ChatDto {
 
 	private int ch_no;
@@ -82,6 +84,13 @@ public class ChatDto {
 		this.ch_time = ch_time;
 	}
 	
-	
+	public static ChatDto convertMessage(String source) {
+		
+		ChatDto message = new ChatDto();
+		Gson gson = new Gson();
+		message = gson.fromJson(source, ChatDto.class);
+				
+		return message;
+	}
 	
 }

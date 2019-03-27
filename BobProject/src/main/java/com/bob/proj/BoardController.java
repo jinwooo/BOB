@@ -118,6 +118,12 @@ public class BoardController {
 	public String postModify(BoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("post modify");
 		
+		String res = dto.getContent();
+		
+		res=res.substring(1, res.length());
+		
+		dto.setContent(res);
+		
 		biz.update(dto);
 				
 		rttr.addAttribute("page", scri.getPage());

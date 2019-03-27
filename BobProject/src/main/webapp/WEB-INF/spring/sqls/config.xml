@@ -20,8 +20,11 @@
 	<mappers>
 		<mapper resource="/sqls/mapper.xml"/>
 		<mapper resource="/sqls/boardMapper.xml"/>
+		<mapper resource="/sqls/s_boardMapper.xml"/>
 		<mapper resource="/sqls/replyMapper.xml"/>
+		<mapper resource="/sqls/s_replyMapper.xml"/>
 		<mapper resource="/sqls/bobmanager.xml"/>
+		<mapper resource="/sqls/chatmapper.xml"/>
 	</mappers>
 
 </configuration>

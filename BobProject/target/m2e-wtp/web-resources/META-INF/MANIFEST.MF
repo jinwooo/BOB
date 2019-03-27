@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: user2
+=======
+Built-By: ￫ﾰﾕ￬ﾧﾀ￬ﾛﾐ
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 Build-Jdk: 1.8.0_181
 Created-By: Maven Integration for Eclipse
 

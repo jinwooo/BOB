@@ -26,6 +26,14 @@
 
 	<dependencies>
 	
+		
+		<!-- websocket -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-websocket</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- Spring -->
 	
 		<dependency>
@@ -380,4 +388,7 @@
 		</plugins>
 	</build>
 </project>
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
