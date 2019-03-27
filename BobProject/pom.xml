@@ -14,8 +14,6 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
-	
-	
 
 	<repositories>
 		<repository>
@@ -340,7 +338,14 @@
             <version>4.5.2</version>
         </dependency>
 
-		
+		<!-- httpclient(카카오) -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.2</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -379,16 +384,12 @@
 				</configuration>
 			</plugin>
 			<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-war-plugin</artifactId>
-      <configuration>
-         <failOnMissingWebXml>false</failOnMissingWebXml>
-      </configuration>
-</plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
