@@ -18,6 +18,11 @@ public class BobManagerBizImpl implements BobManagerBiz {
 	public List<BobManagerDto> selectList(String user_id, String bm_date) {
 		return dao.selectList(user_id, bm_date);
 	}
+
+	@Override
+	public int bminsert(BobManagerDto dto) {
+		return dao.bminsert(dto);
+	}
 	
 
 }

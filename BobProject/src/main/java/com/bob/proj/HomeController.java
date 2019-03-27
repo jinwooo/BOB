@@ -106,6 +106,11 @@ public class HomeController {
 		return "main_page";
 	}
 	
+	@RequestMapping("addr.do")
+	public String addr() {
+		return "addr";
+	}
+	
 	@RequestMapping("/food.do")
 	public String food(Model model, String food) {
 		
@@ -117,14 +122,19 @@ public class HomeController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
+
 		return "foodsearch";
 	}
 	
+	@RequestMapping("/manager.do")
+	public String fooamanager() {
+		return "chart_main";
+	}
 	
+	@RequestMapping("/craw.do")
+	public String craw() {
+		return "crawling";
+	}
 	
 	
 	 @RequestMapping("/trans.do")
@@ -170,7 +180,7 @@ public class HomeController {
 				System.out.println(root);
 			
 				List<ImgVisionDto> list = vision.detectWebDetections(root);
-				
+				model.addAttribute("root", root);
 				model.addAttribute("vision", list);				
 			} catch (IOException e) {
 
@@ -189,18 +199,44 @@ public class HomeController {
 	 	}
 	 
 	 @RequestMapping("/tandanji.do")
-	 public String tandanji(Model model,String foodname){
+	 public String tandanji(Model model,String foodname, String root){
 		 
 		 try {
 			String foodname2 =  foodname.replace(" ", "");
 			System.out.println(foodname2);
 			List<FoodApiDto> list = foodApi.FoodSearch(foodname2);
+			FoodApiDto dto = new FoodApiDto();
+			
+			dto.setFoodname(list.get(0).getFoodname());
+			dto.setKal(list.get(0).getKal());
+			model.addAttribute("root", root);
+			
 			model.addAttribute("list",list);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		 return "addr_res2";
 	 }
+	 
+	 
+	 @RequestMapping(value="bm_insert" , method=RequestMethod.POST)
+	 public String bm_insert(@ModelAttribute BobManagerDto dto) {
+		 
+		 int res = 0;
+		 
+		 res = bobbiz.bminsert(dto);
+		 if(res > 0) {
+			 System.out.println("입력성공");
+			 return "chart_main";
+		 }else {
+			 System.out.println("입력실패");
+			 return "chart_main";
+		 }
+		 
+		 
+		 
+	 }
+	 
 	 
 
 	 @RequestMapping(value = "crawling.do")
@@ -221,7 +257,7 @@ public class HomeController {
 			String imgsrc3=elem3.attr("data-source");
 			String imgsrc4=elem4.attr("data-source");
 			String imgsrc5=elem5.attr("data-source");
-
+			model.addAttribute("foodname", res);
 			model.addAttribute("message1",imgsrc1);
 			model.addAttribute("message2",imgsrc2);
 			model.addAttribute("message3",imgsrc3);
@@ -350,14 +386,7 @@ public class HomeController {
 		public String chart02() {
 			return "chart02";
 		}
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-/*		
-=======
-	/*	
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 		@RequestMapping("/chart_main.do")
 		public String chart_main(Model model, String user_id, String bm_date) {
 			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
@@ -407,7 +436,6 @@ public class HomeController {
 				if(menu[i] != null) {
 					menu[cnt_menu] = menu[i];
 					cnt_menu++;
-					System.out.println("menu_res : " + menu[cnt_menu]);
 				}
 				
 				if(kal[i] != 0) {
@@ -449,14 +477,9 @@ public class HomeController {
 			model.addAttribute("kal",kal);
 
 			return "chart04";
-<<<<<<< HEAD
+
 		}
-*/		
-=======
-		}*/
 		
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
->>>>>>> refs/remotes/origin/master
 		@RequestMapping("/prac.do")
 		public String prac() {
 			return "prac";
@@ -475,7 +498,7 @@ public class HomeController {
 
 		}
 		
-		@RequestMapping("/menutype")
+		@RequestMapping("/menutype.do")
 		public String menutype(Model model, String user_id, String bm_date, String type) {
 			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
 			int size = dto.size();
@@ -547,7 +570,6 @@ public class HomeController {
 				messageHelper.setText(content);
 				
 				
-				mailSender.send(message);
 				
 			}catch(Exception e) {
 				System.out.println(e);
@@ -642,7 +664,7 @@ public class HomeController {
 			UserBoardDto user = UserBiz.login(user_id, user_pw);
 			session.setAttribute("user", user);
 			
-			return "login.do";
+			return "main_page";
 		}else {
 			model.addAttribute("user_id", user_id);
 			model.addAttribute("user_pw", user_pw);	
@@ -852,14 +874,9 @@ public class HomeController {
 		public String main_menu() {
 			return "main_page";
 		}		
-<<<<<<< HEAD
-
-}
-=======
 
 }
 
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 
 
 

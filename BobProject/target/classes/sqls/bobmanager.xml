@@ -16,4 +16,10 @@
 		SELECT * FROM BOBMANAGER WHERE USER_ID = #{user_id} AND BM_DATE = #{bm_date}
 	</select>
 	
+	<insert id="bminsert" parameterType="BobManagerDto">
+		INSERT INTO BOBMANAGER
+		VALUES(BMIDSEQ.NEXTVAL,#{user_id},#{bm_date},#{bm_type},#{bm_menu},#{bm_kal},#{bm_img})
+	</insert>
+	
+	
 </mapper>

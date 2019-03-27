@@ -33,5 +33,20 @@ public class BobManagerDaoImpl implements BobManagerDao {
 		return list;
 	}
 
+	@Override
+	public int bminsert(BobManagerDto dto) {
+
+		int res = 0;
+		try {
+		res =  sqlSession.insert(NAMESPACE + "bminsert", dto);
+		} catch (Exception e) {
+		System.out.println("error");
+		e.printStackTrace();
+		}
+		return res;
+	}
+	
+	
+
 
 }

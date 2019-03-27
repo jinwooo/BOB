@@ -268,12 +268,13 @@ $(document).on('focus','#sendMessageButton',function(){
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <body>
-  <div class="form-container">
+<div class="background" style="height: 80%;">
+  <div class="form-container" >
     <form method="post" action="joinsns.do" >
       <div class="sign-up">
         <h2 class="form-header">SIGN UP</h2>
-        <input type="text" id="idChk" name="user_id" value="${kakaoid }"  placeholder="ID" readonly="readonly" />       
-        <input type="password" id="pass" name="user_pw" value="${kakaopw }" placeholder="Password" />
+        <input type="text" id="idChk" name="user_id" value="${user_id }"  placeholder="ID" readonly="readonly" />       
+        <input type="password" id="pass" name="user_pw" value="${user_pw }"  readonly="readonly" placeholder="Password" />
         <input type="text" id="name" name="user_name" placeholder="Name" />
         <input type="text" id="sendMessageButton" name="user_email" placeholder="Email" readonly="readonly" />
         <input type="hidden" id="user_confirm" name="user_confirm" value="">
@@ -282,6 +283,7 @@ $(document).on('focus','#sendMessageButton',function(){
         <button type="submit" class="form-btn">SIGN UP</button>
       </div>
       </form>
+      </div>
       </div>
 </body>
 </html>

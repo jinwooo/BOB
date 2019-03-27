@@ -27,33 +27,18 @@ function loginWithKakao() {
      url: '/v1/user/me',
      success: function(res) {
        /*  kout(); */
-             location.href="kakao.do?snsLogin&id="+res.id+"&user_name="+res.properties.nickname 
-             url:"kakao.do?kakaologin&kakaoid="+res.user_id+"&kakaoemail="+res.user_email+"&kakaoname="+res.user_name
-            
-             		 	
-		   var id = res.id;
-        $("#kako_id").val(id);  
-         var email = res.kaccount_email;
-        $("#kako_email").val(email); 
-      var nickname = res.properties['nickname'];
-        $("#kako_nickname").val(nickname); 	    
-        alert(nickname); 
-         alert(id);  
-       
+             location.href="kakao.do?id="+res.id+"&user_name="+res.properties.nickname 
+              
      	}
-       })
+       });
 
     },
     fail: function(err) {
       alert(JSON.stringify(err));
     }
   });
-};
-
-
-//]]>
-function kout(){
-    
+}
+function kout(){    
     Kakao.Auth.logout(function(data){
              alert(data)
          });

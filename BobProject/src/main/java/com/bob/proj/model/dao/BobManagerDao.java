@@ -9,6 +9,6 @@ public interface BobManagerDao {
 	String NAMESPACE = "bobmanager.";
 	
 	public List<BobManagerDto> selectList(String user_id, String bm_date);
-	
+	public int bminsert(BobManagerDto dto);
 
 }

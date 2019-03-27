@@ -202,7 +202,7 @@ html.active menu .container {
     <div class="box">
       <ul>
         <li><a class="header_menu" href="/proj/board/listSearch">Notice</a></li>
-        <li><a class="header_menu" href="#">Food Manager</a></li>
+        <li><a class="header_menu" href="/proj/manager.do">Food Manager</a></li>
         <li><a class="header_menu" href="#">Today Food</a></li>
         <li><a class="header_menu" href="#">Suggest</a></li>
         <li><a class="header_menu" href="#">Bob Talk</a></li>

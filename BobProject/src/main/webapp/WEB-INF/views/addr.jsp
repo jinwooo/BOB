@@ -38,7 +38,7 @@
         <input type="file" id="imgInp" name="filevi" />
         <p style="color:red;font-weight: bold;">
 		</p>
-        <img id="foo"src="#" />
+        <img id="foo"src="#" style="width: 300px; height: 300px;"  />
         <input type="hidden" id="imgname" name="imgname" value="">
         <input type="submit" value="전송">
     </form>
