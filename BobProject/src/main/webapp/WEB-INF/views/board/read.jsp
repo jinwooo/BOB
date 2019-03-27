@@ -19,15 +19,15 @@
 
 <div id="root" class="container">
 <header>
- 	<%@include file="include/header.jsp" %>
+ 	<%@include file="../form/header.jsp" %>
 </header>
 
-<hr />
+
  
 <nav>
  	<%@include file="include/nav.jsp" %>
  </nav>
-<hr />
+
 
  <section id="container">
  
@@ -57,7 +57,7 @@
 	<div class="form-group">
 		<label for="content" class="col-sm-2 control-label">글 내용</label>
 		<div class="col-sm-10">
-			<textarea id="content" name="content" class="form-control" readonly="readonly" >${read.content}</textarea>
+			<textarea id="content" name="content" class="form-control" readonly="readonly"style="height: 350px; resize: none;">${read.content}</textarea>
 		</div>
 	</div>
 	<div class="form-group">
@@ -89,7 +89,7 @@
    		 // 수정 버튼 클릭
    		 $("#modity_btn").click(function(){
    		  
-   		  formObj.attr("action", "modify");
+   		  formObj.attr("action", "update");
    		  formObj.attr("method", "get");  
    		  formObj.submit();     
    		  
@@ -99,6 +99,8 @@
    		 // 삭제 버튼 클릭
    		 $("#delete_btn").click(function(){
    		  
+   		  alert("정말로 삭제하시겠습니까?") 
+   			 
    		  formObj.attr("action", "delete");
    		  formObj.attr("method", "get");  
    		  formObj.submit();
@@ -117,7 +119,7 @@
     
    </div>  
    	
-   	<hr/>
+
    	
    	<!-- 댓글목록 -->
     <div id="reply">
@@ -161,7 +163,7 @@
 	 </c:forEach>   
 	 </ol>
 	 
-	 <hr/>
+
 	 
 	 <!-- 댓글작성폼 -->
 	 <section class="replyForm">
@@ -176,7 +178,7 @@
 		 <div class="form-group">
 			<label for="writer" class="col-sm-2 control-label">작성자</label>
 			<div class="col-sm-10">
-				<input type="text" id="writer" name="writer" class="form-control" />
+				<input type="text" id="writer" name="writer" value="${user.user_id }" readonly="readonly" class="form-control" />
 			</div>
 		</div>			
 			

@@ -10,6 +10,7 @@
 <body>
 
 
+<<<<<<< HEAD
 <!-- 	
 	<a href="crawling.do">crawling</a>
 
@@ -36,5 +37,9 @@
  	<a href="prac.do">prac</a> -->
 	
 >>>>>>> refs/remotes/origin/master
+=======
+ <c:redirect url="prac.do" /> 
+
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 </body>
 </html>

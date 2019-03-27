@@ -9,34 +9,11 @@ CREATE TABLE COMPANY(
 	CYN VARCHAR2(10) NOT NULL,
 	CONSTRAINT COMPANY_CYN_CHK CHECK(CYN IN('Y','N'))
 );
-<<<<<<< HEAD
 
-
-=======
-DELETE FROM USERBOARD WHERE USER_ID = 'admin';
->>>>>>> refs/remotes/origin/master
 SELECT * FROM COMPANY;
-
-<<<<<<< HEAD
-DELETE FROM COMPANY WHERE CNO = 1;
-
-
-INSERT INTO COMPANY
-VALUES(CNOSEQ.NEXTVAL, 'KH정보교육원','서울특별시 강남구 강남구 테헤란로14길 6', 'Y');
-
-=======
->>>>>>> refs/remotes/origin/master
-
+UPDATE USERBOARD SET USER_GRADE = 'user' WHERE user_id = 'admin1';
 DROP TABLE USERBOARD;
-<<<<<<< HEAD
-
 SELECT * FROM USERBOARD;
-DELETE FROM USERBOARD WHERE USER_ID = 'test';
-
-
-=======
-SELECT * FROM USERBOARD;
->>>>>>> refs/remotes/origin/master
 CREATE TABLE USERBOARD(
 	USER_ID VARCHAR2(100) PRIMARY KEY,
 	USER_PW VARCHAR2(100) NOT NULL,
@@ -214,3 +191,40 @@ CREATE TABLE CHAT(
 ALTER TABLE CHAT ADD FOREIGN KEY (CH_USERNO) REFERENCES CHATUSER(CH_ROOMNO);
 ALTER TABLE CHAT ADD FOREIGN KEY (CR_NO) REFERENCES CHATUSER(CR_NO);
 
+
+--댓글 
+DROP SEQUENCE myReply_seq;
+DROP TABLE myReply PURGE;
+
+--게시글
+DROP SEQUENCE myBoard_seq;
+DROP TABLE myBoard PURGE;
+
+CREATE TABLE myBoard (
+	bno NUMBER NOT NULL,
+	title VARCHAR2(30) NOT NULL,
+	content VARCHAR2(2000) NOT NULL,
+	writer VARCHAR2(30) NOT NULL,
+	regDate DATE default SYSDATE,
+	viewCnt number default 0,
+	primary key(bno)
+);
+CREATE SEQUENCE myBoard_seq;
+SELECT * FROM MYBOARD;
+
+
+
+CREATE TABLE myReply(
+	bno number not null,
+	rno number not null,
+	content varchar2(2000) not null,
+	writer varchar2(30) not null,
+	regDate DATE default SYSDATE,
+	primary key(bno,rno)
+);
+
+alter table myReply
+	add constraint myReply_bno foreign key(bno)
+	references myBoard(bno) on delete cascade;
+	
+CREATE SEQUENCE myReply_seq; 

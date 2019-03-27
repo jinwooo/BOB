@@ -7,38 +7,50 @@
  
  <!-- 제이쿼리 -->
  <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+ <!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
  
 </head>
 <body>
 
 <div id="root">
 <header>
- 	<%@include file="include/header.jsp" %>
+ 	<%@include file="../form/header.jsp" %>
 </header>
-
-<hr />
  
 <nav>
  	<%@include file="include/nav.jsp" %>
  </nav>
 
-<hr />
-
  <section id="container">
  
   <form role="form" method="post" autocomplete="off">
   
-   <p>
-    <label for="bno">글 번호</label>
-    <input type="text" id="bno" name="bno" value="${delete}" readonly="readonly" />
-   </p>
+  
+   <div class="form-group has-error">
+		<label for="bno" class="col-sm-2 control-label">글 번호</label>
+		<div class="col-sm-10">
+			<input type="text" id="bno" name="bno" class="form-control" value="${delete}" readonly="readonly" />
+		</div>
+   </div>
    
-   <p>정말로 삭제하시겠습니까?</p>
+<!--    <p> -->
+<!--     <label for="bno">글 번호</label> -->
+<%--     <input type="text" id="bno" name="bno" value="${delete}" readonly="readonly" /> --%>
+<!--    </p> -->
    
-   <p>
+<!--    <p>정말로 삭제하시겠습니까?</p> -->
    
-    <button type="submit">예, 삭제합니다.</button><br />
-    <button id="cancel_btn">아니오, 삭제하지 않습니다.</button>
+   <div class="form-group">
+   
+    <button type="submit" class="btn btn-warning">예, 삭제합니다.</button><br />
+    <button id="cancel_btn" class="btn btn-danger">아니오, 삭제하지 않습니다.</button>
     
     
     <script>
@@ -55,7 +67,7 @@
     });
     </script>
    
-   </p>
+   </div>
    
   </form>
    

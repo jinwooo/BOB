@@ -73,12 +73,13 @@ public class BoardController {
 		BoardDto dto = biz.read(bno);		
 		model.addAttribute("read", dto);		
 		model.addAttribute("scri", scri);
-
-		System.out.println(scri.getPage());
-		System.out.println(scri.getPerPageNum());
-		System.out.println((scri.getKeyword()));
-		System.out.println(scri.getSearchType());
-			
+		
+//
+//		System.out.println(scri.getPage());
+//		System.out.println(scri.getPerPageNum());
+//		System.out.println((scri.getKeyword()));
+//		System.out.println(scri.getSearchType());
+//			
 		//댓글을 불러오는 코드 추가 
 		List<ReplyDto> repList = replybiz.readReply(bno);
 		model.addAttribute("repList", repList);
@@ -86,44 +87,44 @@ public class BoardController {
 	}	
 	
 	//글수정
-	@RequestMapping(value = "/modify", method = RequestMethod.GET)
-	public void getModify(@RequestParam("bno") int bno,@ModelAttribute("srci") SearchCriteria scri, Model model) throws Exception {
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String getModify(@RequestParam("bno") int bno,@ModelAttribute("srci") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get modify");
 	  
 		BoardDto dto = biz.read(bno);
 	  	
 		model.addAttribute("modify", dto);
 		model.addAttribute("scri",scri);
+		
+		return "board/modify";
 	} 
 	
 	//글삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void getDelete(@RequestParam("bno") int bno,@ModelAttribute("srci") SearchCriteria scri, Model model) throws Exception {
+	public String getDelete(@RequestParam("bno") int bno,@ModelAttribute("srci") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get delete");
 	    
-		model.addAttribute("delete", bno);
-		model.addAttribute("scri",scri);
+		biz.delete(bno); //추가 
+		
+		return "redirect:/board/listSearch";
+		//model.addAttribute("delete", bno);
+		//model.addAttribute("scri",scri);
 	  
 	}
 	
 	//값을전송할때 post
 	// 글 수정  POST	
-	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String postModify(BoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("post modify");
-			
+		
 		biz.update(dto);
 				
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
-		
-		System.out.println(scri.getPage());
-		System.out.println(scri.getPerPageNum());
-		System.out.println((scri.getKeyword()));
-		System.out.println(scri.getSearchType());
-		
+
 		return "redirect:/board/listSearch";
 	}
 
@@ -210,7 +211,7 @@ public class BoardController {
 	// 댓글 삭제 POST
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
 	public String replyDelete(ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
-	 logger.info("reply delete");
+	 logger.info("reply post delete");
 	 
 	 replybiz.replyDelete(dto);
 	 
@@ -237,15 +238,17 @@ public class BoardController {
 	 model.addAttribute("scri", scri);
 	}
 
-	// 댓글 수정 GET
+	// 댓글 삭제 GET
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.GET)
 	public void getReplyDelete(@RequestParam("rno") int rno,
 	      @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
-	 logger.info("reply delete");
+	 logger.info("reply get delete");
 	 
 	 ReplyDto dto = null;
 	 
 	 dto = replybiz.readReplySelect(rno);
+	 
+	 //return "redirect:/board/read";
 	 
 	 model.addAttribute("readReply", dto);
 	 model.addAttribute("scri", scri);

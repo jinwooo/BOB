@@ -11,18 +11,12 @@
 	
 	<!-- 조회 -->
 	 <select id="read" resultType="com.bob.proj.model.dto.BoardDto">
-	  select bno, title, content, writer, regDate, viewCnt
-	   from myBoard
-	    where bno = #{bno}
+	  select bno, title, content, writer, regDate, viewCnt from myBoard where bno = #{bno}
 	 </select>
 	
 	 <!-- 수정 --> 
 	 <update id="update">
-	  update myBoard
-	   set
-	    title = #{title},
-	    content = #{content}
-	   where bno = #{bno}  
+	  update myBoard set title = #{title}, content = #{content} where bno = #{bno}  
 	 </update>
 	 
 	 <!-- 삭제 -->
