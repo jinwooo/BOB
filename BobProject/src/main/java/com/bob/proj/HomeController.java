@@ -60,9 +60,14 @@ import com.bob.proj.api.TransApi;
 import com.bob.proj.api.foodApi;
 import com.bob.proj.model.dto.BobDto;
 import com.bob.proj.model.dto.BobManagerDto;
+import com.bob.proj.model.dto.ChatDto;
+import com.bob.proj.model.dto.ChatUserDto;
 import com.bob.proj.model.dto.FoodApiDto;
 import com.bob.proj.model.dto.ImgVisionDto;
 import com.bob.proj.model.biz.BobManagerBiz;
+import com.bob.proj.model.biz.ChatBiz;
+import com.bob.proj.model.biz.ChatRoomBiz;
+import com.bob.proj.model.biz.ChatUserBiz;
 import com.bob.proj.model.biz.NoticeBiz;
 import com.bob.proj.model.biz.UserBoardBiz;
 import com.bob.proj.model.dto.NoticeDto;
@@ -90,6 +95,15 @@ public class HomeController {
 	@Autowired
 	private JavaMailSender mailSender;	
 	private String res = "";
+	
+	@Autowired
+	private ChatBiz chatbiz;
+	
+	@Autowired
+	private ChatUserBiz chatuserbiz;
+
+	@Autowired
+	private ChatRoomBiz chatroombiz;
 
 	@RequestMapping("main3.do")
 	public String main() {
@@ -117,10 +131,7 @@ public class HomeController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-	
-=======
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
+
 		return "foodsearch";
 	}
 	
@@ -350,14 +361,8 @@ public class HomeController {
 		public String chart02() {
 			return "chart02";
 		}
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-/*		
-=======
-	/*	
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
+
 		@RequestMapping("/chart_main.do")
 		public String chart_main(Model model, String user_id, String bm_date) {
 			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
@@ -449,14 +454,8 @@ public class HomeController {
 			model.addAttribute("kal",kal);
 
 			return "chart04";
-<<<<<<< HEAD
 		}
-*/		
-=======
-		}*/
 		
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
->>>>>>> refs/remotes/origin/master
 		@RequestMapping("/prac.do")
 		public String prac() {
 			return "prac";
@@ -851,15 +850,70 @@ public class HomeController {
 		@RequestMapping("/main_menu.do")
 		public String main_menu() {
 			return "main_page";
-		}		
-<<<<<<< HEAD
+		}
+		
+		
+
+		@RequestMapping(value = "/chat.do")
+		public String chatroom(Model model, String user_id, HttpSession session) {
+
+			model.addAttribute("chatuser", UserBiz.chatuser(user_id));
+
+			return "chat";
+		}
+		
+		
+		// 채팅방 번호 확인 + 채팅메세지 가져오기 + 채팅방 만들기
+		@ResponseBody
+		@RequestMapping(value="/roomNum.do")
+		public Map<Object, Object> roomNum(Model model, String user_id, String target_id) {
+			
+			Map<Object, Object> map = new HashMap<>();
+			
+			List<ChatDto> chatmsg = null; 
+			
+			int ch_roomno = 0;
+			ChatUserDto dto = chatuserbiz.roomNum(user_id, target_id);
+			
+			if(dto != null) {
+				ch_roomno = dto.getCh_roomno();
+				System.out.println(user_id+"와 "+target_id+"의 채팅방 번호: " + ch_roomno);
+				
+				chatmsg = chatbiz.chatList(ch_roomno);
+				
+				map.put("ch_roomno", ch_roomno);
+				map.put("msglist", chatmsg);
+				
+				return map;
+				
+			} else {
+				System.out.println(user_id+"와 "+target_id+"는 채팅방이 없슴다");
+				
+				// 채팅방 만들기
+				ChatUserDto insertRoom = new ChatUserDto();
+				insertRoom.setUser_id(user_id);
+				insertRoom.setTarget_id(target_id);
+				
+				chatuserbiz.ChatUserInsert(insertRoom);
+				chatuserbiz.ChatTargetInsert(insertRoom);
+				chatroombiz.RoomInsert(insertRoom);
+				
+				ChatUserDto roomnum = chatuserbiz.roomNum(user_id, target_id);
+				
+				// 방번호 넣기
+				ch_roomno = roomnum.getCh_roomno();
+				chatmsg = chatbiz.chatList(ch_roomno);
+				
+				map.put("ch_roomno", ch_roomno);
+				map.put("msglist", chatmsg);
+				
+				return map;
+			}
+		}
+		
 
 }
-=======
 
-}
-
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 
 
 

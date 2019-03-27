@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="chat">
+	
+	<!-- Chat -->
+	<select id="chatList" resultType="ChatDto" parameterType="int">
+		SELECT * FROM CHAT WHERE CH_ROOMNO = #{ch_roomno} ORDER BY ch_no
+	</select>
+	
+	<insert id="chatInsert" parameterType="ChatDto">
+		INSERT INTO CHAT VALUES(CHNOSEQ.NEXTVAL, (SELECT CR_NO FROM CHATUSER WHERE USER_ID = #{user_id} AND CH_ROOMNO = #{ch_roomno}),
+		#{ch_roomno}, #{user_id}, #{ch_msg}, SYSDATE)
+	</insert>
+	
+	
+	<!-- ChatRoom -->
+	<select id="RoomList" resultType="ChatRoomDto">
+		SELECT * FROM CHATROOM
+	</select>
+	
+	<insert id="RoomInsert" parameterType="ChatUserDto">
+		INSERT INTO CHATROOM VALUES((SELECT CH_ROOMNO FROM CHATUSER WHERE USER_ID = #{user_id} AND TARGET_ID = #{target_id}),2)
+	</insert>
+	
+	<!-- 같은 회사 직원 목록 -->
+	<select id="ChatUserList" resultType="UserBoardDto" parameterType="string">
+		SELECT * FROM USERBOARD WHERE CNO = (SELECT CNO FROM USERBOARD WHERE user_id = #{user_id}) AND user_id != #{user_id}
+	</select>
+	
+	<!-- ChatUser -->
+	<select id="roomNum" parameterType="map" resultType="ChatUserDto">
+		SELECT * FROM CHATUSER
+		WHERE USER_ID = #{user_id }
+		AND CH_ROOMNO IN (SELECT CH_ROOMNO FROM CHATUSER WHERE TARGET_ID = #{target_id })
+	</select>
+	
+	<insert id="ChatUserInsert" parameterType="ChatUserDto">
+		INSERT INTO CHATUSER VALUES(CHUSERSEQ.NEXTVAL, ROOMSEQ.NEXTVAL, #{user_id}, #{target_id})
+	</insert>
+	
+	<insert id="ChatTargetInsert" parameterType="ChatUserDto">
+		INSERT INTO CHATUSER VALUES(CHUSERSEQ.NEXTVAL, (SELECT CH_ROOMNO FROM CHATUSER WHERE USER_ID = #{user_id} AND TARGET_ID = #{target_id}), #{target_id}, #{user_id})
+	</insert>
+	
+</mapper>

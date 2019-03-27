@@ -17,6 +17,8 @@ public interface UserBoardBiz {
 	public int userUpdate(UserBoardDto dto);
 	public UserBoardDto login(String user_id, String user_pw);
 	public int transpw(UserBoardDto dto);
-
+	
+	// 채팅유저목록(같은회사)
+	public List<UserBoardDto> chatuser(String user_id);
 
 }
