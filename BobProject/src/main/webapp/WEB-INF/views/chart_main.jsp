@@ -8,12 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/button.css">
+<link rel="stylesheet" href="resources/css/chart_button.css">
 <link rel="stylesheet" href="resources/css/date.css">
 <link rel="stylesheet" href="resources/css/menutype.css">
+<link rel="stylesheet" href="resources/css/add.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
-<script src="resources/js/button.js"></script>
+<script src="resources/js/button.js" ></script>
+<script src="resources/js/chart_button.js"></script>
+<script src="resources/js/add.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".main_wrap").hide();
@@ -22,12 +27,18 @@
 	    	$(".main_wrap").fadeIn("slow");
 	    });
 	})
-	
-	
 </script>
 <body>
 	<div>
 		<%@ include file="form/header.jsp" %>		
+	</div>
+	<div class="add_button">
+		<input type="checkbox" name="toggle" id="toggle" />
+		<label for="toggle"></label>
+		<div class="message">
+		    <h1>Cum sociis natoque penatibus.</h1>
+		    <h2>Ut tincidunt nisl id tempus sagittis. Nam posuere purus erat, ut blandit sapien porta auctor. Aliquam erat volutpat.</h2>
+		</div>				
 	</div>
 	<div id="calendar_wrap" style="margin-top: 100px;">
 		<div class='formInput dateSelector'>
@@ -60,8 +71,13 @@
 				</div>						
 			</div>
 			
-			<!-- iframe src 에 공백을 넣어놓고, 날짜 선택했을 때 src 를 수정해주는 방법을 사용 -->
+			<!-- iframe src 에 공백을 넣어놓고, 날짜 선택했을 때 src 를 수정해주는 방법을 사용 -->		
 			<div style="width:100%; display: table;">
+				<div style="width: 100%; text-align: center; vertical-align: middle;">
+					<button id="chart_button" class="fill-morning" style="border: 2px rgba(242,129,105,0.5) solid">아침</button>
+					<button id="chart_button" class="fill-lunch" style="border: 2px rgba(222,223,4,0.5) solid">점심</button>
+					<button id="chart_button" class="fill-dinner" style="border: 2px rgba(138,196,227,0.5) solid">저녁</button>					
+				</div>						
 				<div id="chart_wrap" style="width:50%; text-align: center; display: table-cell; vertical-align: middle;">
 					<iframe id="chart_donut" src=""></iframe>
 				</div>
@@ -72,8 +88,7 @@
 		</div>
 	</div>
 	<input id="choice_date" type="hidden" value="">
-	<div style="margin-top: 40px;">
-		<h1>FOOTER</h1>
-	</div>
+	<%@ include file="form/footer.jsp" %>		
+
 </body>
 </html>

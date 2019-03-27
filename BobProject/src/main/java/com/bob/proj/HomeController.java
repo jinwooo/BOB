@@ -1,10 +1,12 @@
 package com.bob.proj;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -66,6 +69,7 @@ import com.bob.proj.model.dto.NoticeDto;
 import com.bob.proj.model.dto.UserBoardDto;
 
 @Controller
+@SessionAttributes("user")
 public class HomeController {
 	
 	@Autowired
@@ -82,26 +86,26 @@ public class HomeController {
 	@Autowired
 	private UserBoardBiz UserBiz;
 	@Autowired
-	private BobManagerBiz bobbiz;
-	
-	
+	private BobManagerBiz bobbiz;	
 	@Autowired
-	private JavaMailSender mailSender;
-	
-	
+	private JavaMailSender mailSender;	
 	private String res = "";
 
-	
-	@RequestMapping("/main3.do")
-	public String home() {		
+	@RequestMapping("main3.do")
+	public String main() {
 		return "main3";
 	}
 	
-
 	@RequestMapping("findInfo.do")
 	public String findInfoForm() {
 		return "findInfo";
 	}
+	
+	@RequestMapping("tomain.do")
+	public String tomain() {
+		return "main_page";
+	}
+	
 	@RequestMapping("/food.do")
 	public String food(Model model, String food) {
 		
@@ -113,11 +117,14 @@ public class HomeController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+<<<<<<< HEAD
+	
+=======
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 		return "foodsearch";
 	}
+	
+	
 	
 	
 	 @RequestMapping("/trans.do")
@@ -125,8 +132,7 @@ public class HomeController {
 	        ModelAndView mav = new ModelAndView();
 	        
 	        if(text!= null){
-	            mav.addObject("result", test.TranslateService(text));
-	            
+	            mav.addObject("result", test.TranslateService(text));	            
 	        }
 	        mav.setViewName("view"); 
 	        return mav;
@@ -149,29 +155,23 @@ public class HomeController {
 				
 				if(!storage.exists()) {
 					storage.mkdirs();
-				}
-				
+				}				
 				File newfile = new File(path+"/"+filename);
 				if(!newfile.exists()) {
 					newfile.createNewFile();
-				}
-				
-				outputStream = new FileOutputStream(newfile);
-				
+				}				
+				outputStream = new FileOutputStream(newfile);				
 				int read= 0;
-				byte[] b = new byte[(int)filevi.getSize()];
-				
+				byte[] b = new byte[(int)filevi.getSize()];				
 				while((read=inputStream.read(b)) != -1) {
 					outputStream.write(b, 0, read);
-				}
-				
+				}				
 				String root = path+"/"+filename;
 				System.out.println(root);
 			
 				List<ImgVisionDto> list = vision.detectWebDetections(root);
 				
-				model.addAttribute("vision", list);
-				
+				model.addAttribute("vision", list);				
 			} catch (IOException e) {
 
 				e.printStackTrace();
@@ -184,8 +184,7 @@ public class HomeController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}			
-	 		
+			}			 		
 	 		return "addr_res";
 	 	}
 	 
@@ -196,14 +195,10 @@ public class HomeController {
 			String foodname2 =  foodname.replace(" ", "");
 			System.out.println(foodname2);
 			List<FoodApiDto> list = foodApi.FoodSearch(foodname2);
-			
-			
 			model.addAttribute("list",list);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		 
-		 
 		 return "addr_res2";
 	 }
 	 
@@ -212,35 +207,21 @@ public class HomeController {
 		public String crawling(Model model) throws IOException {
 			
 			String url = "https://search.naver.com/search.naver?where=image&sm=tab_jum&query="+res;
-			//String url ="https://weather.naver.com/rgn/cityWetrMain.nhn";
 			
 			Document doc = Jsoup.connect(url).get();
-			//System.out.println(doc.toString());
-
-			//Elements elem = doc.select(".tbl_weather tbody>tr:nth-child(1) img"); //날씨
 			
-			//Elements elem = doc.select("img._img"); //피자전체 검색결과
-			//Elements elem1 = doc.select("img._img:nth-child(1)"); //첫번째피자 검색결과
 			Elements elem1 = doc.select("._box>div>a>img"); //첫번째피자 검색결과
 			Elements elem2 = doc.select("._box>div:nth-child(2)>a>img"); //첫번째피자 검색결과
 			Elements elem3 = doc.select("._box>div:nth-child(3)>a>img"); //첫번째피자 검색결과
 			Elements elem4 = doc.select("._box>div:nth-child(4)>a>img"); //첫번째피자 검색결과
 			Elements elem5 = doc.select("._box>div:nth-child(5)>a>img"); //첫번째피자 검색결과
-			
-			//System.out.println(elem2);//src url 
-			
+						
 			String imgsrc1=elem1.attr("data-source");
 			String imgsrc2=elem2.attr("data-source");
 			String imgsrc3=elem3.attr("data-source");
 			String imgsrc4=elem4.attr("data-source");
 			String imgsrc5=elem5.attr("data-source");
-			
-//			String[] arr;
-//			
-//			for(int i=0; i<5; i++) {
-//				arr[i] = 
-//			}
-			
+
 			model.addAttribute("message1",imgsrc1);
 			model.addAttribute("message2",imgsrc2);
 			model.addAttribute("message3",imgsrc3);
@@ -355,6 +336,11 @@ public class HomeController {
 			return "map_search";
 		}	
 		
+		@RequestMapping("/main2.do")
+		public String main2() {
+			return "main";
+		}
+		
 		@RequestMapping("/chart01.do")
 		public String chart01() {
 			return "chart01";
@@ -364,10 +350,17 @@ public class HomeController {
 		public String chart02() {
 			return "chart02";
 		}
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
+/*		
+=======
 	/*	
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 		@RequestMapping("/chart_main.do")
-		public String chart_main(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+		public String chart_main(Model model, String user_id, String bm_date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
 			
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
@@ -390,29 +383,56 @@ public class HomeController {
 		}
 		
 		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String chart03(Model model, String user_id, String date) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			System.out.println(date);
-			String[] menu = new String[dto.size()];
+		public String chart03(Model model, String user_id, String bm_date, String type) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
+			int size = 0;
 			int[] kal = new int[dto.size()];
-			int size = dto.size();
+			String[] menu = new String[dto.size()];	
 			
-			
-			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			for(int i=0; i < dto.size(); i++) {
+				if(type.equals("morning") && (dto.get(i).getBm_type()+"").equals("아침")) {
+					kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+					menu[i] = dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("lunch") && (dto.get(i).getBm_type()+"").equals("점심")) {
+					kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+					menu[i] = dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("dinner") && (dto.get(i).getBm_type()+"").equals("저녁")){
+					kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+					menu[i] = dto.get(i).getBm_menu() + " ";
+				}
 			}
 			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
-
+			int cnt_menu = 0, cnt_kal = 0;
+			for(int i=0; i<menu.length; i++) {
+				if(menu[i] != null) {
+					menu[cnt_menu] = menu[i];
+					cnt_menu++;
+					System.out.println("menu_res : " + menu[cnt_menu]);
+				}
+				
+				if(kal[i] != 0) {
+					kal[cnt_kal] = kal[i];
+					cnt_kal++;
+				}
+			}
+			
+			String[] menu_res = new String[cnt_menu];
+			int[] kal_res = new int[cnt_kal];
+			
+			for(int i=0; i<cnt_menu; i++) {
+				menu_res[i] = menu[i];
+				kal_res[i] = kal[i];
+			}
+			
+			model.addAttribute("size",cnt_menu);		
+			model.addAttribute("kal_res",kal_res);
+			model.addAttribute("menu_res",menu_res);
 			return "chart03";
 		}
 		
 		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String chart04(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+		public String chart04(Model model, String user_id, String bm_date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
 			
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
@@ -429,8 +449,14 @@ public class HomeController {
 			model.addAttribute("kal",kal);
 
 			return "chart04";
+<<<<<<< HEAD
+		}
+*/		
+=======
 		}*/
 		
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
+>>>>>>> refs/remotes/origin/master
 		@RequestMapping("/prac.do")
 		public String prac() {
 			return "prac";
@@ -449,6 +475,37 @@ public class HomeController {
 
 		}
 		
+		@RequestMapping("/menutype")
+		public String menutype(Model model, String user_id, String bm_date, String type) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
+			int size = dto.size();
+			
+			int kal_res = 0;
+			String menu_type = "";
+			String menu_res = "";
+
+			for(int i=0; i<dto.size(); i++) {
+				if(type.equals("morning") && (dto.get(i).getBm_type()+"").equals("아침")) {
+					kal_res += Integer.parseInt(dto.get(i).getBm_kal());
+					menu_type = "아침";
+					menu_res += dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("lunch") && (dto.get(i).getBm_type()+"").equals("점심")) {
+					kal_res += Integer.parseInt(dto.get(i).getBm_kal());
+					menu_type = "점심";
+					menu_res += dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("dinner") && (dto.get(i).getBm_type()+"").equals("저녁")){
+					kal_res += Integer.parseInt(dto.get(i).getBm_kal());
+					menu_type = "저녁";
+					menu_res += dto.get(i).getBm_menu() + " ";
+				}
+			}
+			
+			model.addAttribute("kal_res",kal_res);
+			model.addAttribute("menu_type",menu_type);
+			model.addAttribute("menu_res",menu_res);
+			
+			return "menutype";
+		}
 		
 		public String RandomNum() {
 			StringBuffer buffer = new StringBuffer();
@@ -528,7 +585,7 @@ public class HomeController {
 	public String joinuser(@ModelAttribute UserBoardDto dto) {
 		dto.setUser_grade("user");
 		dto.setUser_sns("N");
-		dto.setUser_img("resources/image.로고.png");
+		dto.setUser_img("resources/image/로고.png");
 		dto.setCno(1);
 		
 		int res = UserBiz.join(dto);
@@ -564,12 +621,53 @@ public class HomeController {
 	}
 
 	@RequestMapping( value="/login.do", method=RequestMethod.GET )
-	public String loginForm() {
-		System.out.println("진입");
-		return "login";
+	public String loginForm(HttpSession session , Model model, String user_id, String user_pw) {
+		
+		return "main_page";
+				
+		
 	}
 
-	
+	@RequestMapping(value = "/kakao.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String kakao(String id, String user_name, Model model,HttpServletResponse response ,HttpSession session ) {
+		String user_id = id;
+		String user_pw = user_name;
+		System.out.println("카카오 ID :" + user_id);
+		System.out.println("카카오 PW : " + user_pw);
+		
+				
+		UserBoardDto resdto = UserBiz.selectOne(user_id);
+		if(resdto != null) {
+			
+			UserBoardDto user = UserBiz.login(user_id, user_pw);
+			session.setAttribute("user", user);
+			
+			return "login.do";
+		}else {
+			model.addAttribute("user_id", user_id);
+			model.addAttribute("user_pw", user_pw);	
+
+			System.out.println("회원정보가 없음");
+			return "snsjoin";
+		}
+			
+			
+	}
+	@RequestMapping(value = "/joinsns.do", method = RequestMethod.POST )	
+	public String joinsns(@ModelAttribute UserBoardDto dto) {
+		dto.setUser_grade("user");
+		dto.setUser_sns("N");
+		dto.setUser_img("resources/image/로고.png");
+		dto.setCno(1);
+		
+		int res = UserBiz.join(dto);
+		
+		if(res>0) {
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}		
+	}
 	
 	@RequestMapping("/loginajax.do")
 	@ResponseBody
@@ -581,7 +679,7 @@ public class HomeController {
 		System.out.println(user_id);
 		System.out.println(user_pw);
 		if(dto != null) {
-			session.setAttribute("dto", dto);
+			session.setAttribute("user", dto);
 			sendMessageButton = true;
 		}
 		
@@ -593,15 +691,12 @@ public class HomeController {
 
 	
 	@RequestMapping("/logout.do")
-	public String logout(HttpSession session, HttpServletRequest requset, HttpServletResponse response) {
-		Object obj = session.getAttribute("req");
+	public String logout(HttpSession session, HttpServletRequest requset, HttpServletResponse response){
 		
-		if(obj != null) {
-			session.removeAttribute("login");
-			session.invalidate();
-		}
+			session.removeAttribute("user");
+			session.invalidate();			  
 		
-		return "login";
+		return "main3";
 	}
 	
 
@@ -757,9 +852,14 @@ public class HomeController {
 		public String main_menu() {
 			return "main_page";
 		}		
+<<<<<<< HEAD
+
+}
+=======
 
 }
 
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 
 
 

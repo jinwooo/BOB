@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,7 +124,7 @@ html.active #overlay {
   color: #FF5959;
   display: block;
   font-size: 32px;
-  height: 36px;
+  height: 45px;
   left: 0;
   line-height: 36px;
   margin: 10px 20px 10px 30px;
@@ -132,8 +132,8 @@ html.active #overlay {
   padding: 2px;
   position: fixed;
   text-align: center;
-  top: 0;
-  width: 36px;
+  top: -5px;
+  width: 45px;
 }
 
 .logo {
@@ -195,13 +195,19 @@ html.active menu .container {
 <body>
 <header>
   <div class="container">
-    <span id="home"><span class="ion-camera"></span></span>
+    <span id="home" onclick="location.href='/proj/tomain.do'" ><!-- <span class="ion-camera"></span> -->
+    	<img src="/proj/resources/image/logo2.png" style="width: 40px; height: 40px; padding-top: 2px;">
+    
+    </span>
     <div class="box">
       <ul>
-        <li><a class="header_menu" href="#">portfolio</a></li>
-        <li><a class="header_menu" href="#">Blog</a></li>
-        <li><a class="header_menu" href="#">Services</a></li>
-        <li><a class="header_menu" href="#">Contact</a></li>
+        <li><a class="header_menu" href="/proj/board/listSearch">Notice</a></li>
+        <li><a class="header_menu" href="#">Food Manager</a></li>
+        <li><a class="header_menu" href="#">Today Food</a></li>
+        <li><a class="header_menu" href="#">Suggest</a></li>
+        <li><a class="header_menu" href="#">Bob Talk</a></li>
+        <li><a class="header_menu" href="#">Map</a></li>
+        <li style="float: right;"><a class="header_menu" href="/proj/logout.do">Logout</a></li>
       </ul>
     </div>
   </div>

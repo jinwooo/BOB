@@ -9,11 +9,12 @@
  <title>이광석게시판</title>
 </head>
 <body>
+	
 
 <div id="root">
 
 	<header>
- 		<%@include file="include/header.jsp" %>
+<%@include file="../form/header.jsp" %>
 	</header>
  
 <hr /> 
@@ -39,7 +40,7 @@
     <td>${list.writer}</td>
     <td><fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd" /></td>
    </tr>
-   </c:forEach>
+   </c:forEach> 
    <!-- 목록 끝 -->
    
   </table>

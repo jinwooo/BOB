@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,7 @@
 <body>
 
 
- <c:redirect url="prac.do" /> 
+<<<<<<< HEAD
 <!-- 	
 	<a href="crawling.do">crawling</a>
 
@@ -38,5 +37,9 @@
  	<a href="prac.do">prac</a> -->
 	
 >>>>>>> refs/remotes/origin/master
+=======
+ <c:redirect url="prac.do" /> 
+
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 </body>
 </html>

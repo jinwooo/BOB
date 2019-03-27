@@ -2,7 +2,7 @@
   display: block;
   height: 50px;
   width: 160px;
-  background-color: #40B4DE;
+  background-color: #F28169;
   color: #fff;
   font-size: 0.75em;
   border-radius: 50px;
@@ -11,7 +11,7 @@
 }
 
 #bobmanager_button:hover {
-  background-color: #82D2F0;
+  background-color: #8AC4E3;
 }
 
 #bobmanager_button:focus {

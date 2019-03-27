@@ -25,9 +25,5 @@
 		<mapper resource="/sqls/s_replyMapper.xml"/>
 		<mapper resource="/sqls/bobmanager.xml"/>
 	</mappers>
-	
-<!-- 	<mappers> -->
-<!-- 		<mapper resource="/sqls/boardMapper.xml"/> -->
-<!-- 	</mappers> -->
 
 </configuration>
