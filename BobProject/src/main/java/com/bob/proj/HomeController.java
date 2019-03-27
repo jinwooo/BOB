@@ -1,5 +1,6 @@
 package com.bob.proj;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -113,9 +114,7 @@ public class HomeController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+	
 		return "foodsearch";
 	}
 	
@@ -355,6 +354,11 @@ public class HomeController {
 			return "map_search";
 		}	
 		
+		@RequestMapping("/main2.do")
+		public String main2() {
+			return "main";
+		}
+		
 		@RequestMapping("/chart01.do")
 		public String chart01() {
 			return "chart01";
@@ -366,8 +370,8 @@ public class HomeController {
 		}
 		
 		@RequestMapping("/chart_main.do")
-		public String chart_main(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+		public String chart_main(Model model, String user_id, String bm_date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
 			
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
@@ -390,29 +394,56 @@ public class HomeController {
 		}
 		
 		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String chart03(Model model, String user_id, String date) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			System.out.println(date);
-			String[] menu = new String[dto.size()];
+		public String chart03(Model model, String user_id, String bm_date, String type) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
+			int size = 0;
 			int[] kal = new int[dto.size()];
-			int size = dto.size();
+			String[] menu = new String[dto.size()];	
 			
-			
-			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			for(int i=0; i < dto.size(); i++) {
+				if(type.equals("morning") && (dto.get(i).getBm_type()+"").equals("아침")) {
+					kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+					menu[i] = dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("lunch") && (dto.get(i).getBm_type()+"").equals("점심")) {
+					kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+					menu[i] = dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("dinner") && (dto.get(i).getBm_type()+"").equals("저녁")){
+					kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+					menu[i] = dto.get(i).getBm_menu() + " ";
+				}
 			}
 			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
-
+			int cnt_menu = 0, cnt_kal = 0;
+			for(int i=0; i<menu.length; i++) {
+				if(menu[i] != null) {
+					menu[cnt_menu] = menu[i];
+					cnt_menu++;
+					System.out.println("menu_res : " + menu[cnt_menu]);
+				}
+				
+				if(kal[i] != 0) {
+					kal[cnt_kal] = kal[i];
+					cnt_kal++;
+				}
+			}
+			
+			String[] menu_res = new String[cnt_menu];
+			int[] kal_res = new int[cnt_kal];
+			
+			for(int i=0; i<cnt_menu; i++) {
+				menu_res[i] = menu[i];
+				kal_res[i] = kal[i];
+			}
+			
+			model.addAttribute("size",cnt_menu);		
+			model.addAttribute("kal_res",kal_res);
+			model.addAttribute("menu_res",menu_res);
 			return "chart03";
 		}
 		
 		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String chart04(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
+		public String chart04(Model model, String user_id, String bm_date) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
 			
 			String[] menu = new String[dto.size()];
 			int[] kal = new int[dto.size()];
@@ -449,6 +480,37 @@ public class HomeController {
 
 		}
 		
+		@RequestMapping("/menutype")
+		public String menutype(Model model, String user_id, String bm_date, String type) {
+			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
+			int size = dto.size();
+			
+			int kal_res = 0;
+			String menu_type = "";
+			String menu_res = "";
+
+			for(int i=0; i<dto.size(); i++) {
+				if(type.equals("morning") && (dto.get(i).getBm_type()+"").equals("아침")) {
+					kal_res += Integer.parseInt(dto.get(i).getBm_kal());
+					menu_type = "아침";
+					menu_res += dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("lunch") && (dto.get(i).getBm_type()+"").equals("점심")) {
+					kal_res += Integer.parseInt(dto.get(i).getBm_kal());
+					menu_type = "점심";
+					menu_res += dto.get(i).getBm_menu() + " ";
+				} else if(type.equals("dinner") && (dto.get(i).getBm_type()+"").equals("저녁")){
+					kal_res += Integer.parseInt(dto.get(i).getBm_kal());
+					menu_type = "저녁";
+					menu_res += dto.get(i).getBm_menu() + " ";
+				}
+			}
+			
+			model.addAttribute("kal_res",kal_res);
+			model.addAttribute("menu_type",menu_type);
+			model.addAttribute("menu_res",menu_res);
+			
+			return "menutype";
+		}
 		
 		public String RandomNum() {
 			StringBuffer buffer = new StringBuffer();
@@ -758,7 +820,6 @@ public class HomeController {
 			return "main_page";
 		}		
 
-}
 }
 
 

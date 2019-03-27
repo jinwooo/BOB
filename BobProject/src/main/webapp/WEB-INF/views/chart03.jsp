@@ -10,16 +10,16 @@
 </head>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
-
 <body>
 	<div id="chart" class="donut"></div>
-	<c:forEach items="${menu }" var="menu1">
+	<c:forEach items="${menu_res }" var="menu1">
 		<input type="hidden" value="${menu1 }" class="menu">
 	</c:forEach>
-	<c:forEach items="${kal }" var="kal1">
+	<c:forEach items="${kal_res }" var="kal1">
 		<input type="hidden" value="${kal1 }" class="kal">
 	</c:forEach>
 <script type="text/javascript">
+
 
 var a = new Object();
 

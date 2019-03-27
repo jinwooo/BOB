@@ -357,8 +357,6 @@
 				<configuration>
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
-
-
 			</plugin>
 		</plugins>
 	</build>
