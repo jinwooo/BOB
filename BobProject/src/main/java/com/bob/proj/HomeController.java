@@ -120,6 +120,8 @@ public class HomeController {
 	}
 	
 	
+	
+	
 	 @RequestMapping("/trans.do")
 	    public ModelAndView trans(@RequestParam(required=false) String text){
 	        ModelAndView mav = new ModelAndView();
@@ -338,82 +340,7 @@ public class HomeController {
 		public String chart02() {
 			return "chart02";
 		}
-<<<<<<< HEAD
-/*		
-=======
-	/*	
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
-		@RequestMapping("/chart_main.do")
-		public String chart_main(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			
-			String[] menu = new String[dto.size()];
-			int[] kal = new int[dto.size()];
-			int size = dto.size();
-			String[] menuType = new String[dto.size()];
-			
-			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-				menuType[i] = dto.get(i).getBm_type();
-				System.out.println("menutype : "+menuType[i]);
-			}
-			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
-			model.addAttribute("menuType", menuType);
-			
-			return "chart_main";
-		}
-		
-		@RequestMapping(value="/chart03.do", method= {RequestMethod.GET, RequestMethod.POST})
-		public String chart03(Model model, String user_id, String date) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			System.out.println(date);
-			String[] menu = new String[dto.size()];
-			int[] kal = new int[dto.size()];
-			int size = dto.size();
-			
-			
-			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-			}
-			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
 
-			return "chart03";
-		}
-		
-		@RequestMapping(value="/chart04.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String chart04(Model model, String user_id) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id);
-			
-			String[] menu = new String[dto.size()];
-			int[] kal = new int[dto.size()];
-			int size = dto.size();
-			
-			
-			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-			}
-			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
-
-			return "chart04";
-<<<<<<< HEAD
-		}
-*/		
-=======
-		}*/
-		
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 		@RequestMapping("/prac.do")
 		public String prac() {
 			return "prac";
@@ -511,7 +438,7 @@ public class HomeController {
 	public String joinuser(@ModelAttribute UserBoardDto dto) {
 		dto.setUser_grade("user");
 		dto.setUser_sns("N");
-		dto.setUser_img("resources/image.로고.png");
+		dto.setUser_img("resources/image/로고.png");
 		dto.setCno(1);
 		
 		int res = UserBiz.join(dto);
@@ -554,7 +481,46 @@ public class HomeController {
 		
 	}
 
-	
+	@RequestMapping(value = "/kakao.do", method = {RequestMethod.GET,RequestMethod.POST})
+	public String kakao(String id, String user_name, Model model,HttpServletResponse response ,HttpSession session ) {
+		String user_id = id;
+		String user_pw = user_name;
+		System.out.println("카카오 ID :" + user_id);
+		System.out.println("카카오 PW : " + user_pw);
+		
+				
+		UserBoardDto resdto = UserBiz.selectOne(user_id);
+		if(resdto != null) {
+			
+			UserBoardDto user = UserBiz.login(user_id, user_pw);
+			session.setAttribute("user", user);
+			
+			return "login.do";
+		}else {
+			model.addAttribute("user_id", user_id);
+			model.addAttribute("user_pw", user_pw);	
+
+			System.out.println("회원정보가 없음");
+			return "snsjoin";
+		}
+			
+			
+	}
+	@RequestMapping(value = "/joinsns.do", method = RequestMethod.POST )	
+	public String joinsns(@ModelAttribute UserBoardDto dto) {
+		dto.setUser_grade("user");
+		dto.setUser_sns("N");
+		dto.setUser_img("resources/image/로고.png");
+		dto.setCno(1);
+		
+		int res = UserBiz.join(dto);
+		
+		if(res>0) {
+			return "redirect:/";
+		}else {
+			return "redirect:/";
+		}		
+	}
 	
 	@RequestMapping("/loginajax.do")
 	@ResponseBody

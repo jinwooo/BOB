@@ -124,7 +124,7 @@ html.active #overlay {
   color: #FF5959;
   display: block;
   font-size: 32px;
-  height: 36px;
+  height: 45px;
   left: 0;
   line-height: 36px;
   margin: 10px 20px 10px 30px;
@@ -132,8 +132,8 @@ html.active #overlay {
   padding: 2px;
   position: fixed;
   text-align: center;
-  top: 0;
-  width: 36px;
+  top: -5px;
+  width: 45px;
 }
 
 .logo {
@@ -196,7 +196,7 @@ html.active menu .container {
 <header>
   <div class="container">
     <span id="home" onclick="location.href='/proj/tomain.do'" ><!-- <span class="ion-camera"></span> -->
-    	<img src="resources/image/로고.png" style="width: 50px; height: 50px;">
+    	<img src="/proj/resources/image/logo2.png" style="width: 40px; height: 40px; padding-top: 2px;">
     
     </span>
     <div class="box">

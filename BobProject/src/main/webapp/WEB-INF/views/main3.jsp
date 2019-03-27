@@ -7,6 +7,58 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+// 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('3f8aa77b19d70157207d3f3996591846');
+function loginWithKakao() {
+  // 로그인 창을 띄웁니다.
+ Kakao.Auth.loginForm({
+	 success: function(authObj) {
+      //alert(JSON.stringify(authObj));
+	
+      Kakao.API.request({
+     url: '/v1/user/me',
+     success: function(res) {
+       /*  kout(); */
+             location.href="kakao.do?snsLogin&id="+res.id+"&user_name="+res.properties.nickname 
+             url:"kakao.do?kakaologin&kakaoid="+res.user_id+"&kakaoemail="+res.user_email+"&kakaoname="+res.user_name
+            
+             		 	
+		   var id = res.id;
+        $("#kako_id").val(id);  
+         var email = res.kaccount_email;
+        $("#kako_email").val(email); 
+      var nickname = res.properties['nickname'];
+        $("#kako_nickname").val(nickname); 	    
+        alert(nickname); 
+         alert(id);  
+       
+     	}
+       })
+
+    },
+    fail: function(err) {
+      alert(JSON.stringify(err));
+    }
+  });
+};
+
+
+//]]>
+function kout(){
+    
+    Kakao.Auth.logout(function(data){
+             alert(data)
+         });
+ }
+</script>
 		<title>Login to Celyes</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script type="text/javascript">
@@ -424,8 +476,11 @@ input[type="email"]{
         <input type="text" id="user_id_login" name="user_id" placeholder="Id"><i class="fa fa-envelope-o"></i></input>
         <input type="password" id="user_pw_login" name="user_pw" placeholder="Password"><i class="fa fa-lock"></i></input>
         <button class="form-btn" id="login_bu"  >LOGIN</button>
-        <a class="forgot" id="findinfo">Forgot password</a>
-        
+        <a class="forgot" id="findinfo">Forgot password</a><br/>
+        	<a id="custom-login-btn" href="javascript:loginWithKakao()"> <img
+		src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg"
+		width="254" height="55"  style="display: block; margin: auto;"/>
+	</a>
       </div>
     </div>
   </div>
