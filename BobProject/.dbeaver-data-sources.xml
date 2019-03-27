@@ -10,5 +10,15 @@
 			<provider-property name="@dbeaver-always-show-dba@" value="false"/>
 		</connection>
 	</data-source>
+	<data-source id="oracle_thin-169b97cab8d-62a63b329463b050" provider="oracle" driver="oracle_thin" name="Oracle - xe" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
+		<connection host="localhost" port="1521" server="" database="xe" url="jdbc:oracle:thin:@//localhost:1521/xe" user="kh" password="GAxmwQ==" home="C:\ProgramData\Oracle\Java\javapath:C:\Program Files\Java\jdk1.8.0_77" type="dev">
+			<provider-property name="@dbeaver-always-use-dba-views@" value="false"/>
+			<provider-property name="@dbeaver-sid-service@" value="SERVICE"/>
+			<provider-property name="@dbeaver-use-rule-hint@" value="false"/>
+			<provider-property name="@dbeaver-connection-type@" value="BASIC"/>
+			<provider-property name="@dbeaver-check-schema-content@" value="true"/>
+			<provider-property name="@dbeaver-always-show-dba@" value="false"/>
+		</connection>
+	</data-source>
 	<filters/>
 </data-sources>

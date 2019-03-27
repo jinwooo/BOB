@@ -14,28 +14,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bob.proj.model.biz.BoardBiz;
-import com.bob.proj.model.biz.ReplyBiz;
-import com.bob.proj.model.dto.BoardDto;
+import com.bob.proj.model.biz.s_BoardBiz;
+import com.bob.proj.model.biz.s_ReplyBiz;
+import com.bob.proj.model.dto.s_BoardDto;
 import com.bob.proj.model.dto.Criteria;
 import com.bob.proj.model.dto.PageMaker;
-import com.bob.proj.model.dto.ReplyDto;
+import com.bob.proj.model.dto.s_ReplyDto;
 import com.bob.proj.model.dto.SearchCriteria;
 
 @Controller
-@RequestMapping("/board/*")
-public class BoardController {
+@RequestMapping("/s_board/*")
+public class s_BoardController {
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
-	public BoardController() {
+	public s_BoardController() {
 	}
 	
 	@Inject
-	BoardBiz biz;
+	s_BoardBiz biz;
 	
 	@Inject
-	ReplyBiz replybiz;
+	s_ReplyBiz replybiz;
 	
 	//글작성 get
 	@RequestMapping(value="/write",method=RequestMethod.GET)
@@ -45,12 +45,12 @@ public class BoardController {
 	
 	//글작성 post
 	@RequestMapping(value="/write",method=RequestMethod.POST)
-	public String postWrite(BoardDto dto) throws Exception{
+	public String postWrite(s_BoardDto dto) throws Exception{
 		logger.info("post write");
-		
+
 		biz.write(dto);
 		
-		return "redirect:/board/listSearch";
+		return "redirect:/s_board/listSearch";
 	}
 	//GET은 해당 페이지에 접속, POST는 해당 페이지에서 값을 전송하는 것
 	
@@ -59,7 +59,7 @@ public class BoardController {
 	public void list(Model model) throws Exception{
 		logger.info("get list");
 		
-		List<BoardDto> list = biz.list();
+		List<s_BoardDto> list = biz.list();
 		
 		model.addAttribute("list",list);
 	}
@@ -70,7 +70,7 @@ public class BoardController {
 						@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get read");
 			
-		BoardDto dto = biz.read(bno);		
+		s_BoardDto dto = biz.read(bno);		
 		model.addAttribute("read", dto);		
 		model.addAttribute("scri", scri);
 		
@@ -81,7 +81,7 @@ public class BoardController {
 //		System.out.println(scri.getSearchType());
 //			
 		//댓글을 불러오는 코드 추가 
-		List<ReplyDto> repList = replybiz.readReply(bno);
+		List<s_ReplyDto> repList = replybiz.readReply(bno);
 		model.addAttribute("repList", repList);
 			
 	}	
@@ -90,13 +90,13 @@ public class BoardController {
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String getModify(@RequestParam("bno") int bno,@ModelAttribute("srci") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get modify");
-	  
-		BoardDto dto = biz.read(bno);
-	  	
+		
+		s_BoardDto dto = biz.read(bno);
+	  			
 		model.addAttribute("modify", dto);
 		model.addAttribute("scri",scri);
 		
-		return "board/modify";
+		return "s_board/modify";
 	} 
 	
 	//글삭제
@@ -106,7 +106,7 @@ public class BoardController {
 	    
 		biz.delete(bno); //추가 
 		
-		return "redirect:/board/listSearch";
+		return "redirect:/s_board/listSearch";
 		//model.addAttribute("delete", bno);
 		//model.addAttribute("scri",scri);
 	  
@@ -115,9 +115,9 @@ public class BoardController {
 	//값을전송할때 post
 	// 글 수정  POST	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String postModify(BoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+	public String postModify(s_BoardDto dto, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("post modify");
-		
+				
 		String res = dto.getContent();
 		
 		res=res.substring(1, res.length());
@@ -125,13 +125,13 @@ public class BoardController {
 		dto.setContent(res);
 		
 		biz.update(dto);
-				
+		
 		rttr.addAttribute("page", scri.getPage());
 		rttr.addAttribute("perPageNum", scri.getPerPageNum());
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 
-		return "redirect:/board/listSearch";
+		return "redirect:/s_board/listSearch";
 	}
 
 	// 글 삭제  POST 
@@ -146,7 +146,7 @@ public class BoardController {
 		rttr.addAttribute("searchType", scri.getSearchType());
 		rttr.addAttribute("keyword", scri.getKeyword());
 			
-		return "redirect:/board/listSearch";	
+		return "redirect:/s_board/listSearch";	
 	}
 	
 	//글목록 + 페이징
@@ -154,7 +154,7 @@ public class BoardController {
 	public void listPage(Criteria cri, Model model) throws Exception{
 		logger.info("get list page");
 		
-		List<BoardDto> list = biz.listPage(cri);
+		List<s_BoardDto> list = biz.listPage(cri);
 		model.addAttribute("list",list);
 		
 		PageMaker pageMaker = new PageMaker();
@@ -165,7 +165,7 @@ public class BoardController {
 
 	// 댓글 작성
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
-	public String replyWrite(ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+	public String replyWrite(s_ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 		logger.info("reply write");
 		 
 		replybiz.writeReply(dto);
@@ -181,7 +181,7 @@ public class BoardController {
 		System.out.println((scri.getKeyword()));
 		System.out.println(scri.getSearchType());
 	 
-		return "redirect:/board/read"; 
+		return "redirect:/s_board/read"; 
 	}
 	
 	// 글 목록 + 페이징 + 검색
@@ -189,7 +189,7 @@ public class BoardController {
 	public void listPage(@ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 		logger.info("get list search");
 		 
-		List<BoardDto> list = biz.listSearch(scri);
+		List<s_BoardDto> list = biz.listSearch(scri);
 		model.addAttribute("list", list);
 		 
 		PageMaker pageMaker = new PageMaker();
@@ -200,7 +200,7 @@ public class BoardController {
 	
 	// 댓글 수정 POST
 	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
-	public String replyUpdate(ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+	public String replyUpdate(s_ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 	 logger.info("reply update");
 	 
 	 replybiz.replyUpdate(dto);
@@ -211,12 +211,12 @@ public class BoardController {
 	 rttr.addAttribute("searchType", scri.getSearchType());
 	 rttr.addAttribute("keyword", scri.getKeyword());
 	 
-	 return "redirect:/board/read";
+	 return "redirect:/s_board/read";
 	}
 
 	// 댓글 삭제 POST
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
-	public String replyDelete(ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
+	public String replyDelete(s_ReplyDto dto, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
 	 logger.info("reply post delete");
 	 
 	 replybiz.replyDelete(dto);
@@ -227,7 +227,7 @@ public class BoardController {
 	 rttr.addAttribute("searchType", scri.getSearchType());
 	 rttr.addAttribute("keyword", scri.getKeyword());
 	 
-	 return "redirect:/board/read";
+	 return "redirect:/s_board/read";
 	}
 	
 	// 댓글 수정 GET
@@ -236,7 +236,7 @@ public class BoardController {
 	      @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 	 logger.info("reply update");
 	 
-	 ReplyDto dto = null;
+	 s_ReplyDto dto = null;
 	 
 	 dto = replybiz.readReplySelect(rno);
 	 
@@ -250,7 +250,7 @@ public class BoardController {
 	      @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
 	 logger.info("reply get delete");
 	 
-	 ReplyDto dto = null;
+	 s_ReplyDto dto = null;
 	 
 	 dto = replybiz.readReplySelect(rno);
 	 
@@ -260,5 +260,3 @@ public class BoardController {
 	 model.addAttribute("scri", scri);
 	}
 }
-
-
