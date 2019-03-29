@@ -70,9 +70,9 @@
 			<label>식사시간</label><br/>
 			<input type="text" name="bm_type" placeholder="예)아침, 점심, 저녁"> <br/>
 			<input type="button" id="crawling" value="검색으로 메뉴찾기"><br/>
-			<input type="hidden" id="bm_menu" name="bm_menu" >
-			<input type="hidden" id="bm_kal" name="bm_kal" >
-			<input type="hidden" id="bm_img" name="bm_img">
+			<input type="hidden" id="bm_menu2" name="bm_menu" >
+			<input type="hidden" id="bm_kal2" name="bm_kal" >
+			<input type="hidden" id="bm_img2" name="bm_img">
 			<input type="submit" name="올리기">
 		
 		</form>			

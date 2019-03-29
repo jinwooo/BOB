@@ -112,7 +112,7 @@ $(function() {
   <br/>La comunicacion es algo natural <span>Y te puedo ayudar.</span></h1>
 </section>
 <section id="portfolio">
-  <h1>Para mirar el futuro, echa un vistazo tu pasado <span>Solo asi conoceras tu futuro.</span></h1>
+  <h1>Para mirar el futuro,  <span>Solo asi conoceras tu futuro.</span></h1>
 </section>
 <section id="blog">
   <h1>Hermosa como ninguna <span>Dulce como ninguna.</span></h1>

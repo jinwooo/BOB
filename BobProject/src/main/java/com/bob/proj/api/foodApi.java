@@ -60,13 +60,18 @@ public class foodApi {
 					// for문을 사용해 준 것은 모든 데이터를 출력해 보기 위해서이다.
 
 					Node nNode = nList.item(temp);
-
+					String kal = null;
 					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
  
 						Element eElement = (Element) nNode;
 						String foodname = getTagValue("DESC_KOR", eElement);
 						System.out.println(foodname);
-						String kal = getTagValue("NUTR_CONT1", eElement);
+						
+						if(getTagValue("NUTR_CONT1", eElement).indexOf(".") == -1) {
+							kal = getTagValue("NUTR_CONT1", eElement);
+						}else {
+							kal = getTagValue("NUTR_CONT1", eElement).substring(0, getTagValue("NUTR_CONT1", eElement).indexOf("."));
+						}
 						System.out.println(kal);
 						String tan = getTagValue("NUTR_CONT2", eElement);
 						System.out.println(tan);

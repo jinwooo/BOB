@@ -210,7 +210,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/tandanji.do")
-	public String tandanji(Model model, String foodname, String root) {
+	public String tandanji(Model model, String foodname, String root, String inp) {
 
 		try {
 			String foodname2 = foodname.replace(" ", "");
@@ -221,7 +221,7 @@ public class HomeController {
 			dto.setFoodname(list.get(0).getFoodname());
 			dto.setKal(list.get(0).getKal());
 			model.addAttribute("root", root);
-
+			model.addAttribute("inp", inp);
 			model.addAttribute("list", list);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -404,18 +404,6 @@ public class HomeController {
 	public String main2() {
 		return "main";
 	}
-
-	@RequestMapping("/chart01.do")
-	public String chart01() {
-		return "chart01";
-	}
-
-	@RequestMapping("/chart02.do")
-	public String chart02() {
-		return "chart02";
-	}
-
-
 
 	@RequestMapping(value = "/chart03.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String chart03(Model model, String user_id, String bm_date, String type) {
@@ -652,7 +640,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/kakao.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String kakao(String id, String user_name, Model model, HttpServletResponse response, HttpSession session) {
+	public String kakao(String id, String user_name, Model model,HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String user_id = id;
 		String user_pw = user_name;
 		System.out.println("카카오 ID :" + user_id);
@@ -662,6 +650,7 @@ public class HomeController {
 		if (resdto != null) {
 
 			UserBoardDto user = UserBiz.login(user_id, user_pw);
+			session = request.getSession(true);
 			session.setAttribute("user", user);
 
 			return "main_page";
@@ -693,7 +682,7 @@ public class HomeController {
 
 	@RequestMapping("/loginajax.do")
 	@ResponseBody
-	public Map<String, Boolean> login(String user_id, String user_pw, HttpSession session) {
+	public Map<String, Boolean> login(String user_id, String user_pw,HttpServletRequest request, HttpSession session) {
 
 		UserBoardDto dto = UserBiz.login(user_id, user_pw);
 		boolean sendMessageButton = false;
@@ -701,6 +690,12 @@ public class HomeController {
 		System.out.println(user_id);
 		System.out.println(user_pw);
 		if (dto != null) {
+			if(session.getAttribute("user") != null) {
+				session.removeAttribute("user");
+			}
+			
+			
+			session = request.getSession(true);
 			session.setAttribute("user", dto);
 			sendMessageButton = true;
 		}
@@ -869,7 +864,7 @@ public class HomeController {
 	public String main_menu() {
 		return "main_page";
 	}
-
+     
 	@RequestMapping(value = "/chat.do")
 	public String chatroom(Model model, HttpSession session) {
 
@@ -926,7 +921,7 @@ public class HomeController {
 				
 				return map;
 			}
-		}
+		}      
 		
 
 	}
