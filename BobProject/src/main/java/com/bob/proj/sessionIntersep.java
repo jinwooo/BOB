@@ -61,12 +61,11 @@ public class sessionIntersep implements HandlerInterceptor {
 	        
 	        HttpSession session = request.getSession();
 	        UserBoardDto loginVO = (UserBoardDto) session.getAttribute("user");
-	 
 
 	        if(loginVO == null){
-	            response.sendRedirect("/proj/prac.do");
+	            response.sendRedirect("prac.do");
 	            return false;
-	        }	        
+	        }
 	        return true;
 	    }
 	 

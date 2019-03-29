@@ -143,7 +143,6 @@ $(function(){
 	})
 </script>
 <body>
-	
 	<%@ include file="form/header.jsp" %>
 	<div style="margin-top: 100px;">
 		<h1>메뉴를 <span class="header-span">선택해주세요</span></h1><hr>

@@ -212,5 +212,27 @@ html.active menu .container {
     </div>
   </div>
 </header>
+	<header>
+		<div class="container">
+			<span id="home" onclick="location.href='/proj/tomain.do'">
+				<!-- <span class="ion-camera"></span> --> <img
+				src="/proj/resources/image/logo2.png"
+				style="width: 40px; height: 40px; padding-top: 2px;">
+
+			</span>
+			<div class="box">
+				<ul>
+					<li><a class="header_menu" href="/proj/board/listSearch">Notice</a></li>
+					<li><a class="header_menu" href="/proj/manager.do">Food
+							Manager</a></li>
+					<li><a class="header_menu" href="/proj/s_board/listSearch">Suggest</a></li>
+					<li><a class="header_menu" href="/proj/chat.do">Bob Talk</a></li>
+					<li><a class="header_menu" href="/proj/map.do">Map</a></li>
+					<li style="float: right;"><a class="header_menu"
+						href="/proj/logout.do">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</header>
 </body>
 </html>

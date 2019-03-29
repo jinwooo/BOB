@@ -422,7 +422,7 @@ input[type="email"]{
   <div id="hero-section">
    <!--  <div id="head-line"></div> -->
      <!-- <div id="heading"></div> -->
-   <video id="video-background" src="resources/video/잡채.mp4" autoplay="autoplay" muted="muted" loop="loop" > 당신의 브라우저에서는 실행되지 않습니다.</video>
+   <video id="video-background" src="resources/video/jabchea.mp4" autoplay="autoplay" muted="muted" loop="loop" > 당신의 브라우저에서는 실행되지 않습니다.</video>
 			<div id="onvideo">
 				 	 <div class="wrapper">
     <div class="background" style="height: 80%;">
