@@ -46,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -243,28 +244,29 @@ public class HomeController {
 			return "chart_main";
 		}
 	}
-		@RequestMapping("/chart_main.do")
-		public String chart_main(Model model, String user_id, String bm_date) {
-			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
-			
-			String[] menu = new String[dto.size()];
-			int[] kal = new int[dto.size()];
-			int size = dto.size();
-			String[] menuType = new String[dto.size()];
-			
-			for(int i=0; i<dto.size(); i++) {
-				menu[i] = dto.get(i).getBm_menu();
-				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-				menuType[i] = dto.get(i).getBm_type();
-				System.out.println("menutype : "+menuType[i]);
-			}
-			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
-			model.addAttribute("menuType", menuType);
-			
-			return "chart_main";
+
+	@RequestMapping("/chart_main.do")
+	public String chart_main(Model model, String user_id, String bm_date) {
+		List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
+
+		String[] menu = new String[dto.size()];
+		int[] kal = new int[dto.size()];
+		int size = dto.size();
+		String[] menuType = new String[dto.size()];
+
+		for (int i = 0; i < dto.size(); i++) {
+			menu[i] = dto.get(i).getBm_menu();
+			kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			menuType[i] = dto.get(i).getBm_type();
+			System.out.println("menutype : " + menuType[i]);
+		}
+
+		model.addAttribute("size", size);
+		model.addAttribute("menu", menu);
+		model.addAttribute("kal", kal);
+		model.addAttribute("menuType", menuType);
+
+		return "chart_main";
 
 	}
 
@@ -405,6 +407,7 @@ public class HomeController {
 		return "main";
 	}
 
+
 	@RequestMapping(value = "/chart03.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String chart03(Model model, String user_id, String bm_date, String type) {
 		List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
@@ -423,10 +426,10 @@ public class HomeController {
 				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
 				menu[i] = dto.get(i).getBm_menu() + " ";
 			}
-			
-			model.addAttribute("size",size);
-			model.addAttribute("menu",menu);
-			model.addAttribute("kal",kal);
+
+			model.addAttribute("size", size);
+			model.addAttribute("menu", menu);
+			model.addAttribute("kal", kal);
 
 			return "chart04";
 
@@ -702,17 +705,22 @@ public class HomeController {
 
 		Map<String, Boolean> res = new HashMap<String, Boolean>();
 		res.put("sendMessageButton", sendMessageButton);
-		System.out.println("login");
+		System.out.println("login : " + ((UserBoardDto) session.getAttribute("user")).getUser_name());
 		return res;
 	}
 
 	@RequestMapping("/logout.do")
-	public String logout(HttpSession session, HttpServletRequest requset, HttpServletResponse response) {
-
+	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response, SessionStatus status) {
 		session.removeAttribute("user");
 		session.invalidate();
+		session = request.getSession(false);
+		status.setComplete();
 
-		return "main3";
+		if (session == null) {
+			System.out.println("세션 종료됨");
+		}
+
+		return "redirect:main3.do";
 	}
 
 	@RequestMapping("/findform.do")
@@ -848,12 +856,10 @@ public class HomeController {
 
 	}
 
-
 	@RequestMapping("/header.do")
 	public String header() {
 		return "header";
 	}
-
 
 	@RequestMapping("/footer.do")
 	public String footer() {
@@ -868,7 +874,10 @@ public class HomeController {
 	@RequestMapping(value = "/chat.do")
 	public String chatroom(Model model, HttpSession session) {
 
-		UserBoardDto userdto = (UserBoardDto)session.getAttribute("user");
+		UserBoardDto userdto = new UserBoardDto();
+
+		userdto = (UserBoardDto) (session.getAttribute("user"));
+
 		model.addAttribute("chatuser", UserBiz.chatuser(userdto.getUser_id()));
 
 		return "chat";
@@ -923,6 +932,6 @@ public class HomeController {
 			}
 		}      
 		
+	
 
-	}
-
+}
