@@ -22,8 +22,8 @@
 <link href="resources/css/chat.css" rel="stylesheet">
 </head>
 <body>
-	<%-- <%@ include file="form/header.jsp" %> --%>
-	<div class="container clearfix">
+	<%@ include file="form/header.jsp" %>
+	<div class="chatcontainer clearfix">
 		<div class="people-list" id="people-list">
 			<div class="chatlist" id="chatlist">
 				<div class="myprofile">
@@ -41,19 +41,15 @@
 					<div class="about">
 						<div class="name">${user.user_name }</div>
 						<div class="status">
-							<i class="fa fa-circle online"></i> online
+							[ ID : ${user.user_id } ]
 						</div>
 					</div>
 				</div>
-				<!-- 				<div class="chatmenu">
-					<span onclick="list()">USER LIST</span> <span onclick="roomlist()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHAT
-						ROOM LIST</span>
-				</div> -->
+				
 				<div class="search user">
 					<input type="text" placeholder="search" /> <i class="fa fa-search"></i>
 				</div>
 				<ul class="list">
-
 					<c:choose>
 						<c:when test="${empty chatuser }">
 							<li class="clearfix">
@@ -75,27 +71,13 @@
 									<div class="about">
 										<div class="name">${chatuser.user_name }</div>
 										<div class="status">
-											<i class="fa fa-circle online"></i> online
+											[ ID : ${chatuser.user_id } ]
 										</div>
 									</div></li>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
-
 				</ul>
-
-				<!-- 				<ul class="roomlist" style="display: none;">
-					<li><div class="name">test</div></li>
-					<li class="clearfix"><img
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg"
-						alt="avatar" />
-						<div class="about">
-							<div class="name">Aiden Chavez</div>
-							<div class="status">
-								<i class="fa fa-circle offline"></i> left 7 mins ago
-							</div>
-						</div></li>
-				</ul> -->
 			</div>
 		</div>
 
@@ -106,9 +88,8 @@
 		<div class="chat">
 			<!-- chat header -->
 			<div class="chat-header clearfix">
-				<input id="roomNum" type="hidden"> <img
-					src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg"
-					alt="avatar" />
+				<input id="roomNum" type="hidden">
+				<div class="img"></div>
 
 				<div class="chat-close">
 					<i class="fa fa-times"></i>
@@ -116,7 +97,6 @@
 
 				<div class="chat-about">
 					<div class="chat-with"></div>
-					<div class="chat-num-messages">already 1 902 messages</div>
 				</div>
 			</div>
 			<!-- end chat-header -->
@@ -156,8 +136,7 @@
   </li>
 </script>
 
-	<script id="message-response-template"
-		type="text/x-handlebars-template">
+	<script id="message-response-template" type="text/x-handlebars-template">
   <li>
     <div class="message-data">
       <span class="message-data-name"><i class="fa fa-circle online"></i> {{name}}</span>

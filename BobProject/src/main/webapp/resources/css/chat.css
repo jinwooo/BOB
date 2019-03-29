@@ -5,17 +5,15 @@
 }
 
 body {
-	background: #C5DDEB;
 	font: 14px/20px "Lato", Arial, sans-serif;
-	padding: 40px 0;
 	color: white;
 }
 
-.container {
-	margin: 0 auto;
+.chatcontainer {
+	margin: 100px auto 50px;
 	width: 750px;
 	background: #444753;
-	border-radius: 5px;
+	border-radius: 6px;
 }
 
 .people-list {
@@ -52,7 +50,8 @@ body {
 .people-list .chatlist .list, .roomlist {
 	overflow: auto;
 	padding: 0px 20px 20px 20px;
-	height: 592px;
+	height: 632px;
+	margin: 0;
 }
 
 .people-list input {
@@ -72,10 +71,6 @@ body {
 .people-list .fa-search {
 	position: relative;
 	left: -25px;
-}
-
-.people-list .chatlist .list, .roomlist {
-	margin: 0;
 }
 
 .people-list .chatlist .list li, .roomlist li {
@@ -113,7 +108,7 @@ body {
 
 .emptychat {
 	width: 490px;
-	height: 824px;
+	height: 819px;
 	float: left;
 	background: #eee;
 	border-radius: 0 5px 5px 0;
@@ -139,27 +134,29 @@ body {
 	border-bottom: 2px solid white;
 }
 
-.chat .chat-header img {
+.chat .chat-header .img img {
 	float: left;
 	border-radius: 30px;
-	border: 2px solid;
+	border: 2px solid #eee;
 	width: 55px;
     height: 55px;
+    background: white;
+}
+
+.chat .chat-header .img i {
+	float: left;
+	border-radius: 30px;
 }
 
 .chat .chat-header .chat-about {
 	float: left;
 	padding-left: 10px;
-	margin-top: 6px;
+	margin-top: 16px;
 }
 
 .chat .chat-header .chat-with {
 	font-weight: bold;
 	font-size: 16px;
-}
-
-.chat .chat-header .chat-num-messages {
-	color: #92959E;
 }
 
 .chat .chat-header .chat-close {
@@ -170,7 +167,7 @@ body {
 	padding: 30px 30px 20px;
 	border-bottom: 2px solid white;
 	overflow-y: scroll;
-	height: 550px;
+	height: 549px;
 }
 
 .chat .chat-history .message-data {
@@ -202,21 +199,21 @@ body {
 	width: 0;
 	position: absolute;
 	pointer-events: none;
-	border-bottom-color: #92959e;
+	border-bottom-color: #CDD0D7;
 	border-width: 10px;
 	margin-left: -10px;
 }
 
 .chat .chat-history .my-message {
-	background: #92959e;
+	background: #CDD0D7;
 }
 
 .chat .chat-history .other-message {
-	background: #94C2ED;
+	background: #e3896885;
 }
 
 .chat .chat-history .other-message:after {
-	border-bottom-color: #94C2ED;
+	border-bottom-color: #e3896885;
 	left: 93%;
 }
 
@@ -242,7 +239,7 @@ body {
 
 .chat .chat-message button {
 	float: right;
-	color: #94C2ED;
+	color: #e3896885;
 	font-size: 16px;
 	text-transform: uppercase;
 	border: none;
@@ -252,7 +249,7 @@ body {
 }
 
 .chat .chat-message button:hover {
-	color: #75b1e8;
+	color: #e38968;
 }
 
 .online, .offline, .me {
@@ -261,16 +258,15 @@ body {
 }
 
 .online {
-	color: #86BB71;
+	color: #dedf04;
 }
 
-z
 .offline {
 	color: #E38968;
 }
 
 .me {
-	color: #94C2ED;
+	color: #dedf04;
 }
 
 .align-left {

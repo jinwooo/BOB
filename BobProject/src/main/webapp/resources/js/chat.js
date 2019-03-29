@@ -19,6 +19,12 @@
 			$(".emptychat").hide();
 			$(".chat").show();
 			$(".chat-with").text(target_name);
+			var clickimg = $(this).find("img").attr("src");
+			if(clickimg != null){
+				$(".chat-header .img").html("<img src='"+clickimg+"'>");
+			} else {
+				$(".chat-header .img").html("<i class='fas fa-user-circle fa-4x'>");
+			}
 			
 			$.ajax({
 				type : "post",
