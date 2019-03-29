@@ -54,8 +54,6 @@
 			<exclude-mapping path="/findpwform.do"/>
 			<exclude-mapping path="/transjax.do"/>
 			<exclude-mapping path="/transrespw.do"/>
-			<exclude-mapping path="/header.do"/>
-			<exclude-mapping path="/footer.do"/>			
 			<beans:ref bean="intersession" />
 		</interceptor>
 		

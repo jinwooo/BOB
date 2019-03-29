@@ -59,7 +59,7 @@ $(function(){
 <body>
 
 	<div id="header" style="width: 100%; height: 200px; background-color: blue;">
-		<h1>헤더</h1>
+		<%@include file="form/header.jsp" %>
 	</div>
 	<div id="food_selction" style="width: 100%; height: 150px; margin-top: 20px;">
 		<div class="select" style="float: left; width: 150px; height: 150px; 
