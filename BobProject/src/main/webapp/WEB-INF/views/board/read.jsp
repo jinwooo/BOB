@@ -23,11 +23,11 @@
 </header>
 
 
- 
 <nav>
  	<%@include file="include/nav.jsp" %>
  </nav>
 
+<br><br>
 
  <section id="container">
  
@@ -120,6 +120,7 @@
    </div>  
    	
 
+   	<br><br>
    	
    	<!-- 댓글목록 -->
     <div id="reply">
@@ -208,12 +209,13 @@
 	</div>
 
  </section>
+ </div>
+ 
 
 <hr />
 <footer>
 	<%@include file="include/footer.jsp" %>
 </footer>
-</div>
 
 </body>
 </html>
