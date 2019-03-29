@@ -18,7 +18,7 @@
 </style>
 </head>
 <body>
-	<div style="min-width: 33%; min-height: 33%; margin-left: 33%; margin-right: 33%;">
+	<div id="myChart_wrap" style="min-width: 33%; min-height: 33%; margin-left: 33%; margin-right: 33%;">
 		<canvas id="myChart" width="100%" height="100%"></canvas>
 	</div>
 	
@@ -34,60 +34,71 @@
 		var ctx = document.getElementById("myChart");
 		var menu = new Array();
 		var kal = new Array();
-		for(var i=0; i<${size}; i++){
-			menu[i] = $(".menu2").eq(i).attr("value");
-			kal[i] = $(".kal2").eq(i).attr("value");
-		}
+		var size = ${size};
 		
-		var myChart = new Chart(ctx,{
-			type: 'horizontalBar',
-			data: {
-				labels: menu,
-				datasets:[{
-					data: kal,
-					backgroundColor: [
-						'#F28169',
-						'#8AC4E3',
-						'#DEDF04',
-						'rgba(75, 192, 192, 0.2)',
-						'rgba(153, 102, 255, 0.2)'
-					],
-					borderColor:[
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)'
-					],
-					fill: false
-				}]
-			},
-			options: {
-				resonsive: true,
-				title:{
-					display: true,
-					text: "막대 차트 테스트"
-				},
-
-				hover:{
-					mode: "nearest",
-					intersect: true
-				},
-				scales: {
-		            xAxes: [{
-		                display: false,
-		            }],
-		            yAxes: [{
-		                display: true,
-		                ticks: {
-		                    autoSkip: false,
-		                }
-		            }]
-				},
-				barStrokeWidth: 9,
+		if(size != 0){
+			for(var i=0; i<${size}; i++){
+				menu[i] = $(".menu2").eq(i).attr("value");
+				kal[i] = $(".kal2").eq(i).attr("value");
 			}
-		});
-		
+
+			var myChart = new Chart(ctx,{
+				type: 'horizontalBar',
+				data: {
+					labels: menu,
+					datasets:[{
+						data: kal,
+						backgroundColor: [
+							'#F28169',
+							'#8AC4E3',
+							'#DEDF04',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)'
+						],
+						borderColor:[
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)'
+						],
+						fill: false
+					}]
+				},
+				options: {
+					resonsive: true,
+					title:{
+						display: true,
+						text: "칼로리 막대 그래프"
+					},
+
+					hover:{
+						mode: "nearest",
+						intersect: true
+					},
+					scales: {
+			            xAxes: [{
+			                display: false,
+			            }],
+			            yAxes: [{
+			                display: true,
+			                ticks: {
+			                    autoSkip: false,
+			                }
+			            }]
+					},
+					legend : {
+						display : false
+					}
+				}
+			});
+			
+		} else {
+			$("#myChart").remove();
+			var result = "<img src='resources/image/no-chart.gif' style='width:430px; height:auto; marg'>";
+			$("#myChart_wrap").append(result);
+		}
+
 </script>
 </body>
 </html>

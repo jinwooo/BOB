@@ -426,13 +426,6 @@ public class HomeController {
 				kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
 				menu[i] = dto.get(i).getBm_menu() + " ";
 			}
-
-			model.addAttribute("size", size);
-			model.addAttribute("menu", menu);
-			model.addAttribute("kal", kal);
-
-			return "chart04";
-
 		}
 
 		int cnt_menu = 0, cnt_kal = 0;
@@ -501,33 +494,37 @@ public class HomeController {
 
 	@RequestMapping("/menutype.do")
 	public String menutype(Model model, String user_id, String bm_date, String type) {
-		List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
-		int size = dto.size();
-
+		List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
+		String image = "";
 		int kal_res = 0;
-		String menu_type = "";
 		String menu_res = "";
-
-		for (int i = 0; i < dto.size(); i++) {
-			if (type.equals("morning") && (dto.get(i).getBm_type() + "").equals("아침")) {
+		String menu_kal = "";
+		
+		for(int i=0; i<dto.size(); i++) {
+			if(type.equals("morning") && (dto.get(i).getBm_type()+"").equals("아침")) {
 				kal_res += Integer.parseInt(dto.get(i).getBm_kal());
-				menu_type = "아침";
 				menu_res += dto.get(i).getBm_menu() + " ";
-			} else if (type.equals("lunch") && (dto.get(i).getBm_type() + "").equals("점심")) {
+				menu_kal += dto.get(i).getBm_kal() + " ";
+				image += dto.get(i).getBm_img() + " ";
+			} else if(type.equals("lunch") && (dto.get(i).getBm_type()+"").equals("점심")) {
 				kal_res += Integer.parseInt(dto.get(i).getBm_kal());
-				menu_type = "점심";
 				menu_res += dto.get(i).getBm_menu() + " ";
-			} else if (type.equals("dinner") && (dto.get(i).getBm_type() + "").equals("저녁")) {
+				menu_kal += dto.get(i).getBm_kal() + " ";
+				image += dto.get(i).getBm_img() + " ";
+			} else if(type.equals("dinner") && (dto.get(i).getBm_type()+"").equals("저녁")){
 				kal_res += Integer.parseInt(dto.get(i).getBm_kal());
-				menu_type = "저녁";
 				menu_res += dto.get(i).getBm_menu() + " ";
+				menu_kal += dto.get(i).getBm_kal() + " ";
+				image += dto.get(i).getBm_img() + " ";
 			}
 		}
-
-		model.addAttribute("kal_res", kal_res);
-		model.addAttribute("menu_type", menu_type);
-		model.addAttribute("menu_res", menu_res);
-
+		
+		model.addAttribute("kal_res",kal_res);
+		model.addAttribute("menu_res",menu_res);
+		model.addAttribute("menu_kal",menu_kal);
+		model.addAttribute("menu_image", image);
+		model.addAttribute("type", type);
+		
 		return "menutype";
 	}
 
