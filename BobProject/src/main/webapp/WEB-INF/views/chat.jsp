@@ -2,13 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
-
- response.setHeader("Cache-Control","no-cache");
-
- response.setHeader("Pragma","no-cache");
-
- response.setDateHeader("Expires",0);
-
+	response.setHeader("Cache-Control", "no-cache");
+	response.setHeader("Pragma", "no-cache");
+	response.setDateHeader("Expires", 0);
 %>
 <!DOCTYPE html>
 <html>
@@ -26,13 +22,13 @@
 <link href="resources/css/chat.css" rel="stylesheet">
 </head>
 <body>
-<%-- <%@ include file="form/header.jsp" %> --%>
+	<%-- <%@ include file="form/header.jsp" %> --%>
 	<div class="container clearfix">
 		<div class="people-list" id="people-list">
 			<div class="chatlist" id="chatlist">
 				<div class="myprofile">
 					<span class="mytitle">내 프로필</span>
-					
+
 					<c:choose>
 						<c:when test="${user.user_img == null }">
 							<i class='fas fa-user-circle fa-4x'></i>
@@ -41,7 +37,7 @@
 							<img src="${user.user_img }" alt="avatar" />
 						</c:otherwise>
 					</c:choose>
-					
+
 					<div class="about">
 						<div class="name">${user.user_name }</div>
 						<div class="status">
@@ -49,7 +45,7 @@
 						</div>
 					</div>
 				</div>
-<!-- 				<div class="chatmenu">
+				<!-- 				<div class="chatmenu">
 					<span onclick="list()">USER LIST</span> <span onclick="roomlist()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHAT
 						ROOM LIST</span>
 				</div> -->
@@ -66,8 +62,8 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${chatuser }" var="chatuser">
-								<li class="clearfix" data-id="${chatuser.user_id }" data-name="${chatuser.user_name }">
-									<c:choose>
+								<li class="clearfix" data-id="${chatuser.user_id }"
+									data-name="${chatuser.user_name }"><c:choose>
 										<c:when test="${chatuser.user_img == null }">
 											<i class='fas fa-user-circle fa-4x'></i>
 										</c:when>
@@ -75,21 +71,20 @@
 											<img src='${chatuser.user_img }' alt='avatar'>
 										</c:otherwise>
 									</c:choose>
-									
+
 									<div class="about">
 										<div class="name">${chatuser.user_name }</div>
 										<div class="status">
 											<i class="fa fa-circle online"></i> online
 										</div>
-									</div>
-								</li>
+									</div></li>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
 
 				</ul>
 
-<!-- 				<ul class="roomlist" style="display: none;">
+				<!-- 				<ul class="roomlist" style="display: none;">
 					<li><div class="name">test</div></li>
 					<li class="clearfix"><img
 						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg"
@@ -111,13 +106,14 @@
 		<div class="chat">
 			<!-- chat header -->
 			<div class="chat-header clearfix">
-				<input id="roomNum" type="hidden">
-				<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg" alt="avatar" />
+				<input id="roomNum" type="hidden"> <img
+					src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_02.jpg"
+					alt="avatar" />
 
 				<div class="chat-close">
 					<i class="fa fa-times"></i>
 				</div>
-				
+
 				<div class="chat-about">
 					<div class="chat-with"></div>
 					<div class="chat-num-messages">already 1 902 messages</div>
@@ -127,7 +123,7 @@
 
 			<div class="chat-history">
 				<ul>
-					
+
 				</ul>
 
 			</div>
