@@ -483,7 +483,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/prac.do")
-	public String prac() {
+	public String prac(HttpSession session) {
+		
+		
+		
+		session.setAttribute("user", new UserBoardDto());
+		
 		return "prac";
 	}
 
@@ -706,6 +711,7 @@ public class HomeController {
 		Map<String, Boolean> res = new HashMap<String, Boolean>();
 		res.put("sendMessageButton", sendMessageButton);
 		System.out.println("login : " + ((UserBoardDto) session.getAttribute("user")).getUser_name());
+		
 		return res;
 	}
 
@@ -720,7 +726,7 @@ public class HomeController {
 			System.out.println("세션 종료됨");
 		}
 
-		return "redirect:main3.do";
+		return "redirect:/";
 	}
 
 	@RequestMapping("/findform.do")

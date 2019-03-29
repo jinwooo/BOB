@@ -211,7 +211,6 @@ section>h1 {
 					<li><a class="header_menu" href="/proj/board/listSearch">Notice</a></li>
 					<li><a class="header_menu" href="/proj/manager.do">Food
 							Manager</a></li>
-					<li><a class="header_menu" href="#">Today Food</a></li>
 					<li><a class="header_menu" href="/proj//s_board/listSearch">Suggest</a></li>
 					<li><a class="header_menu" href="/proj/chat.do">Bob Talk</a></li>
 					<li><a class="header_menu" href="#">Map</a></li>
