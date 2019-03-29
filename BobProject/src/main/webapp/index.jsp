@@ -10,7 +10,10 @@
 </head>
 <body>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/jinwooo/BOB
  <c:redirect url="prac.do" /> 
 
 </body>

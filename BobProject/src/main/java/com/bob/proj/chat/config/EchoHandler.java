@@ -39,15 +39,16 @@ public class EchoHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-		// httpsession에 넣은 값 websocketsession에 넣기
-		Map<String, Object> map = session.getAttributes();
-		String user_id = (String) map.get("user_id");
-		System.out.println("로그인 한 아이디 : " + user_id);
-		System.out.println(user_id + " : " + message.getPayload());
+		// httpsession -> websocketsession
+//		Map<String, Object> map = session.getAttributes();
+//		String user_id = (String) map.get("user_id");
+//		System.out.println("로그인 한 아이디 : " + user_id);
+//		System.out.println(user_id + " : " + message.getPayload());
 
 		// message json으로 변환
 		ChatDto convertMsg = ChatDto.convertMessage(message.getPayload());
 
+		String user_id = convertMsg.getUser_id();
 		int ch_roomno = convertMsg.getCh_roomno();
 		String ch_msg = convertMsg.getCh_msg();
 

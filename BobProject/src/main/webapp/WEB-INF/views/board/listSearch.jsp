@@ -28,7 +28,7 @@
 		<%@include file="include/nav.jsp" %>
 	</nav>
 	<section id="container">
-		<h2>글 목록</h2>
+		<h2>공지사항</h2>
 		
 		<table class="table table-hover">
 		<thead>
