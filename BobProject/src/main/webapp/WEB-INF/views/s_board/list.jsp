@@ -13,7 +13,7 @@
 <div id="root">
 
 	<header>
- 		<%@include file="include/header.jsp" %>
+ 	<%@include file="../form/header.jsp" %>
 	</header>
  
 <hr /> 

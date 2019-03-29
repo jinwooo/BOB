@@ -401,10 +401,7 @@ public class HomeController {
 			return "chart02";
 		}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 		@RequestMapping("/chart_main.do")
 		public String chart_main(Model model, String user_id, String bm_date) {
 			List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
@@ -495,10 +492,7 @@ public class HomeController {
 			model.addAttribute("kal",kal);
 
 			return "chart04";
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 		}
 		
 		@RequestMapping("/prac.do")
@@ -894,16 +888,7 @@ public class HomeController {
 		@RequestMapping("/main_menu.do")
 		public String main_menu() {
 			return "main_page";
-<<<<<<< HEAD
-		}		
-=======
 		}
-		
-		
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
-
-<<<<<<< HEAD
-=======
 		@RequestMapping(value = "/chat.do")
 		public String chatroom(Model model, String user_id, HttpSession session) {
 
@@ -962,7 +947,6 @@ public class HomeController {
 		}
 		
 
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 }
 
 
