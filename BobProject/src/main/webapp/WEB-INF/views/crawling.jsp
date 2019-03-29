@@ -31,7 +31,7 @@
 	<br>
 	
 	
-	<img id="menu1" alt="" src="${message1 }" height="200" width="200" >
+	<img id="menu1" alt="" src="${message1 }" height="200" width="200" onclick="">
 	<img id="menu2" alt="" src="${message2 }" height="200" width="200" >
 	<img id="menu3" alt="" src="${message3 }" height="200" width="200">
 	<img id="menu4" alt="" src="${message4 }" height="200" width="200">

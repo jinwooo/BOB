@@ -47,6 +47,7 @@
 		<label for="toggle"></label>
 		<div class="message">
 		<form action="bm_insert" method="post">
+		<h1>사진추가해서 찾기</h1>
 			<input type="hidden" id="user_id" name="user_id" value="${user.user_id }">
 			<label>넣을 날짜</label><br/>
 			<input type="text" name="bm_date" placeholder="예)20190327"> <br/>
@@ -58,9 +59,29 @@
 			<input type="hidden" id="bm_img" name="bm_img">
 			<input type="submit" name="올리기">
 		
-		</form>
-			
-		</div>				
+		</form>	
+		<br/>
+		<hr/>
+			<form action="bm_insert" method="post">
+			<h1>검색해서 찾기</h1>
+			<input type="hidden" id="user_id" name="user_id" value="${user.user_id }">
+			<label>넣을 날짜</label><br/>
+			<input type="text" name="bm_date" placeholder="예)20190327"> <br/>
+			<label>식사시간</label><br/>
+			<input type="text" name="bm_type" placeholder="예)아침, 점심, 저녁"> <br/>
+			<input type="button" id="crawling" value="검색으로 메뉴찾기"><br/>
+			<input type="hidden" id="bm_menu" name="bm_menu" >
+			<input type="hidden" id="bm_kal" name="bm_kal" >
+			<input type="hidden" id="bm_img" name="bm_img">
+			<input type="submit" name="올리기">
+		
+		</form>			
+		</div>	
+		
+		
+				
+		
+					
 	</div>
 	<div id="calendar_wrap" style="margin-top: 100px;">
 		<div class='formInput dateSelector'>
