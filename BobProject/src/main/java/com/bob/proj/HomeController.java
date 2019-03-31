@@ -74,7 +74,7 @@ import com.bob.proj.model.dto.NoticeDto;
 import com.bob.proj.model.dto.UserBoardDto;
 
 @Controller
-@SessionAttributes("user")
+//@SessionAttributes("user")
 public class HomeController {
 
 	@Autowired
@@ -877,11 +877,13 @@ public class HomeController {
 	@RequestMapping(value = "/chat.do")
 	public String chatroom(Model model, HttpSession session) {
 
-		UserBoardDto userdto = new UserBoardDto();
-
-		userdto = (UserBoardDto) (session.getAttribute("user"));
-
-		model.addAttribute("chatuser", UserBiz.chatuser(userdto.getUser_id()));
+		UserBoardDto userdto = (UserBoardDto) session.getAttribute("user");
+		
+		String user_id = userdto.getUser_id();
+		System.out.println("chat user_id : " + user_id);
+		
+		model.addAttribute("chatuser", UserBiz.chatuser(user_id));
+		model.addAttribute("chatbob", UserBiz.chatbob(userdto));
 
 		return "chat";
 	}

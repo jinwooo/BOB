@@ -24,8 +24,14 @@
 	
 	<!-- 같은 회사 직원 목록 -->
 	<select id="ChatUserList" resultType="UserBoardDto" parameterType="string">
-		SELECT * FROM USERBOARD WHERE CNO = (SELECT CNO FROM USERBOARD WHERE user_id = #{user_id}) AND user_id != #{user_id}
+		SELECT * FROM USERBOARD WHERE CNO = (SELECT CNO FROM USERBOARD WHERE user_id = #{user_id}) AND user_id != #{user_id} AND USER_GRADE != 'bob'
 	</select>
+	
+	<!-- 같은 회사 식당 정보 -->
+	<select id="ChatBob" resultType="UserBoardDto" parameterType="UserBoardDto">
+		SELECT * FROM USERBOARD WHERE CNO = (SELECT CNO FROM USERBOARD WHERE user_id = #{user_id}) AND USER_GRADE = 'bob'
+	</select>
+	
 	
 	<!-- ChatUser -->
 	<select id="roomNum" parameterType="map" resultType="ChatUserDto">

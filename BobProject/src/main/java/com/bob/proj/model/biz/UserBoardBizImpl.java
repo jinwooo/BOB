@@ -109,4 +109,10 @@ public class UserBoardBizImpl implements UserBoardBiz {
 		return UserBoardDao.chatuser(user_id);
 	}
 
+	@Override
+	public UserBoardDto chatbob(UserBoardDto dto) {
+		// TODO Auto-generated method stub
+		return UserBoardDao.chatuser(dto);
+	}
+
 }

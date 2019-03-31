@@ -20,6 +20,7 @@ public interface UserBoardDao {
 	
 	// 채팅유저목록(같은회사)
 	public List<UserBoardDto> chatuser(String user_id);
+	public UserBoardDto chatuser(UserBoardDto dto);
 	
 
 }

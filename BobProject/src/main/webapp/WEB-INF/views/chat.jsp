@@ -39,6 +39,7 @@
 					</c:choose>
 
 					<div class="about">
+						<input type="hidden" class="user_id" value="${user.user_id}">
 						<div class="name">${user.user_name }</div>
 						<div class="status">
 							[ ID : ${user.user_id } ]
@@ -51,6 +52,35 @@
 				</div>
 				<ul class="list">
 					<c:choose>
+						<c:when test="${chatbob.user_id == user.user_id }">
+							
+						</c:when>
+						<c:when test="${chatbob == null }">
+							<li class="clearfix">
+								<div class="chatbob">
+									<div class="bob">
+										<div class="about">식당이 등록되지 않았습니다.</div>
+									</div>
+								</div>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="clearfix" data-id="${chatbob.user_id }" data-name="${chatbob.user_name }">
+								<div class="chatbob">
+									<div class="bob">
+										<img src='resources/image/logo.png' alt='avatar'>
+										<div class="about">
+											<div class="name">${chatbob.user_name }</div>
+											<div class="status">
+													[ ID : ${chatbob.user_id } ]
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
 						<c:when test="${empty chatuser }">
 							<li class="clearfix">
 								<div class="about">직원이,,없슴다,,--;</div>
@@ -58,8 +88,8 @@
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${chatuser }" var="chatuser">
-								<li class="clearfix" data-id="${chatuser.user_id }"
-									data-name="${chatuser.user_name }"><c:choose>
+								<li class="clearfix" data-id="${chatuser.user_id }" data-name="${chatuser.user_name }">
+									<c:choose>
 										<c:when test="${chatuser.user_img == null }">
 											<i class='fas fa-user-circle fa-4x'></i>
 										</c:when>
@@ -148,6 +178,7 @@
   </li>
 </script>
 
+	<%@ include file="form/footer.jsp" %>
 
 </body>
 </html>

@@ -3,7 +3,7 @@
 		
 		$(".chat").hide();
 		
-		var my_id = $(".myprofile .about .name").text();
+		var my_id = $(".myprofile .about .user_id").val();
 
 		var target_id = null;
 		var target_name = null;
