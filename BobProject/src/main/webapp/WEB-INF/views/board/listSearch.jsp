@@ -22,7 +22,7 @@
 <!-- <div id="root"> -->
 <div class="container">
 	<header>
-	 		<%@include file="../form/header.jsp" %>
+	 		<%@include file="include/header.jsp" %>
 	</header>
 	
 	<div style="margin-left: 30%; margin-right: 10%; width: 80%;">

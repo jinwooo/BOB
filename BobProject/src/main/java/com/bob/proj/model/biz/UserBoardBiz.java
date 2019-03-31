@@ -20,5 +20,7 @@ public interface UserBoardBiz {
 	
 	// 채팅유저목록(같은회사)
 	public List<UserBoardDto> chatuser(String user_id);
+	// 채팅-식당유저
+	public UserBoardDto chatbob(UserBoardDto dto);
 
 }

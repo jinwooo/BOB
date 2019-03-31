@@ -18,14 +18,21 @@
         	
         	var tr = $(this);
             var td = tr.children();        	
-        	
+        	var inp = td.eq(6).text();
         	 var foodname = td.eq(0).text();
         	 var kal = td.eq(1).text();
         	 var root = td.eq(5).text();
-        	 window.opener.document.getElementById("bm_menu").value = foodname;
-			window.opener.document.getElementById("bm_kal").value = kal;
-			window.opener.document.getElementById("bm_img").value = root;
-			self.close();
+        	 if(inp == "v"){
+        		 window.opener.document.getElementById("bm_menu").value = foodname;
+     			window.opener.document.getElementById("bm_kal").value = kal;
+     			window.opener.document.getElementById("bm_img").value = root;
+     			self.close();
+      		  }else{
+        	window.opener.document.getElementById("bm_menu2").value = foodname;
+			window.opener.document.getElementById("bm_kal2").value = kal;
+			window.opener.document.getElementById("bm_img2").value = root;
+				self.close();
+     		   }
         });  
     
 	});   
@@ -34,17 +41,19 @@
 
 
 <body>
-
+	
 <table border="1" id="foodtable">
 	
 <c:forEach items="${list }" var="dto">
+
 	<tr>
 		<td>${dto.foodname }</td>
 		<td>${dto.kal }</td>
 		<td>${dto.tan }</td>
 		<td>${dto.dan }</td>
 		<td>${dto.ji }</td>
-		<td style="display: none;">${root }</td>
+		<td style="display: none;" >${root }</td>
+		<td style="display: none;" >${inp }</td>
 	</tr>
 
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -32,5 +32,31 @@
 		</websocket:handshake-interceptors>
 		<websocket:sockjs/>
 	</websocket:handlers>
+	
+	<beans:bean id="intersession" class="com.bob.proj.sessionIntersep" />
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />	
+			<exclude-mapping path="/prac.do"/>
+			<exclude-mapping path="/main3.do"/>
+			<exclude-mapping path="/kakao.do"/>
+			<exclude-mapping path="/join.do"/>
+			<exclude-mapping path="/joinajax"/>
+			<exclude-mapping path="/mailform.do"/>
+			<exclude-mapping path="/mailformajax.do"/>
+			<exclude-mapping path="/joinuser.do"/>
+			<exclude-mapping path="/idChk.do"/>
+			<exclude-mapping path="/idChkres.do"/>
+			<exclude-mapping path="/joinsns.do"/>
+			<exclude-mapping path="/loginajax.do"/>
+			<exclude-mapping path="/findform.do"/>
+			<exclude-mapping path="/findformajax.do"/>
+			<exclude-mapping path="/findpwform.do"/>
+			<exclude-mapping path="/transjax.do"/>
+			<exclude-mapping path="/transrespw.do"/>
+			<beans:ref bean="intersession" />
+		</interceptor>
+		
+	</interceptors>
 	
 </beans:beans>

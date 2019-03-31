@@ -153,6 +153,16 @@ public class UserBoardDaoImpl implements UserBoardDao {
 		return list;
 	}
 
+	@Override
+	public UserBoardDto chatuser(UserBoardDto dto) {
+		
+		UserBoardDto res = new UserBoardDto();
+		
+		res = sqlSession.selectOne("chat.ChatBob", dto);
+		
+		return res;
+	}
+
 	
 
 }

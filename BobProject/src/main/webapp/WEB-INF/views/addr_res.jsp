@@ -13,7 +13,7 @@
 	
 	<c:forEach items="${vision }" var="dto">
 	
-	<input type="button" name="보내기" onclick="location.href='tandanji.do?foodname=${gel:ts(dto.imgname) }&root=${root }'"><b>${gel:ts(dto.imgname) }</b><br/>	
+	<input type="button" name="보내기" onclick="location.href='tandanji.do?foodname=${gel:ts(dto.imgname) }&root=${root }&inp=v'"><b>${gel:ts(dto.imgname) }</b><br/>	
 	
 	</c:forEach>
 	

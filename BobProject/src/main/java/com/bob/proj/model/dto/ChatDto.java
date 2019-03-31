@@ -2,6 +2,8 @@ package com.bob.proj.model.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.google.gson.Gson;
 
 public class ChatDto {
@@ -12,6 +14,8 @@ public class ChatDto {
 	private int ch_userno;
 	private String user_id;
 	private String ch_msg;
+	
+	@JsonFormat(shape=Shape.STRING, pattern="yyyy. M. dd aa h:mm", timezone="Asia/Seoul")
 	private Date ch_time;
 	
 	public ChatDto() {

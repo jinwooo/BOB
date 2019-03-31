@@ -10,6 +10,7 @@
 </head>
 <body>
 
+
  <c:redirect url="prac.do" /> 
 
 </body>

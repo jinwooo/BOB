@@ -46,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -73,7 +74,7 @@ import com.bob.proj.model.dto.NoticeDto;
 import com.bob.proj.model.dto.UserBoardDto;
 
 @Controller
-@SessionAttributes("user")
+//@SessionAttributes("user")
 public class HomeController {
 
 	@Autowired
@@ -210,7 +211,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/tandanji.do")
-	public String tandanji(Model model, String foodname, String root) {
+	public String tandanji(Model model, String foodname, String root, String inp) {
 
 		try {
 			String foodname2 = foodname.replace(" ", "");
@@ -221,7 +222,7 @@ public class HomeController {
 			dto.setFoodname(list.get(0).getFoodname());
 			dto.setKal(list.get(0).getKal());
 			model.addAttribute("root", root);
-
+			model.addAttribute("inp", inp);
 			model.addAttribute("list", list);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -242,6 +243,30 @@ public class HomeController {
 			System.out.println("입력실패");
 			return "chart_main";
 		}
+	}
+
+	@RequestMapping("/chart_main.do")
+	public String chart_main(Model model, String user_id, String bm_date) {
+		List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
+
+		String[] menu = new String[dto.size()];
+		int[] kal = new int[dto.size()];
+		int size = dto.size();
+		String[] menuType = new String[dto.size()];
+
+		for (int i = 0; i < dto.size(); i++) {
+			menu[i] = dto.get(i).getBm_menu();
+			kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
+			menuType[i] = dto.get(i).getBm_type();
+			System.out.println("menutype : " + menuType[i]);
+		}
+
+		model.addAttribute("size", size);
+		model.addAttribute("menu", menu);
+		model.addAttribute("kal", kal);
+		model.addAttribute("menuType", menuType);
+
+		return "chart_main";
 
 	}
 
@@ -382,39 +407,6 @@ public class HomeController {
 		return "main";
 	}
 
-	@RequestMapping("/chart01.do")
-	public String chart01() {
-		return "chart01";
-	}
-
-	@RequestMapping("/chart02.do")
-	public String chart02() {
-		return "chart02";
-	}
-
-	@RequestMapping("/chart_main.do")
-	public String chart_main(Model model, String user_id, String bm_date) {
-		List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
-
-		String[] menu = new String[dto.size()];
-		int[] kal = new int[dto.size()];
-		int size = dto.size();
-		String[] menuType = new String[dto.size()];
-
-		for (int i = 0; i < dto.size(); i++) {
-			menu[i] = dto.get(i).getBm_menu();
-			kal[i] = Integer.parseInt(dto.get(i).getBm_kal());
-			menuType[i] = dto.get(i).getBm_type();
-			System.out.println("menutype : " + menuType[i]);
-		}
-
-		model.addAttribute("size", size);
-		model.addAttribute("menu", menu);
-		model.addAttribute("kal", kal);
-		model.addAttribute("menuType", menuType);
-
-		return "chart_main";
-	}
 
 	@RequestMapping(value = "/chart03.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String chart03(Model model, String user_id, String bm_date, String type) {
@@ -484,7 +476,12 @@ public class HomeController {
 	}
 
 	@RequestMapping("/prac.do")
-	public String prac() {
+	public String prac(HttpSession session) {
+		
+		
+		
+		session.setAttribute("user", new UserBoardDto());
+		
 		return "prac";
 	}
 
@@ -502,33 +499,37 @@ public class HomeController {
 
 	@RequestMapping("/menutype.do")
 	public String menutype(Model model, String user_id, String bm_date, String type) {
-		List<BobManagerDto> dto = bobbiz.selectList(user_id, bm_date);
-		int size = dto.size();
-
+		List<BobManagerDto> dto = bobbiz.selectList(user_id,bm_date);
+		String image = "";
 		int kal_res = 0;
-		String menu_type = "";
 		String menu_res = "";
-
-		for (int i = 0; i < dto.size(); i++) {
-			if (type.equals("morning") && (dto.get(i).getBm_type() + "").equals("아침")) {
+		String menu_kal = "";
+		
+		for(int i=0; i<dto.size(); i++) {
+			if(type.equals("morning") && (dto.get(i).getBm_type()+"").equals("아침")) {
 				kal_res += Integer.parseInt(dto.get(i).getBm_kal());
-				menu_type = "아침";
 				menu_res += dto.get(i).getBm_menu() + " ";
-			} else if (type.equals("lunch") && (dto.get(i).getBm_type() + "").equals("점심")) {
+				menu_kal += dto.get(i).getBm_kal() + " ";
+				image += dto.get(i).getBm_img() + " ";
+			} else if(type.equals("lunch") && (dto.get(i).getBm_type()+"").equals("점심")) {
 				kal_res += Integer.parseInt(dto.get(i).getBm_kal());
-				menu_type = "점심";
 				menu_res += dto.get(i).getBm_menu() + " ";
-			} else if (type.equals("dinner") && (dto.get(i).getBm_type() + "").equals("저녁")) {
+				menu_kal += dto.get(i).getBm_kal() + " ";
+				image += dto.get(i).getBm_img() + " ";
+			} else if(type.equals("dinner") && (dto.get(i).getBm_type()+"").equals("저녁")){
 				kal_res += Integer.parseInt(dto.get(i).getBm_kal());
-				menu_type = "저녁";
 				menu_res += dto.get(i).getBm_menu() + " ";
+				menu_kal += dto.get(i).getBm_kal() + " ";
+				image += dto.get(i).getBm_img() + " ";
 			}
 		}
-
-		model.addAttribute("kal_res", kal_res);
-		model.addAttribute("menu_type", menu_type);
-		model.addAttribute("menu_res", menu_res);
-
+		
+		model.addAttribute("kal_res",kal_res);
+		model.addAttribute("menu_res",menu_res);
+		model.addAttribute("menu_kal",menu_kal);
+		model.addAttribute("menu_image", image);
+		model.addAttribute("type", type);
+		
 		return "menutype";
 	}
 
@@ -644,7 +645,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/kakao.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String kakao(String id, String user_name, Model model, HttpServletResponse response, HttpSession session) {
+	public String kakao(String id, String user_name, Model model,HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String user_id = id;
 		String user_pw = user_name;
 		System.out.println("카카오 ID :" + user_id);
@@ -654,6 +655,7 @@ public class HomeController {
 		if (resdto != null) {
 
 			UserBoardDto user = UserBiz.login(user_id, user_pw);
+			session = request.getSession(true);
 			session.setAttribute("user", user);
 
 			return "main_page";
@@ -685,7 +687,7 @@ public class HomeController {
 
 	@RequestMapping("/loginajax.do")
 	@ResponseBody
-	public Map<String, Boolean> login(String user_id, String user_pw, HttpSession session) {
+	public Map<String, Boolean> login(String user_id, String user_pw,HttpServletRequest request, HttpSession session) {
 
 		UserBoardDto dto = UserBiz.login(user_id, user_pw);
 		boolean sendMessageButton = false;
@@ -693,23 +695,35 @@ public class HomeController {
 		System.out.println(user_id);
 		System.out.println(user_pw);
 		if (dto != null) {
+			if(session.getAttribute("user") != null) {
+				session.removeAttribute("user");
+			}
+			
+			
+			session = request.getSession(true);
 			session.setAttribute("user", dto);
 			sendMessageButton = true;
 		}
 
 		Map<String, Boolean> res = new HashMap<String, Boolean>();
 		res.put("sendMessageButton", sendMessageButton);
-		System.out.println("login");
+		System.out.println("login : " + ((UserBoardDto) session.getAttribute("user")).getUser_name());
+		
 		return res;
 	}
 
 	@RequestMapping("/logout.do")
-	public String logout(HttpSession session, HttpServletRequest requset, HttpServletResponse response) {
-
+	public String logout(HttpSession session, HttpServletRequest request, HttpServletResponse response, SessionStatus status) {
 		session.removeAttribute("user");
 		session.invalidate();
+		session = request.getSession(false);
+		status.setComplete();
 
-		return "main3";
+		if (session == null) {
+			System.out.println("세션 종료됨");
+		}
+
+		return "redirect:/";
 	}
 
 	@RequestMapping("/findform.do")
@@ -859,61 +873,70 @@ public class HomeController {
 	public String main_menu() {
 		return "main_page";
 	}
-
+     
 	@RequestMapping(value = "/chat.do")
 	public String chatroom(Model model, HttpSession session) {
 
-		UserBoardDto userdto = (UserBoardDto)session.getAttribute("user");
-		model.addAttribute("chatuser", UserBiz.chatuser(userdto.getUser_id()));
+		UserBoardDto userdto = (UserBoardDto) session.getAttribute("user");
+		
+		String user_id = userdto.getUser_id();
+		System.out.println("chat user_id : " + user_id);
+		
+		model.addAttribute("chatuser", UserBiz.chatuser(user_id));
+		model.addAttribute("chatbob", UserBiz.chatbob(userdto));
 
 		return "chat";
 	}
+		
+		
+		// 채팅방 번호 확인 + 채팅메세지 가져오기 + 채팅방 만들기
+		@ResponseBody
+		@RequestMapping(value="/roomNum.do")
+		public Map<Object, Object> roomNum(Model model, String user_id, String target_id) {
+			
+			Map<Object, Object> map = new HashMap<>();
+			
+			List<ChatDto> chatmsg = null; 
+			
+			int ch_roomno = 0;
+			ChatUserDto dto = chatuserbiz.roomNum(user_id, target_id);
+			
+			if(dto != null) {
+				ch_roomno = dto.getCh_roomno();
+				System.out.println(user_id+"와 "+target_id+"의 채팅방 번호: " + ch_roomno);
+				
+				chatmsg = chatbiz.chatList(ch_roomno);
+				
+				map.put("ch_roomno", ch_roomno);
+				map.put("msglist", chatmsg);
+				
+				return map;
+				
+			} else {
+				System.out.println(user_id+"와 "+target_id+"는 채팅방이 없슴다");
+				
+				// 채팅방 만들기
+				ChatUserDto insertRoom = new ChatUserDto();
+				insertRoom.setUser_id(user_id);
+				insertRoom.setTarget_id(target_id);
+				
+				chatuserbiz.ChatUserInsert(insertRoom);
+				chatuserbiz.ChatTargetInsert(insertRoom);
+				chatroombiz.RoomInsert(insertRoom);
+				
+				ChatUserDto roomnum = chatuserbiz.roomNum(user_id, target_id);
+				
+				// 방번호 넣기
+				ch_roomno = roomnum.getCh_roomno();
+				chatmsg = chatbiz.chatList(ch_roomno);
+				
+				map.put("ch_roomno", ch_roomno);
+				map.put("msglist", chatmsg);
+				
+				return map;
+			}
+		}      
+		
+	
 
-	// 채팅방 번호 확인 + 채팅메세지 가져오기 + 채팅방 만들기
-	@ResponseBody
-	@RequestMapping(value = "/roomNum.do")
-	public Map<Object, Object> roomNum(Model model, String user_id, String target_id) {
-
-		Map<Object, Object> map = new HashMap<>();
-
-		List<ChatDto> chatmsg = null;
-
-		int ch_roomno = 0;
-		ChatUserDto dto = chatuserbiz.roomNum(user_id, target_id);
-
-		if (dto != null) {
-			ch_roomno = dto.getCh_roomno();
-			System.out.println(user_id + "와 " + target_id + "의 채팅방 번호: " + ch_roomno);
-
-			chatmsg = chatbiz.chatList(ch_roomno);
-
-			map.put("ch_roomno", ch_roomno);
-			map.put("msglist", chatmsg);
-
-			return map;
-
-		} else {
-			System.out.println(user_id + "와 " + target_id + "는 채팅방이 없슴다");
-
-			// 채팅방 만들기
-			ChatUserDto insertRoom = new ChatUserDto();
-			insertRoom.setUser_id(user_id);
-			insertRoom.setTarget_id(target_id);
-
-			chatuserbiz.ChatUserInsert(insertRoom);
-			chatuserbiz.ChatTargetInsert(insertRoom);
-			chatroombiz.RoomInsert(insertRoom);
-
-			ChatUserDto roomnum = chatuserbiz.roomNum(user_id, target_id);
-
-			// 방번호 넣기
-			ch_roomno = roomnum.getCh_roomno();
-			chatmsg = chatbiz.chatList(ch_roomno);
-
-			map.put("ch_roomno", ch_roomno);
-			map.put("msglist", chatmsg);
-
-			return map;
-		}
-	}
 }
