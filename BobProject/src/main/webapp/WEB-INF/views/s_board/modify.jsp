@@ -96,8 +96,7 @@
 <hr />
 
 <footer>
-	<%@include file="include/footer.jsp" %>
-</footer>
+<%@include file="../form/footer.jsp" %></footer>
 
 </div>
 

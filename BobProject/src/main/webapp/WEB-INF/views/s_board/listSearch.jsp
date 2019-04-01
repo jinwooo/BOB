@@ -22,11 +22,7 @@
 <!-- <div id="root"> -->
 <div class="container">
 	<header>
-<<<<<<< HEAD
 	 		<%@include file="../form/header.jsp" %>
-=======
-		<%@include file="include/header.jsp" %>
->>>>>>> branch 'master' of https://github.com/jinwooo/BOB
 	</header>
 	
 	<div style="margin-left: 30%; margin-right: 10%; width: 80%;">
@@ -130,7 +126,7 @@
 		</div>
 		
 	<footer>
-		<%@include file="include/footer.jsp" %>		
+	<%@include file="../form/footer.jsp" %>		
 	</footer>
 </div>
 </body>

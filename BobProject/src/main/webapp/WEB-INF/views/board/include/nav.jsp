@@ -10,6 +10,5 @@
 		</c:when>	
 	</c:choose>	
 	
-	<li><a href="#">로그인</a></li>
 </ul>
 </div>

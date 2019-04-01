@@ -21,8 +21,7 @@
 
 <div id="root">
 <header>
- 	<%@include file="include/header.jsp" %>
-</header>
+<%@include file="../form/header.jsp" %></header>
  
 <nav>
  	<%@include file="include/nav.jsp" %>
@@ -76,7 +75,7 @@
 <hr />
 
 <footer>
-	<%@include file="include/footer.jsp" %>
+	<%@include file="../form/footer.jsp" %>
 </footer>
 
 </div>

@@ -22,7 +22,7 @@
 <!-- <div id="root"> -->
 <div class="container">
 	<header>
-	 		<%@include file="include/header.jsp" %>
+	<%@include file="../form/header.jsp" %>
 	</header>
 	
 	<div style="margin-left: 30%; margin-right: 10%; width: 80%;">
@@ -126,7 +126,7 @@
 		</div>
 		
 	<footer>
-		<%@include file="include/footer.jsp" %>		
+		<%@include file="../form/footer.jsp" %>
 	</footer>
 </div>
 </body>

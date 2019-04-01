@@ -23,7 +23,7 @@
 
 <div class="container">
 <header>
- 	<%@include file="include/header.jsp" %>
+ 	<%@include file="../form/header.jsp" %>
 </header>
 
  
@@ -96,7 +96,7 @@
 <hr />
 
 <footer>
-	<%@include file="include/footer.jsp" %>
+	<%@include file="../form/footer.jsp" %>
 </footer>
 
 </div>

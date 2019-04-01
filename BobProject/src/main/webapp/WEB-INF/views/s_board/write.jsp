@@ -57,7 +57,7 @@
    <div class="form-group">
 	<label for="writer" class="col-sm-2 control-label">작성자</label>
 	<div class="col-sm-10">
-		<input type="text" id="writer" name="writer" class="form-control" />
+		<input type="text" id="writer" name="writer" value="${user.user_id }" readonly="readonly" class="form-control" />
 	</div>
    </div>
 <!--    <p> -->
@@ -77,8 +77,7 @@
 <hr />
 
 	<footer>
-		<%@include file="include/footer.jsp" %>
-	</footer>
+<%@include file="../form/footer.jsp" %>	</footer>
 
 </div>
 

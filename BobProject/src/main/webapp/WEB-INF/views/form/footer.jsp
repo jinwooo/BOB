@@ -27,7 +27,7 @@ footer{
 <body>
 	<footer class="nav-down" style="width:100%; padding-top: 50px; padding-bottom: 50px;">
 		<div style="width:20%; float: left; text-align: center; vertical-align: middle;">
-			<img src="resources/image/logo2.png" style="width: auto; height: 200px; margin-left: 400px;">
+			<img src="/proj/resources/image/logo2.png" style="width: auto; height: 200px; margin-left: 400px;">
 		</div>
 		<div style="width: 60%; float: left; text-align: center; vertical-align: middle; margin-left: ;margin-top: 40px;">
 			<p class="footer_p"> 상호 : (주)밥통 <span>|</span> 대표자명 : 권경진 <span>|</span> 사업자등록번호 : 123-45-67890 <span>|</span> </p>

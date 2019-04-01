@@ -22,25 +22,63 @@
 <script type="text/javascript">
 	$(function(){
 		$(".main_wrap").hide();
-    	$(".no_data_wrap").show();
+    	
 	    $("#bobmanager_button").click(function(){
 	    	$(".main_wrap").fadeIn("slow");
-	    	$(".no_data_wrap").hide();
 	    });
-	})
+	    
+	    $(document).on('click','#crawling',function(){
+			
+			window.open('craw.do','test','width=400,height=400');
+		}); 
+ 		$(document).on('click','#vision',function(){
+			
+			window.open('addr.do','test','width=400,height=400');
+		}); 
+	    
+	});
 </script>
 <body>
-	<%@ include file="form/header.jsp" %>		
+	<div>
+		<%@ include file="form/header.jsp" %>		
+	</div>
 	<div class="add_button">
 		<input type="checkbox" name="toggle" id="toggle" />
 		<label for="toggle"></label>
 		<div class="message">
-		    <h1>Cum sociis natoque penatibus.</h1>
-		    <h2>Ut tincidunt nisl id tempus sagittis. Nam posuere purus erat, ut blandit sapien porta auctor. Aliquam erat volutpat.</h2>
-		</div>				
-	</div>
-	<input type="hidden" value="${user }">
-	<div id="calendar_wrap" style="margin-top: 100px;">
+		<form action="bm_insert" method="post">
+		<h1>사진추가해서 찾기</h1>
+			<input type="hidden" id="user_id" name="user_id" value="${user.user_id }">
+			<label>넣을 날짜</label><br/>
+			<input type="text" name="bm_date" placeholder="예)20190327"> <br/>
+			<label>식사시간</label><br/>
+			<input type="text" name="bm_type" placeholder="예)아침, 점심, 저녁"> <br/>
+			<input type="button" id="vision" value="사진으로 메뉴찾기"><br/>
+			<input type="hidden" id="bm_menu" name="bm_menu" >
+			<input type="hidden" id="bm_kal" name="bm_kal" >
+			<input type="hidden" id="bm_img" name="bm_img">
+			<input type="submit" name="올리기">
+		
+		</form>	
+		<br/>
+		<hr/>
+			<form action="bm_insert" method="post">
+			<h1>검색해서 찾기</h1>
+			<input type="hidden" id="user_id" name="user_id" value="${user.user_id }">
+			<label>넣을 날짜</label><br/>
+			<input type="text" name="bm_date" placeholder="예)20190327"> <br/>
+			<label>식사시간</label><br/>
+			<input type="text" name="bm_type" placeholder="예)아침, 점심, 저녁"> <br/>
+			<input type="button" id="crawling" value="검색으로 메뉴찾기"><br/>
+			<input type="hidden" id="bm_menu2" name="bm_menu" >
+			<input type="hidden" id="bm_kal2" name="bm_kal" >
+			<input type="hidden" id="bm_img2" name="bm_img">
+			<input type="submit" name="올리기">
+		
+		</form>			
+		</div>	
+		</div>
+<div id="calendar_wrap" style="margin-top: 100px;">
 		<div class='formInput dateSelector'>
 			<i class='fa fa-calendar-o'></i>
 			<input type='text' name='birthday' id='hbdsdf' placeholder='날짜를 선택해주세요' />
@@ -50,10 +88,6 @@
 			<button id="bobmanager_button">선 택</button>
 		</div>			
 	</div>
-	<!-- 
-		iframe 을 세개를 주고 각각 아침, 점심, 저녁으로 사용
-		controller 에서는 하나로 사용하여 아침, 점심, 저녁일 때에 맞춰 다른 값을 보내어주 하나의 컨트롤러에서 관리할 수 있게 만들기
-	 -->
 	<div class="main_wrap">
 		<div id="bobmanager_main">
 			<div style="width: 100%; display: table;">
