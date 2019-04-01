@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.container {
+.container, .myinfo {
 	background: #FFF;
 	color: #444;
 	font-family: 'Lato', sans-serif;
@@ -22,17 +22,17 @@
 	text-decoration: none;
 }
 
-.container a:hover {
+.container a:hover, .myinfo a:hover {
 	color: #FF5959;
 }
 
-.container ul, li {
+.container ul, li, .myinfo {
 	list-style-type: none;
 	margin: 0 auto;
 	padding: 0;
 }
 
-.container ul li {
+.container ul li, .myinfo {
 	display: inline-block;
 }
 
@@ -82,7 +82,7 @@ header .box>ul {
 	display: flex;
 }
 
-header .box>ul li {
+header .box>ul li, .myinfo {
 	font-size: 12px;
 	font-weight: bold;
 	text-transform: uppercase;
@@ -115,38 +115,17 @@ html.active #overlay {
 }
 
 #home, .logo>a {
-	border-radius: 8px;
-	box-shadow: inset 0 0 0 2px #FFF, inset 0 0 0 3px #FF5959;
-	color: #FF5959;
 	display: block;
-	font-size: 32px;
-	height: 45px;
-	left: 0;
 	line-height: 36px;
 	margin: 10px 20px 10px 30px;
-	overflow: hidden;
-	padding: 2px;
 	position: fixed;
-	text-align: center;
 	top: -5px;
 	width: 45px;
 }
 
-.logo {
-	font-size: 32px;
-	height: 40px;
-	line-height: 40px;
-	margin: 0 auto;
-	overflow: hidden;
-	padding: 10px;
-	position: relative;
-	width: initial;
-}
-
-.logo>a {
-	display: inline-block;
-	margin: 0 auto 0 10px;
-	position: relative;
+#home img:hover {
+	opacity: 0.5;
+	cursor: pointer;
 }
 
 html.active, html.active body {
@@ -165,24 +144,44 @@ html.active menu .container {
 	transition: all .5s ease-in-out;
 }
 
-@media
-only
-screen
-and
-(min-width:
-520px)
-{
-header .container {
-	max-width: 640px
+.myinfo {
+    position: absolute;
+    right: 0;
+    margin: 8px 15px;
+    top: 0;
 }
 
-header .box {
+.myinfo img {
+	width: 40px;
+	height: 40px;
+	border-radius: 30px;
+	border: 2px solid #eee;
+	float: left;
+	margin: 0 10px;
+	background-color: white;
+}
+
+.myinfo span{
+	margin: 15px 0;
+    display: inline-block;
+}
+
+.myinfo a{
 	display: block;
+    margin: 15px 15px;
+    float: right;
 }
 
-section>h1 {
-	font-size: 3em
-}
+@media only screen and (min-width: 520px) {
+	header .container {
+		max-width: 640px
+	}
+	header .box {
+		display: block;
+	}
+	section>h1 {
+		font-size: 3em
+	}
 }
 </style>
 <link rel="stylesheet"
@@ -198,13 +197,12 @@ section>h1 {
 	rel='stylesheet' type='text/css'>
 </head>
 <body>
+
 	<header>
 		<div class="container">
-			<span id="home" onclick="location.href='/proj/tomain.do'">
-				<!-- <span class="ion-camera"></span> --> <img
-				src="/proj/resources/image/logo2.png"
-				style="width: 40px; height: 40px; padding-top: 2px;">
-
+			<span id="home" onclick="location.href='/proj/tomain.do'"> <!-- <span class="ion-camera"></span> -->
+				<img src="/proj/resources/image/logo2.png"
+				style="width: 50px; height: 50px;">
 			</span>
 			<div class="box">
 				<ul>
@@ -214,10 +212,13 @@ section>h1 {
 					<li><a class="header_menu" href="/proj/s_board/listSearch">Suggest</a></li>
 					<li><a class="header_menu" href="/proj/chat.do">Bob Talk</a></li>
 					<li><a class="header_menu" href="/proj/map.do">Map</a></li>
-					<li style="float: right;"><a class="header_menu"
-						href="/proj/logout.do">Logout</a></li>
 				</ul>
 			</div>
+		</div>
+		<div class="myinfo">
+			<img src="${user.user_img }">
+			<span>${user.user_name }님 환영합니다</span>
+			<a class="header_menu" href="/proj/logout.do">Logout</a>
 		</div>
 	</header>
 </body>

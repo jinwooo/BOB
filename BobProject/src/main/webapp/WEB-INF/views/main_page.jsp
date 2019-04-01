@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+
+body{
+	margin: 0;
+}
+
 section {
   background-attachment: fixed;
   background-position: center;
@@ -20,17 +25,17 @@ section {
 }
 
 #intro {
-  background-image: url('resources/image/음식사진1.jpg');
+  background-image: url('resources/image/main.jpg');
   
 }
 
 
 #portfolio {
-  background-image: url('resources/image/채소.jpg');
+  background-image: url('resources/image/main2.jpg');
 }
 
 #blog {
-  background-image: url('resources/image/파스타.jpg');
+  background-image: url('resources/image/채소.jpg');
 }
 
 html.active,
@@ -117,8 +122,7 @@ $(function() {
 <section id="blog">
   <h1>Hermosa como ninguna <span>Dulce como ninguna.</span></h1>
 </section>
-<section id="blog">
-  <h1>Hermosa como ninguna <span>Dulce como ninguna.</span></h1>
-</section>
+
+<%@ include file="form/footer.jsp" %>
 </body>
 </html>

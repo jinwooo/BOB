@@ -6,7 +6,6 @@
 
 body {
 	font: 14px/20px "Lato", Arial, sans-serif;
-	color: white;
 }
 
 .chatcontainer {
@@ -14,6 +13,7 @@ body {
 	width: 750px;
 	background: #444753;
 	border-radius: 6px;
+	color: white;
 }
 
 .people-list {
@@ -27,7 +27,7 @@ body {
 }
 
 .people-list .search {
-	padding: 0 20px 10px 35px;
+	padding: 0 10px 10px 30px;
 }
 
 .people-list .chatlist {
@@ -47,10 +47,18 @@ body {
 	padding: 10px 0;
 }
 
-.people-list .chatlist .list, .roomlist {
+.people-list .chatlist .bob {
+	height: 70px;
+    border: 1px dashed;
+    padding: 7px 7px;
+    margin: 0 -8px;
+    border-radius: 10px;
+}
+
+.people-list .chatlist .list {
 	overflow: auto;
 	padding: 0px 20px 20px 20px;
-	height: 632px;
+	height: 556px;
 	margin: 0;
 }
 
@@ -108,7 +116,7 @@ body {
 
 .emptychat {
 	width: 490px;
-	height: 819px;
+	height: 743px;
 	float: left;
 	background: #eee;
 	border-radius: 0 5px 5px 0;
@@ -130,7 +138,7 @@ body {
 }
 
 .chat .chat-header {
-	padding: 20px;
+	padding: 15px 20px;
 	border-bottom: 2px solid white;
 }
 
@@ -146,6 +154,22 @@ body {
 .chat .chat-header .img i {
 	float: left;
 	border-radius: 30px;
+	width: 55px;
+    height: 55px;
+}
+
+.people-list .chatlist .list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.people-list .chatlist .list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 20px 20px rgb(106, 108, 117); 
+    border-radius: 10px;
+}
+
+.people-list .chatlist .list::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 20px 20px #ffffff45; 
 }
 
 .chat .chat-header .chat-about {
@@ -167,7 +191,7 @@ body {
 	padding: 30px 30px 20px;
 	border-bottom: 2px solid white;
 	overflow-y: scroll;
-	height: 549px;
+	height: 500px;
 }
 
 .chat .chat-history .message-data {
@@ -218,7 +242,7 @@ body {
 }
 
 .chat .chat-message {
-	padding: 26px;
+	padding: 20px 35px 15px;
 }
 
 .chat .chat-message textarea {
@@ -290,6 +314,6 @@ body {
 	height: 0;
 }
 
-ul, li {
+.chatcontainer ul, li {
 	list-style: none;
 }
